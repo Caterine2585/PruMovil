@@ -1,7 +1,9 @@
 package com.example.mimovil.api
 
 import com.example.mimovil.model.Cliente
+import com.example.mimovil.model.Compras
 import com.example.mimovil.model.Empleado
+import com.example.mimovil.model.Producto
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
@@ -36,4 +38,13 @@ interface ApiServiceKotlin {
     @Headers("Content-Type: application/json")
     @POST("crearProducto")
     fun crearProducto(@Body producto: Producto): Call<ResponseBody>
+
+    // Compras
+    @GET("Compras")
+    fun getCompras(): Call<List<Compras>>
+
+    @Headers("Content-Type: application/json")
+    @POST("ComprasR")
+    fun crearCompra(@Body compra: Compras): Call<ResponseBody>
+
 }

@@ -9,6 +9,16 @@
         android:orientation="vertical"
         android:padding="20dp">
 
+        <TextView
+            android:id="@+id/tvTituloProductosMain"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Gestión de Productos"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginBottom="16dp" />
+
         <EditText android:id="@+id/etID_Producto"       android:hint="ID Producto"              android:layout_width="match_parent"     android:layout_height="wrap_content"/>
         <EditText android:id="@+id/etNombre_Producto"   android:hint="Nombre Producto"          android:layout_width="match_parent"     android:layout_height="wrap_content"/>
         <EditText android:id="@+id/etDescripcion"       android:hint="Descripción Producto"     android:layout_width="match_parent"     android:layout_height="wrap_content"/>
@@ -26,5 +36,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"/>
+        <Button
+            android:id="@+id/btnMostrarProductos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mostrar Productos"
+            android:layout_marginTop="10dp" />
+
     </LinearLayout>
 </ScrollView>

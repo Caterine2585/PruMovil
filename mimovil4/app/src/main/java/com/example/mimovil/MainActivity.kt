@@ -52,6 +52,8 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_home      -> replaceFragment(HomeFragment())
                 R.id.nav_cliente   -> replaceFragment(ClienteFragment())
                 R.id.nav_empleados -> replaceFragment(EmpleadosFragment())
+                R.id.nav_compras   -> replaceFragment(ComprasFragment())
+                R.id.nav_productos -> replaceFragment(ProductoFragment()) // 🆕 NUEVA OPCIÓN DE PRODUCTOS
                 R.id.nav_share     -> replaceFragment(SubscriptionFragment())
                 R.id.nav_logout    -> Toast.makeText(this, "Sesión cerrada", Toast.LENGTH_SHORT).show()
                 else               -> Toast.makeText(this, "Opción desconocida", Toast.LENGTH_SHORT).show()
@@ -60,6 +62,8 @@ class MainActivity : AppCompatActivity() {
             drawerLayout?.closeDrawers()
             true
         }
+
+
 
         // Fragment inicial
         if (savedInstanceState == null) {
