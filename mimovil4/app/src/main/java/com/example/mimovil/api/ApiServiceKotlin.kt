@@ -46,5 +46,7 @@ interface ApiServiceKotlin {
     @Headers("Content-Type: application/json")
     @POST("ComprasR")
     fun crearCompra(@Body compra: Compras): Call<ResponseBody>
-
+ 
+ @GET("/Empleados")
+    fun getEmpleados(): Call<List<String>>
 }

@@ -1,12 +1,8 @@
 package com.example.mimovil.model
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.Fragment
 import com.example.mimovil.R
 import com.example.mimovil.api.RetroFitInstance
@@ -32,7 +28,10 @@ class EmpleadosFragment : Fragment(R.layout.fragment_empleados) {
         val etRol         = view.findViewById<EditText>(R.id.etRolEmp)
         val etFotos       = view.findViewById<EditText>(R.id.etFotosEmp)
         val btnCrear      = view.findViewById<Button>(R.id.btnCrearEmpleado)
+        val btnGet        = view.findViewById<Button>(R.id.btnGetEmpleados)
+        val tvEmpleados   = view.findViewById<TextView>(R.id.tvEmpleados)
 
+        // ---------- POST: Crear Empleado ----------
         btnCrear.setOnClickListener {
             val emp = Empleado(
                 documento     = etDocumento.text.toString().trim(),
@@ -65,7 +64,33 @@ class EmpleadosFragment : Fragment(R.layout.fragment_empleados) {
                             Toast.makeText(requireContext(), "Error: ${response.code()} $err", Toast.LENGTH_LONG).show()
                         }
                     }
+
                     override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                        Toast.makeText(requireContext(), "Fallo: ${t.message}", Toast.LENGTH_LONG).show()
+                    }
+                })
+        }
+
+
+        btnGet.setOnClickListener {
+            RetroFitInstance.api2kotlin.getEmpleados()
+                .enqueue(object : Callback<List<String>> {
+                    override fun onResponse(call: Call<List<String>>, response: Response<List<String>>) {
+                        if (response.isSuccessful) {
+                            val data = response.body().orEmpty()
+                            if (data.isNotEmpty()) {
+                                val texto = data.joinToString("\n\n") { it }
+                                tvEmpleados.text = texto
+                            } else {
+                                tvEmpleados.text = "No hay empleados disponibles"
+                            }
+                        } else {
+                            val err = response.errorBody()?.string().orEmpty()
+                            Toast.makeText(requireContext(), "Error: ${response.code()} $err", Toast.LENGTH_LONG).show()
+                        }
+                    }
+
+                    override fun onFailure(call: Call<List<String>>, t: Throwable) {
                         Toast.makeText(requireContext(), "Fallo: ${t.message}", Toast.LENGTH_LONG).show()
                     }
                 })

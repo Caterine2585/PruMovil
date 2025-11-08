@@ -1,34 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="20dp">
-
-        <EditText android:id="@+id/etDocumentoEmp" android:hint="Documento_Empleado" android:layout_width="match_parent" android:layout_height="wrap_content"/>
-        <EditText android:id="@+id/etTipoDocEmp"   android:hint="Tipo_Documento"      android:layout_width="match_parent" android:layout_height="wrap_content"/>
-        <EditText android:id="@+id/etNombreEmp"    android:hint="Nombre_Usuario"      android:layout_width="match_parent" android:layout_height="wrap_content"/>
-        <EditText android:id="@+id/etApellidoEmp"  android:hint="Apellido_Usuario"    android:layout_width="match_parent" android:layout_height="wrap_content"/>
-
-        <EditText android:id="@+id/etEdadEmp"      android:hint="Edad"                android:inputType="number" android:layout_width="match_parent" android:layout_height="wrap_content"/>
-        <EditText android:id="@+id/etCorreoEmp"    android:hint="Correo_Electronico"  android:inputType="textEmailAddress" android:layout_width="match_parent" android:layout_height="wrap_content"/>
-        <EditText android:id="@+id/etTelefonoEmp"  android:hint="Telefono"            android:inputType="phone" android:layout_width="match_parent" android:layout_height="wrap_content"/>
-
-        <EditText android:id="@+id/etGeneroEmp"    android:hint="Genero (M/F)"        android:layout_width="match_parent" android:layout_height="wrap_content"/>
-        <EditText android:id="@+id/etEstadoEmp"    android:hint="ID_Estado (EST001)"  android:text="EST001" android:layout_width="match_parent" android:layout_height="wrap_content"/>
-        <EditText android:id="@+id/etRolEmp"       android:hint="ID_Rol (ROL001/2)"   android:text="ROL002" android:layout_width="match_parent" android:layout_height="wrap_content"/>
-
-        <EditText android:id="@+id/etFotosEmp"     android:hint="Fotos (URL/ruta)"    android:layout_width="match_parent" android:layout_height="wrap_content"/>
-
-        <Button
-            android:id="@+id/btnCrearEmpleado"
-            android:text="Crear Empleado"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"/>
+            android:orientation="vertical"
+            android:padding="20dp">
+
+        <!-- Campos del formulario -->
+        <EditText
+                android:id="@+id/etDocumentoEmp"
+                android:hint="Documento_Empleado"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        <EditText
+                android:id="@+id/etTipoDocEmp"
+                android:hint="Tipo_Documento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        <EditText
+                android:id="@+id/etNombreEmp"
+                android:hint="Nombre_Usuario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        <EditText
+                android:id="@+id/etApellidoEmp"
+                android:hint="Apellido_Usuario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        <EditText
+                android:id="@+id/etEdadEmp"
+                android:hint="Edad"
+                android:inputType="number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        <EditText
+                android:id="@+id/etCorreoEmp"
+                android:hint="Correo_Electronico"
+                android:inputType="textEmailAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        <EditText
+                android:id="@+id/etTelefonoEmp"
+                android:hint="Telefono"
+                android:inputType="phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        <EditText
+                android:id="@+id/etGeneroEmp"
+                android:hint="Genero (M/F)"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        <EditText
+                android:id="@+id/etEstadoEmp"
+                android:hint="ID_Estado (EST001)"
+                android:text="EST001"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        <EditText
+                android:id="@+id/etRolEmp"
+                android:hint="ID_Rol (ROL001/2)"
+                android:text="ROL002"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        <EditText
+                android:id="@+id/etFotosEmp"
+                android:hint="Fotos (URL/ruta)"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        <!-- Botón POST -->
+        <Button
+                android:id="@+id/btnCrearEmpleado"
+                android:text="Crear Empleado"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"/>
+
+        <!-- Botón GET -->
+        <Button
+                android:id="@+id/btnGetEmpleados"
+                android:text="Mostrar Empleados"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"/>
+
+        <!-- Resultado del GET -->
+        <TextView
+                android:id="@+id/tvEmpleados"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:textColor="#000000"
+                android:textSize="15sp"
+                android:text="Aquí aparecerán los empleados"/>
+
     </LinearLayout>
 </ScrollView>
