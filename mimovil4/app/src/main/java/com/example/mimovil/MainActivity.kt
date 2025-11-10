@@ -18,6 +18,8 @@ import com.example.mimovil.model.EmpleadosFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
+import com.example.mimovil.model.HomeFragment
+
 
 class SubscriptionFragment : Fragment(R.layout.fragment_subscription)
 

@@ -1,77 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:context=".HomeFragment">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#F9FAFB"
+    android:padding="16dp">
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+
+        <!-- FILA 1 -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="24dp">
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:weightSum="2"
+            android:layout_marginBottom="12dp">
 
-        <!-- 🔹 RecyclerView opcional (si quieres dejarlo) -->
+            <!-- TARJETA PRODUCTOS -->
+            <LinearLayout
+                android:id="@+id/cardProductos"
+                android:layout_width="0dp"
+                android:layout_height="130dp"
+                android:layout_weight="1"
+                android:layout_margin="8dp"
+                android:background="@drawable/bg_card_icon"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="12dp">
 
-        <!-- 🔹 Campos de entrada -->
-        <EditText
-                android:id="@+id/etDocumento"
-                android:hint="Documento"
-                android:inputType="text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/ic_produto"
+                    app:tint="#3B82F6"
+                    />
 
-        <EditText
-                android:id="@+id/etNombre"
-                android:hint="Nombre"
-                android:inputType="textPersonName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Producto"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="#0F172A"
+                    android:layout_marginTop="8dp" />
+            </LinearLayout>
 
-        <EditText
-                android:id="@+id/etApellido"
-                android:hint="Apellido"
-                android:inputType="textPersonName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+            <!-- TARJETA COMPRA -->
+            <LinearLayout
+                android:id="@+id/cardCompra"
+                android:layout_width="0dp"
+                android:layout_height="130dp"
+                android:layout_weight="1"
+                android:layout_margin="8dp"
+                android:background="@drawable/bg_card_icon"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="12dp">
 
-        <EditText
-                android:id="@+id/etTelefono"
-                android:hint="Teléfono"
-                android:inputType="phone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/ic_compra"
+                    app:tint="#3B82F6"
+                    />
 
-        <EditText
-                android:id="@+id/etFecha"
-                android:hint="Fecha de Nacimiento (YYYY-MM-DD)"
-                android:inputType="date"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Compra"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="#0F172A"
+                    android:layout_marginTop="8dp" />
+            </LinearLayout>
+        </LinearLayout>
 
-        <EditText
-                android:id="@+id/etGenero"
-                android:hint="Género (M/F)"
-                android:inputType="text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+        <!-- FILA 2 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:weightSum="2">
 
-        <EditText
-                android:id="@+id/etEstado"
-                android:hint="ID_Estado (ej: EST001)"
-                android:inputType="text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+            <!-- TARJETA CLIENTE -->
+            <LinearLayout
+                android:id="@+id/cardCliente"
+                android:layout_width="0dp"
+                android:layout_height="130dp"
+                android:layout_weight="1"
+                android:layout_margin="8dp"
+                android:background="@drawable/bg_card_icon"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="12dp">
 
-        <!-- 🔹 Botón -->
-        <Button
-                android:id="@+id/btnRegistrar"
-                android:text="Registrar Cliente"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:backgroundTint="@color/purple_500"
-                android:textColor="@android:color/white"/>
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/ic_cliente"
+                    app:tint="#3B82F6"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cliente"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="#0F172A"
+                    android:layout_marginTop="8dp" />
+            </LinearLayout>
+
+            <!-- TARJETA EMPLEADO -->
+            <LinearLayout
+                android:id="@+id/cardEmpleado"
+                android:layout_width="0dp"
+                android:layout_height="130dp"
+                android:layout_weight="1"
+                android:layout_margin="8dp"
+                android:background="@drawable/bg_card_icon"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="12dp">
+
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/ic_empleado"
+                    app:tint="#3B82F6"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Empleado"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="#0F172A"
+                    android:layout_marginTop="8dp" />
+            </LinearLayout>
+        </LinearLayout>
 
     </LinearLayout>
 </ScrollView>
