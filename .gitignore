@@ -1,0 +1,15 @@
+# Archivos/carpetas generados por Gradle
+.gradle/
+build/
+**/build/
+
+# Archivos de configuración local de Android Studio
+.idea/
+local.properties
+captures/
+
+# Archivos de la máquina virtual de Java
+*.iml
+
+# Archivos de configuración de Kotlin
+*.kotlin_module
