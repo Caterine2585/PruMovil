@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import com.example.mimovil.api.RetroFitInstance
+import com.example.mimovil.model.Cliente
 import com.example.mimovil.model.Producto
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -39,7 +40,10 @@ class ProductoFragment : Fragment(R.layout.fragment_producto) {
         val etID_Estado    = view.findViewById<EditText>(R.id.etID_Estado)
         val etID_Gama      = view.findViewById<EditText>(R.id.etID_Gama)
         val etFotos      = view.findViewById<EditText>(R.id.etFotos)
+
         val btnCrear      = view.findViewById<Button>(R.id.btnCrearProducto)
+        val btnActualizarProducto = view.findViewById<Button>(R.id.btnActualizarProducto)
+
 
         btnCrear.setOnClickListener {
             val producto = Producto(
@@ -52,7 +56,6 @@ class ProductoFragment : Fragment(R.layout.fragment_producto) {
                 ID_Estado      = etID_Estado.text.toString().trim().ifEmpty { "EST001" },
                 ID_Gama        = etID_Gama.text.toString().trim(),
                 Fotos      = etFotos.text.toString().trim(),
-
                 )
 
             if (producto.ID_Producto.isEmpty() || producto.Nombre_Producto.isEmpty()) {
@@ -74,6 +77,42 @@ class ProductoFragment : Fragment(R.layout.fragment_producto) {
                     }
                     override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                         Toast.makeText(requireContext(), "Fallo: ${t.message}", Toast.LENGTH_LONG).show()
+                    }
+                })
+        }
+        fun btnActualizarProducto() {
+            val idproducto = etID_Producto.text.toString().trim()
+            if (idproducto.isEmpty()) {
+                Toast.makeText(requireContext(), "Ingresa el ID del Producto para actualizar", Toast.LENGTH_SHORT).show()
+                return
+            }
+
+            val producto = Producto(
+                ID_Producto = idproducto,
+                Nombre_Producto = etNombre_Producto.text.toString(),
+                Descripcion = etDescripcion.text.toString(),
+                Precio_Venta = etPrecio_Venta.text.toString(),
+                Stock_Minimo = etStock_Minimo.text.toString(),
+                ID_Categoria = etID_Categoria.text.toString(),
+                ID_Estado = etID_Estado.text.toString(),
+                ID_Gama = etID_Gama.text.toString(),
+                Fotos = etFotos.text.toString()
+
+            )
+
+            RetroFitInstance.api2kotlin.ActualizarProducto(idproducto, producto)
+                .enqueue(object : Callback<ResponseBody> {
+                    override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                        if (response.isSuccessful) {
+                            Toast.makeText(requireContext(), "Producto actualizado correctamente", Toast.LENGTH_LONG).show()
+                            limpiarCampos()
+                        } else {
+                            Toast.makeText(requireContext(), "Error al actualizar: ${response.code()}", Toast.LENGTH_LONG).show()
+                        }
+                    }
+
+                    override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                        Toast.makeText(requireContext(), "Fallo de conexión: ${t.message}", Toast.LENGTH_LONG).show()
                     }
                 })
         }

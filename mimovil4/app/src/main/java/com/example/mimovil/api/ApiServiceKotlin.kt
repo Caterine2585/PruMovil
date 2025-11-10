@@ -38,6 +38,11 @@ interface ApiServiceKotlin {
     @Headers("Content-Type: application/json")
     @POST("crearProducto")
     fun crearProducto(@Body producto: Producto): Call<ResponseBody>
+    @PUT("ActualizaProd/{ID_Producto}")
+    fun ActualizarProducto(
+        @Path("ID_Producto") ID_Producto: String,
+        @Body producto: Producto
+    ): Call<ResponseBody>
 
     // Compras
     @GET("Compras")
