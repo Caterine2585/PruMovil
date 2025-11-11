@@ -66,9 +66,19 @@ interface ApiServiceKotlin {
     // COMPRAS
     // ============================
     @GET("Compras")
-    fun getCompras(): Call<List<Compras>>
+    fun getCompras(): Call<List<String>>
 
     @Headers("Content-Type: application/json")
     @POST("ComprasR")
     fun crearCompra(@Body compra: Compras): Call<ResponseBody>
+
+    @PUT("Compras/{ID_Entrada}")
+    fun actualizarCompra(
+        @Path("ID_Entrada") ID_Entrada: String,
+        @Body compra: Compras
+    ): Call<ResponseBody>
+
+    @DELETE("ComprasE/{ID_Entrada}")
+    fun eliminarCompra(@Path("ID_Entrada") ID_Entrada: String): Call<ResponseBody>
+
 }

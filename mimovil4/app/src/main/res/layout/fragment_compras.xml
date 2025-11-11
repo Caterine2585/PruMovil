@@ -1,38 +1,88 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:padding="16dp"
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/etIDEntrada"
-        android:hint="ID Entrada"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
 
-    <EditText
-        android:id="@+id/etPrecioCompra"
-        android:hint="Precio de Compra"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        <!-- 🔹 Título -->
+        <TextView
+            android:id="@+id/tvTituloCompra"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Gestión de Compras"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginBottom="16dp" />
 
-    <EditText
-        android:id="@+id/etIDProducto"
-        android:hint="ID Producto"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        <!-- 🔹 Campos de texto -->
+        <EditText
+            android:id="@+id/etIDEntrada"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="ID Entrada" />
 
-    <EditText
-        android:id="@+id/etDocumentoEmpCompra"
-        android:hint="Documento Empleado"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/etPrecioCompra"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Precio de Compra" />
 
-    <Button
-        android:id="@+id/btnCrearCompra"
-        android:text="Guardar Entrada"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-</LinearLayout>
+        <EditText
+            android:id="@+id/etIDProducto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="ID Producto" />
+
+        <EditText
+            android:id="@+id/etDocumentoEmpCompra"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Documento Empleado" />
+
+        <!-- 🔹 Botones CRUD -->
+        <Button
+            android:id="@+id/btnCrearCompra"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Crear Compra"
+            android:layout_marginTop="10dp" />
+
+        <Button
+            android:id="@+id/btnMostrarCompras"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mostrar Compras"
+            android:layout_marginTop="10dp" />
+
+        <Button
+            android:id="@+id/btnActualizarCompra"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Actualizar Compra"
+            android:layout_marginTop="10dp" />
+
+        <Button
+            android:id="@+id/btnEliminarCompra"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Eliminar Compra"
+            android:layout_marginTop="10dp" />
+
+        <!-- 🔹 Resultado -->
+        <TextView
+            android:id="@+id/tvResultadoCompras"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:padding="10dp"
+            android:background="#EEEEEE"
+            android:text="Aquí se mostrarán los resultados" />
+    </LinearLayout>
+</ScrollView>
 
