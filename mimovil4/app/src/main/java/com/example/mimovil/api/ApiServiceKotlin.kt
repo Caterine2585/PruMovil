@@ -4,16 +4,20 @@ import com.example.mimovil.model.Cliente
 import com.example.mimovil.model.Compras
 import com.example.mimovil.model.Empleado
 import com.example.mimovil.model.Producto
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
 
 interface ApiServiceKotlin {
 
+    // ============================
+    // CLIENTES
+    // ============================
     @GET("/Detalles")
     fun getClientes(): Call<List<String>>
 
-    // POST Clientes (mismo estilo que usas)
     @Headers("Content-Type: application/json")
     @POST("RegistraC")
     fun crearCliente(@Body persona: Cliente): Call<ResponseBody>
@@ -27,26 +31,44 @@ interface ApiServiceKotlin {
     @DELETE("EliminarC/{documento}")
     fun eliminarCliente(@Path("documento") documento: String): Call<ResponseBody>
 
-    // POST Empleados
+    // ============================
+    // EMPLEADOS
+    // ============================
+    @GET("/Empleados")
+    fun getEmpleados(): Call<List<String>>
+
     @Headers("Content-Type: application/json")
-    @POST("EmpleadoRegistro") // cámbialo si tu endpoint real es otro
+    @POST("EmpleadoRegistro")
     fun crearEmpleado(@Body empleado: Empleado): Call<ResponseBody>
 
-    //Productos
+    @PUT("/EmpleadoActualizar/{Documento_Empleado}")
+    fun actualizarEmpleado(
+        @Path("Documento_Empleado") documento: String,
+        @Body empleado: Empleado
+    ): Call<ResponseBody>
+
+    @DELETE("/EmpleadoEliminar/{Documento_Empleado}")
+    fun eliminarEmpleado(
+        @Path("Documento_Empleado") documento: String
+    ): Call<ResponseBody>
+
+    // ============================
+    // PRODUCTOS
+    // ============================
     @GET("Productos")
     fun getProducto(): Call<List<String>>
+
     @Headers("Content-Type: application/json")
     @POST("crearProducto")
     fun crearProducto(@Body producto: Producto): Call<ResponseBody>
 
-    // Compras
+    // ============================
+    // COMPRAS
+    // ============================
     @GET("Compras")
     fun getCompras(): Call<List<Compras>>
 
     @Headers("Content-Type: application/json")
     @POST("ComprasR")
     fun crearCompra(@Body compra: Compras): Call<ResponseBody>
- 
- @GET("/Empleados")
-    fun getEmpleados(): Call<List<String>>
 }
