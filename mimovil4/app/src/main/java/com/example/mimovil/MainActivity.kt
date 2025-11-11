@@ -1,6 +1,8 @@
 package com.example.mimovil
 
 import android.app.Dialog
+import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -33,6 +35,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val prefs = getSharedPreferences("auth", Context.MODE_PRIVATE)
+        val token = prefs.getString("jwt_token", null)
+        if (token.isNullOrEmpty()) {
+            // Si no hay token, redirigir al login
+            startActivity(Intent(this, LoginActivity::class.java))
+            finish()
+            return
+        }
+
         // Referencias
         drawerLayout = findViewById(R.id.drawer_layout)
         val navigationView = findViewById<NavigationView>(R.id.nav_view)
@@ -55,9 +66,16 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_cliente   -> replaceFragment(ClienteFragment())
                 R.id.nav_empleados -> replaceFragment(EmpleadosFragment())
                 R.id.nav_compras   -> replaceFragment(ComprasFragment())
-                R.id.nav_productos -> replaceFragment(ProductoFragment()) // 🆕 NUEVA OPCIÓN DE PRODUCTOS
+                R.id.nav_productos -> replaceFragment(ProductoFragment())
                 R.id.nav_share     -> replaceFragment(SubscriptionFragment())
-                R.id.nav_logout    -> Toast.makeText(this, "Sesión cerrada", Toast.LENGTH_SHORT).show()
+                R.id.nav_logout -> {
+                    val prefs = getSharedPreferences("auth", Context.MODE_PRIVATE)
+                    prefs.edit().clear().apply() // Borra el token
+                    startActivity(Intent(this, LoginActivity::class.java))
+                    finish()
+                    true
+                }
+
                 else               -> Toast.makeText(this, "Opción desconocida", Toast.LENGTH_SHORT).show()
             }
             item.isChecked = true
@@ -65,13 +83,6 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
-
-
-        // Fragment inicial
-        if (savedInstanceState == null) {
-            replaceFragment(HomeFragment())
-            navigationView.setCheckedItem(R.id.nav_home)
-        }
 
         // FAB para mostrar el diálogo inferior
         fab?.setOnClickListener { showBottomDialog() }

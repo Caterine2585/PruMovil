@@ -2,6 +2,7 @@ package com.example.mimovil.api
 
 import com.example.mimovil.model.Cliente
 import com.example.mimovil.model.Compras
+import com.example.mimovil.model.ContraseñaDTO
 import com.example.mimovil.model.Empleado
 import com.example.mimovil.model.Producto
 import okhttp3.ResponseBody
@@ -9,6 +10,16 @@ import retrofit2.Call
 import retrofit2.http.*
 
 interface ApiServiceKotlin {
+
+    //AUT
+    @POST("ruta/del/login")
+    fun login(@Body request: ContraseñaDTO): Call<String>
+    @GET ("Productos")
+    fun getProducto (@Header("Authorization")token: String): Call <List<Producto>>
+
+    // ============================
+    // CLIENTES
+    // ============================
 
     @GET("/Detalles")
     fun getClientes(): Call<List<String>>
@@ -43,6 +54,8 @@ interface ApiServiceKotlin {
         @Path("ID_Producto") ID_Producto: String,
         @Body producto: Producto
     ): Call<ResponseBody>
+    @DELETE("EliminarPro/{ID_Producto}")
+    fun eliminarProducto(@Path("ID_Producto") ID_Producto: String): Call<ResponseBody>
 
     // Compras
     @GET("Compras")
