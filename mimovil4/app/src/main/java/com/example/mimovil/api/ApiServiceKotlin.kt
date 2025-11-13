@@ -11,11 +11,32 @@ import retrofit2.http.*
 
 interface ApiServiceKotlin {
 
-    //AUT
-    @POST("ruta/del/login")
-    fun login(@Body request: ContraseñaDTO): Call<String>
-    @GET ("Productos")
-    fun getProducto (@Header("Authorization")token: String): Call <List<Producto>>
+
+
+        // LOGIN (coincide con tu API real)
+        @POST("auth/login")
+        fun login(@Body request: ContraseñaDTO): Call<String>
+
+        // CRUD protegidos con JWT
+        @GET("Productos")
+        fun getProductos(@Header("Authorization") token: String): Call<List<String>>
+        @Headers("Content-Type: application/json")
+        @POST("RegistroP")
+        fun crearProducto(
+            @Header("Authorization") token: String,
+            @Body producto: Producto
+        ): Call<ResponseBody>
+        @PUT("ActualizaProd/{ID_Producto}")
+        fun actualizarProducto(
+            @Header("Authorization") token: String,
+            @Path("ID_Producto") ID_Producto: String,
+            @Body producto: Producto
+        ): Call<ResponseBody>
+        @DELETE("EliminarPro/{ID_Producto}")
+        fun eliminarProducto(
+            @Header("Authorization") token: String,
+            @Path("ID_Producto") ID_Producto: String
+        ): Call<ResponseBody>
 
     // ============================
     // CLIENTES
@@ -43,19 +64,20 @@ interface ApiServiceKotlin {
     @POST("EmpleadoRegistro") // cámbialo si tu endpoint real es otro
     fun crearEmpleado(@Body empleado: Empleado): Call<ResponseBody>
 
-    //Productos
-    @GET("Productos")
-    fun getProducto(): Call<List<String>>
-    @Headers("Content-Type: application/json")
-    @POST("crearProducto")
-    fun crearProducto(@Body producto: Producto): Call<ResponseBody>
-    @PUT("ActualizaProd/{ID_Producto}")
-    fun ActualizarProducto(
-        @Path("ID_Producto") ID_Producto: String,
-        @Body producto: Producto
-    ): Call<ResponseBody>
-    @DELETE("EliminarPro/{ID_Producto}")
-    fun eliminarProducto(@Path("ID_Producto") ID_Producto: String): Call<ResponseBody>
+    //Productos ===============
+    //@GET("Productos")
+    //fun getProducto(): Call<List<String>>
+    //@Headers("Content-Type: application/json")
+    //@POST("crearProducto")
+    //fun crearProduct(@Body producto: Producto): Call<ResponseBody>
+    //@PUT("ActualizaProd/{ID_Producto}")
+    //fun ActualizarProducto(
+    //@Path("ID_Producto") ID_Producto: String,
+    //@Body producto: Producto
+    //): Call<ResponseBody>
+    //@DELETE("EliminarPro/{ID_Producto}")
+    //fun eliminarProduct(@Path("ID_Producto") ID_Producto: String): Call<ResponseBody>
+    // ==================
 
     // Compras
     @GET("Compras")
