@@ -44,9 +44,11 @@ class LoginActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            val request = ContraseñaDTO(documento, contrasena)
-
             Log.d("LOGIN", "Enviando usuario: $documento, contraseña: $contrasena")
+            val request = mapOf(
+                "usuario" to documento,
+                "contrasena" to contrasena
+            )
 
             // Llamada al backend con Retrofit
             RetroFitInstance.api2kotlin.login(request)

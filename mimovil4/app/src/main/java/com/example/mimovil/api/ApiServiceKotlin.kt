@@ -10,32 +10,36 @@ import retrofit2.Call
 import retrofit2.http.*
 
 interface ApiServiceKotlin {
-
-
-
-        // LOGIN (coincide con tu API real)
+        // LOGIN
         @POST("auth/login")
-        fun login(@Body request: ContraseñaDTO): Call<String>
+        fun login(@Body request: Map<String, String>): Call<String>
 
-        // CRUD protegidos con JWT
+        // GET
         @GET("Productos")
-        fun getProductos(@Header("Authorization") token: String): Call<List<String>>
-        @Headers("Content-Type: application/json")
+        fun getProductos(
+            @Header("Authorization") token: String
+        ): Call<List<String>>
+
+        // POST
         @POST("RegistroP")
         fun crearProducto(
             @Header("Authorization") token: String,
             @Body producto: Producto
         ): Call<ResponseBody>
+
+        // PUT
         @PUT("ActualizaProd/{ID_Producto}")
         fun actualizarProducto(
             @Header("Authorization") token: String,
-            @Path("ID_Producto") ID_Producto: String,
+            @Path("ID_Producto") id: String,
             @Body producto: Producto
         ): Call<ResponseBody>
+
+        // DELETE
         @DELETE("EliminarPro/{ID_Producto}")
         fun eliminarProducto(
             @Header("Authorization") token: String,
-            @Path("ID_Producto") ID_Producto: String
+            @Path("ID_Producto") id: String
         ): Call<ResponseBody>
 
     // ============================
