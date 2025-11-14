@@ -1,152 +1,185 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#F9FAFB"
-    android:padding="16dp">
-
-    <LinearLayout
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center_horizontal">
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:background="#F9FAFB"
+        android:padding="16dp">
 
-
-        <!-- FILA 1 -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:weightSum="2"
-            android:layout_marginBottom="12dp">
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
 
-            <!-- TARJETA PRODUCTOS -->
+            <!-- FILA 1 -->
             <LinearLayout
-                android:id="@+id/cardProductos"
-                android:layout_width="0dp"
-                android:layout_height="130dp"
-                android:layout_weight="1"
-                android:layout_margin="8dp"
-                android:background="@drawable/bg_card_icon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:gravity="center"
-                android:orientation="vertical"
-                android:padding="12dp">
+                android:weightSum="2"
+                android:layout_marginBottom="12dp">
 
-                <ImageView
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:src="@drawable/ic_produto"
-                    app:tint="#3B82F6"
-                    />
+                <!-- TARJETA PRODUCTOS -->
+                <LinearLayout
+                    android:id="@+id/cardProductos"
+                    android:layout_width="0dp"
+                    android:layout_height="130dp"
+                    android:layout_weight="1"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/bg_card_icon"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="12dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Producto"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:textColor="#0F172A"
-                    android:layout_marginTop="8dp" />
+                    <ImageView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:src="@drawable/ic_produto"
+                        app:tint="#3B82F6"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Producto"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:textColor="#0F172A"
+                        android:layout_marginTop="8dp"/>
+                </LinearLayout>
+
+                <!-- TARJETA COMPRA -->
+                <LinearLayout
+                    android:id="@+id/cardCompra"
+                    android:layout_width="0dp"
+                    android:layout_height="130dp"
+                    android:layout_weight="1"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/bg_card_icon"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+
+                    <ImageView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:src="@drawable/ic_compra"
+                        app:tint="#3B82F6"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Compra"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:textColor="#0F172A"
+                        android:layout_marginTop="8dp"/>
+                </LinearLayout>
             </LinearLayout>
 
-            <!-- TARJETA COMPRA -->
+            <!-- FILA 2 -->
             <LinearLayout
-                android:id="@+id/cardCompra"
-                android:layout_width="0dp"
-                android:layout_height="130dp"
-                android:layout_weight="1"
-                android:layout_margin="8dp"
-                android:background="@drawable/bg_card_icon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:gravity="center"
-                android:orientation="vertical"
-                android:padding="12dp">
+                android:weightSum="2">
 
-                <ImageView
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:src="@drawable/ic_compra"
-                    app:tint="#3B82F6"
-                    />
+                <!-- TARJETA CLIENTE -->
+                <LinearLayout
+                    android:id="@+id/cardCliente"
+                    android:layout_width="0dp"
+                    android:layout_height="130dp"
+                    android:layout_weight="1"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/bg_card_icon"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="12dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Compra"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:textColor="#0F172A"
-                    android:layout_marginTop="8dp" />
+                    <ImageView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:src="@drawable/ic_cliente"
+                        app:tint="#3B82F6"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Cliente"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:textColor="#0F172A"
+                        android:layout_marginTop="8dp"/>
+                </LinearLayout>
+
+                <!-- TARJETA EMPLEADO -->
+                <LinearLayout
+                    android:id="@+id/cardEmpleado"
+                    android:layout_width="0dp"
+                    android:layout_height="130dp"
+                    android:layout_weight="1"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/bg_card_icon"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+
+                    <ImageView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:src="@drawable/ic_empleado"
+                        app:tint="#3B82F6"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Empleado"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:textColor="#0F172A"
+                        android:layout_marginTop="8dp"/>
+                </LinearLayout>
             </LinearLayout>
+
+            <!-- FILA 3 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:weightSum="2">
+
+                <!-- TARJETA VENTA -->
+                <LinearLayout
+                    android:id="@+id/cardVenta"
+                    android:layout_width="0dp"
+                    android:layout_height="130dp"
+                    android:layout_weight="1"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/bg_card_icon"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+
+                    <ImageView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:src="@drawable/ic_ventas"
+                        app:tint="#3B82F6"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ventas"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:textColor="#0F172A"
+                        android:layout_marginTop="8dp"/>
+                </LinearLayout>
+            </LinearLayout>
+
         </LinearLayout>
+    </ScrollView>
 
-        <!-- FILA 2 -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:weightSum="2">
-
-            <!-- TARJETA CLIENTE -->
-            <LinearLayout
-                android:id="@+id/cardCliente"
-                android:layout_width="0dp"
-                android:layout_height="130dp"
-                android:layout_weight="1"
-                android:layout_margin="8dp"
-                android:background="@drawable/bg_card_icon"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="12dp">
-
-                <ImageView
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:src="@drawable/ic_cliente"
-                    app:tint="#3B82F6"
-                    />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Cliente"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:textColor="#0F172A"
-                    android:layout_marginTop="8dp" />
-            </LinearLayout>
-
-            <!-- TARJETA EMPLEADO -->
-            <LinearLayout
-                android:id="@+id/cardEmpleado"
-                android:layout_width="0dp"
-                android:layout_height="130dp"
-                android:layout_weight="1"
-                android:layout_margin="8dp"
-                android:background="@drawable/bg_card_icon"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="12dp">
-
-                <ImageView
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:src="@drawable/ic_empleado"
-                    app:tint="#3B82F6"
-                    />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Empleado"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:textColor="#0F172A"
-                    android:layout_marginTop="8dp" />
-            </LinearLayout>
-        </LinearLayout>
-
-    </LinearLayout>
-</ScrollView>

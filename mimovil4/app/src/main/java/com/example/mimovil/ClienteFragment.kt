@@ -108,7 +108,8 @@ class ClienteFragment : Fragment() {
                                 if (partes.size >= 7) {
                                     """
                                     Documento: ${partes[0]}
-                                    Nombre: ${partes[1]} ${partes[2]}
+                                    Nombre: ${partes[1]}
+                                    Apellido :${partes[2]}
                                     Teléfono: ${partes[3]}
                                     Fecha Nacimiento: ${partes[4]}
                                     Género: ${partes[5]}

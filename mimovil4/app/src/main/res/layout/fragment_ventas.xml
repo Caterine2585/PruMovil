@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/tvTituloCliente"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Gestión de Ventas"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginBottom="16dp" />
+
+        <EditText
+            android:id="@+id/etid_venta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="ID_Venta" />
+
+        <EditText
+            android:id="@+id/etdocumento_cli"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Documento_Cliente" />
+
+        <EditText
+            android:id="@+id/etdocumento_emp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Documento_Empleado" />
+
+        <Button
+            android:id="@+id/btnCrearVenta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Crear Venta"
+            android:layout_marginTop="10dp" />
+
+        <Button
+            android:id="@+id/btnMostrarVenta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mostrar Ventas"
+            android:layout_marginTop="10dp" />
+        <Button
+            android:id="@+id/btnActualizarVenta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Actualizar Ventas" />
+
+        <Button
+            android:id="@+id/btnEliminarVenta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Eliminar Venta" />
+
+
+        <Button
+            android:id="@+id/btndetalleventa"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Detalle Venta" />
+
+
+        <TextView
+            android:id="@+id/tvResultadoVenta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:padding="10dp"
+            android:background="#EEEEEE"
+            android:text="Aquí se mostrarán los resultados" />
+    </LinearLayout>
+</ScrollView>

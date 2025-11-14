@@ -35,6 +35,12 @@
             android:icon="@drawable/outline_demography_24"
             android:title="Empleados"/>
 
+
+        <item
+            android:id="@+id/nav_ventas"
+            android:icon="@drawable/ic_ventas"
+            android:title="Ventas"/>
+
         <item
             android:id="@+id/nav_share"
             android:icon="@drawable/baseline_share_24"

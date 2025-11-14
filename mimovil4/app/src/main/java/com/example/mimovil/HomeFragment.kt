@@ -11,6 +11,7 @@ import com.example.mimovil.ClienteFragment
 import com.example.mimovil.ComprasFragment
 import com.example.mimovil.ProductoFragment
 import com.example.mimovil.R
+import com.example.mimovil.VentasFragment
 
 class HomeFragment : Fragment() {
 
@@ -24,11 +25,13 @@ class HomeFragment : Fragment() {
         val cardCompra = view.findViewById<LinearLayout>(R.id.cardCompra)
         val cardCliente = view.findViewById<LinearLayout>(R.id.cardCliente)
         val cardEmpleado = view.findViewById<LinearLayout>(R.id.cardEmpleado)
+        val carVentas = view.findViewById<LinearLayout>(R.id.cardVenta)
 
         configurarCard(cardProductos, ProductoFragment())
         configurarCard(cardCompra, ComprasFragment())
         configurarCard(cardCliente, ClienteFragment())
         configurarCard(cardEmpleado, EmpleadosFragment())
+        configurarCard(carVentas, VentasFragment())
 
         return view
     }

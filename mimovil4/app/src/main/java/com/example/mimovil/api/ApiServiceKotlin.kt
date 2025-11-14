@@ -2,8 +2,10 @@ package com.example.mimovil.api
 
 import com.example.mimovil.model.Cliente
 import com.example.mimovil.model.Compras
+import com.example.mimovil.model.Detalle_Ventas
 import com.example.mimovil.model.Empleado
 import com.example.mimovil.model.Producto
+import com.example.mimovil.model.Ventas
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
@@ -80,5 +82,50 @@ interface ApiServiceKotlin {
 
     @DELETE("ComprasE/{ID_Entrada}")
     fun eliminarCompra(@Path("ID_Entrada") ID_Entrada: String): Call<ResponseBody>
+
+    // ============================
+    // Ventas
+    // ============================
+
+    @GET("/Ventas")
+    fun getVentas(): Call<List<String>>
+
+    @Headers("Content-Type: application/json")
+    @POST("VentaRegistro")
+    fun crearVenta(@Body venta: Ventas): Call<ResponseBody>
+
+    @PUT("VentaActualizar/{ID_Venta}")
+    fun actualizarVenta(
+        @Path("ID_Venta") documento: String,
+        @Body venta: Ventas
+    ): Call<ResponseBody>
+
+    @DELETE("VentaEliminar/{ID_Venta}")
+    fun eliminarVenta(@Path("ID_Venta") documento: String): Call<ResponseBody>
+
+    // ============================
+    // Detalle Ventas
+    // ============================
+
+
+    @GET("/DetalleVentas")
+    fun getDetalleVentas(): Call<List<String>>
+
+    @Headers("Content-Type: application/json")
+    @POST("DetalleVentasRegistro")
+    fun crearDetalleVenta(@Body detalle: Detalle_Ventas): Call<ResponseBody>
+
+    @PUT("DetalleVentasActualizar/{ID_Producto}/{ID_Venta}")
+    fun actualizarDetalleVenta(
+        @Path("ID_Producto") idProducto: String,
+        @Path("ID_Venta") idVenta: String,
+        @Body detalle: Detalle_Ventas
+    ): Call<ResponseBody>
+
+    @DELETE("DetalleVentasEliminar/{ID_Producto}/{ID_Venta}")
+    fun eliminarDetalleVenta(
+        @Path("ID_Producto") idProducto: String,
+        @Path("ID_Venta") idVenta: String
+    ): Call<ResponseBody>
 
 }
