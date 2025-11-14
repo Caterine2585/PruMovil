@@ -23,12 +23,12 @@ class ComprasFragment : Fragment(R.layout.fragment_compras) {
     private lateinit var btnMostrar: Button
     private lateinit var btnActualizar: Button
     private lateinit var btnEliminar: Button
+    private lateinit var btnIrDetalle: Button
     private lateinit var tvResultado: TextView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //  Inicializar vistas
         etIDEntrada = view.findViewById(R.id.etIDEntrada)
         etPrecioCompra = view.findViewById(R.id.etPrecioCompra)
         etIDProducto = view.findViewById(R.id.etIDProducto)
@@ -38,13 +38,21 @@ class ComprasFragment : Fragment(R.layout.fragment_compras) {
         btnActualizar = view.findViewById(R.id.btnActualizarCompra)
         btnEliminar = view.findViewById(R.id.btnEliminarCompra)
         tvResultado = view.findViewById(R.id.tvResultadoCompras)
+        btnIrDetalle = view.findViewById(R.id.btnIrDetalleCompras)
 
-        //  Eventos
-        btnCrear.setOnClickListener { crearCompra() }
-        btnMostrar.setOnClickListener { mostrarCompras() }
-        btnActualizar.setOnClickListener { actualizarCompra() }
-        btnEliminar.setOnClickListener { eliminarCompra() }
+        btnIrDetalle.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.frame_layout, DetalleCompraFragment())
+                .addToBackStack(null)
+                .commit()
+
+            btnCrear.setOnClickListener { crearCompra() }
+            btnMostrar.setOnClickListener { mostrarCompras() }
+            btnActualizar.setOnClickListener { actualizarCompra() }
+            btnEliminar.setOnClickListener { eliminarCompra() }
+        }
     }
+
 
     //  POST: Crear compra
     private fun crearCompra() {

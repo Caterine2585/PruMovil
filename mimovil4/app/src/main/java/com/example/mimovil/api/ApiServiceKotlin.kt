@@ -2,6 +2,7 @@ package com.example.mimovil.api
 
 import com.example.mimovil.model.Cliente
 import com.example.mimovil.model.Compras
+import com.example.mimovil.model.DetalleCompras
 import com.example.mimovil.model.Detalle_Ventas
 import com.example.mimovil.model.Empleado
 import com.example.mimovil.model.Producto
@@ -32,6 +33,7 @@ interface ApiServiceKotlin {
 
     @DELETE("EliminarC/{documento}")
     fun eliminarCliente(@Path("documento") documento: String): Call<ResponseBody>
+
 
     // ============================
     // EMPLEADOS
@@ -82,6 +84,30 @@ interface ApiServiceKotlin {
 
     @DELETE("ComprasE/{ID_Entrada}")
     fun eliminarCompra(@Path("ID_Entrada") ID_Entrada: String): Call<ResponseBody>
+
+    // ============================
+    // DETALLE COMPRAS
+    // ============================
+    @GET("DetalleC")
+    fun getDetalleCompras(): Call<List<String>>
+
+    @Headers("Content-Type: application/json")
+    @POST("AgregarDetalleC")
+    fun crearDetalleCompra(@Body detalle: DetalleCompras): Call<ResponseBody>
+
+    @PUT("ActualizarDetalleC/{ID_Entrada}/{ID_Proveedor}")
+    fun actualizarDetalleCompra(
+        @Path("ID_Entrada") idEntrada: String,
+        @Path("ID_Proveedor") idProveedor: String,
+        @Body detalle: DetalleCompras
+    ): Call<ResponseBody>
+
+    @DELETE("EliminarDetC/{ID_Entrada}/{ID_Proveedor}")
+    fun eliminarDetalleCompra(
+        @Path("ID_Entrada") idEntrada: String,
+        @Path("ID_Proveedor") idProveedor: String
+    ): Call<ResponseBody>
+
 
     // ============================
     // Ventas

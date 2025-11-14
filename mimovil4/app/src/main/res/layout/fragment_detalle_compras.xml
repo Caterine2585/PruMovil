@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <!-- 🔹 Título -->
+        <TextView
+            android:id="@+id/tvTituloDetC"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Detalle de Compras"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginBottom="16dp" />
+
+        <!-- 🔹 Campos -->
+        <EditText
+            android:id="@+id/etFechaEntrada"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Fecha Entrada" />
+
+        <EditText
+            android:id="@+id/etCantidad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Cantidad" />
+
+        <EditText
+            android:id="@+id/etIDProveedor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="ID Proveedor" />
+
+        <EditText
+            android:id="@+id/etIDEntradaDetC"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="ID Entrada" />
+
+        <!-- 🔹 Botones CRUD -->
+        <Button
+            android:id="@+id/btnCrearDetC"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Crear Detalle"
+            android:layout_marginTop="10dp" />
+
+        <Button
+            android:id="@+id/btnMostrarDetC"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mostrar Detalles"
+            android:layout_marginTop="10dp" />
+
+        <Button
+            android:id="@+id/btnActualizarDetC"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Actualizar Detalle"
+            android:layout_marginTop="10dp" />
+
+        <Button
+            android:id="@+id/btnEliminarDetC"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Eliminar Detalle"
+            android:layout_marginTop="10dp" />
+
+        <!-- 🔹 Resultado -->
+        <TextView
+            android:id="@+id/tvResultadoDetC"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:padding="10dp"
+            android:background="#EEEEEE"
+            android:text="Aquí se mostrarán los resultados" />
+
+    </LinearLayout>
+</ScrollView>
