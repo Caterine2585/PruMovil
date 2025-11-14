@@ -40,16 +40,17 @@ class ComprasFragment : Fragment(R.layout.fragment_compras) {
         tvResultado = view.findViewById(R.id.tvResultadoCompras)
         btnIrDetalle = view.findViewById(R.id.btnIrDetalleCompras)
 
+
+        btnCrear.setOnClickListener { crearCompra() }
+        btnMostrar.setOnClickListener { mostrarCompras() }
+        btnActualizar.setOnClickListener { actualizarCompra() }
+        btnEliminar.setOnClickListener { eliminarCompra() }
+
         btnIrDetalle.setOnClickListener {
             parentFragmentManager.beginTransaction()
                 .replace(R.id.frame_layout, DetalleCompraFragment())
                 .addToBackStack(null)
                 .commit()
-
-            btnCrear.setOnClickListener { crearCompra() }
-            btnMostrar.setOnClickListener { mostrarCompras() }
-            btnActualizar.setOnClickListener { actualizarCompra() }
-            btnEliminar.setOnClickListener { eliminarCompra() }
         }
     }
 
