@@ -4,6 +4,7 @@ import com.example.mimovil.model.Cliente
 import com.example.mimovil.model.Compras
 import com.example.mimovil.model.DetalleCompras
 import com.example.mimovil.model.Detalle_Ventas
+import com.example.mimovil.model.Devoluciones
 import com.example.mimovil.model.Empleado
 import com.example.mimovil.model.Producto
 import com.example.mimovil.model.Ventas
@@ -154,4 +155,23 @@ interface ApiServiceKotlin {
         @Path("ID_Venta") idVenta: String
     ): Call<ResponseBody>
 
+    // ============================
+    // Devolucion
+    // ============================
+
+    @GET("Devoluciones")
+    fun getDevolucion(): Call<List<String>>
+
+    @Headers("Content-Type: application/json")
+    @POST("AgregarDevolucion")
+    fun crearDevolucion(@Body dev: Devoluciones): Call<ResponseBody>
+
+    @PUT("ActualizarD/{ID_Devolucion}")
+    fun actualizarDevolucion(
+        @Path("ID_Devolucion") ID_Devolucion: String,
+        @Body dev: Devoluciones
+    ): Call<ResponseBody>
+
+    @DELETE("EliminarDev/{ID_Devolucion}")
+    fun eliminarDevolucion(@Path("ID_Devolucion") ID_Devolucion: String): Call<ResponseBody>
 }
