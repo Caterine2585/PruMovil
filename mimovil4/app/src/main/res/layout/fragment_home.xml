@@ -178,6 +178,32 @@
                         android:textColor="#0F172A"
                         android:layout_marginTop="8dp"/>
                 </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/cardProveedor"
+                    android:layout_width="0dp"
+                    android:layout_height="130dp"
+                    android:layout_weight="1"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/bg_card_icon"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+
+                    <ImageView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:src="@drawable/ic_proveedor"
+                        app:tint="#3B82F6"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Proveedores"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:textColor="#0F172A"
+                        android:layout_marginTop="8dp"/>
+                </LinearLayout>
             </LinearLayout>
 
         </LinearLayout>

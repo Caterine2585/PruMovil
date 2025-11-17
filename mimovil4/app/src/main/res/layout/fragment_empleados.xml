@@ -9,6 +9,7 @@
             android:orientation="vertical"
             android:padding="20dp">
 
+
         <!-- Campos del formulario -->
         <EditText
                 android:id="@+id/etDocumentoEmp"

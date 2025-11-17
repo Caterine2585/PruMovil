@@ -15,9 +15,10 @@ import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import kotlin.collections.joinToString
+import kotlin.collections.orEmpty
 
-class DetalleVentasFragment : Fragment() {
-
+class DetalleVentaFragment : Fragment() {
     private lateinit var etcantidad: EditText
     private lateinit var etfecha_salida: EditText
     private lateinit var etid_producto: EditText
@@ -185,4 +186,5 @@ class DetalleVentasFragment : Fragment() {
         etid_producto.text.clear()
         etid_venta.text.clear()
     }
+
 }

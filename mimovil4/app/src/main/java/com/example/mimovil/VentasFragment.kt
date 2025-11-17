@@ -61,7 +61,7 @@ class VentasFragment : Fragment() {
     }
 
     private fun abrirDetalleVenta() {
-        val fragment = DetalleVentasFragment()
+        val fragment = DetalleVentaFragment()
 
         requireActivity().supportFragmentManager.beginTransaction()
             .replace(R.id.frame_layout, fragment)

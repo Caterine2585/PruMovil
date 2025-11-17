@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentTransaction
 import com.example.mimovil.ClienteFragment
 import com.example.mimovil.ComprasFragment
 import com.example.mimovil.ProductoFragment
+import com.example.mimovil.ProveedorFragment
 import com.example.mimovil.R
 import com.example.mimovil.VentasFragment
 
@@ -25,13 +26,15 @@ class HomeFragment : Fragment() {
         val cardCompra = view.findViewById<LinearLayout>(R.id.cardCompra)
         val cardCliente = view.findViewById<LinearLayout>(R.id.cardCliente)
         val cardEmpleado = view.findViewById<LinearLayout>(R.id.cardEmpleado)
-        val carVentas = view.findViewById<LinearLayout>(R.id.cardVenta)
+        val cardVentas = view.findViewById<LinearLayout>(R.id.cardVenta)
+        val cardProveedor = view.findViewById<LinearLayout>(R.id.cardProveedor)
 
         configurarCard(cardProductos, ProductoFragment())
         configurarCard(cardCompra, ComprasFragment())
         configurarCard(cardCliente, ClienteFragment())
         configurarCard(cardEmpleado, EmpleadosFragment())
-        configurarCard(carVentas, VentasFragment())
+        configurarCard(cardVentas, VentasFragment())
+        configurarCard(cardProveedor, ProveedorFragment())
 
         return view
     }

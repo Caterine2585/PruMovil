@@ -43,6 +43,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_empleados -> replaceFragment(EmpleadosFragment())
                 R.id.nav_ventas -> replaceFragment(VentasFragment())
                 R.id.nav_compras   -> replaceFragment(ComprasFragment())
+                R.id.nav_proveedores   -> replaceFragment(ProveedorFragment())
                 R.id.nav_productos -> replaceFragment(ProductoFragment()) // 🆕 NUEVA OPCIÓN DE PRODUCTOS
                 R.id.nav_logout    -> Toast.makeText(this, "Sesión cerrada", Toast.LENGTH_SHORT).show()
                 else               -> Toast.makeText(this, "Opción desconocida", Toast.LENGTH_SHORT).show()

@@ -42,6 +42,11 @@
             android:title="Ventas"/>
 
         <item
+            android:id="@+id/nav_proveedores"
+            android:icon="@drawable/ic_proveedor"
+            android:title="Proveedores"/>
+
+        <item
             android:id="@+id/nav_share"
             android:icon="@drawable/baseline_share_24"
             android:title="Share"/>

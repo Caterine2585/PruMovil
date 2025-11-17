@@ -7,6 +7,7 @@ import com.example.mimovil.model.Detalle_Ventas
 import com.example.mimovil.model.Devoluciones
 import com.example.mimovil.model.Empleado
 import com.example.mimovil.model.Producto
+import com.example.mimovil.model.Proveedor
 import com.example.mimovil.model.Ventas
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -174,4 +175,28 @@ interface ApiServiceKotlin {
 
     @DELETE("EliminarDev/{ID_Devolucion}")
     fun eliminarDevolucion(@Path("ID_Devolucion") ID_Devolucion: String): Call<ResponseBody>
+    // ============================
+// PROVEEDORES
+// ============================
+
+    // GET: Obtener proveedores
+    @GET("/Proveedor")
+    fun getProveedores(): Call<List<String>>
+
+    // POST: Crear proveedor
+    @Headers("Content-Type: application/json")
+    @POST("/ProveeReg")
+    fun crearProveedor(@Body proveedor: Proveedor): Call<ResponseBody>
+
+    // PUT: Actualizar proveedor
+    @PUT("/ActualizaProv/{ID_Proveedor}")
+    fun actualizarProveedor(
+        @Path("ID_Proveedor") idProveedor: String,
+        @Body proveedor: Proveedor
+    ): Call<ResponseBody>
+
+    // DELETE: Eliminar proveedor
+    @DELETE("/EliminarProve/{ID_Proveedor}")
+    fun eliminarProveedor(@Path("ID_Proveedor") idProveedor: String): Call<ResponseBody>
+
 }
