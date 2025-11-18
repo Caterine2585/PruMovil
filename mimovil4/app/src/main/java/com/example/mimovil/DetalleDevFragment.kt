@@ -10,7 +10,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.mimovil.api.RetroFitInstance
-import com.example.mimovil.model.Devoluciones
+import com.example.mimovil.model.DetalleDev
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -18,37 +18,37 @@ import retrofit2.Response
 import kotlin.collections.joinToString
 import kotlin.collections.orEmpty
 
-class DevolucionesFragment : Fragment() {
+class DetalleDevFragment : Fragment() {
 
-    private lateinit var etID_devolucion: EditText
-    private lateinit var etFecha_Devolucion: EditText
-    private lateinit var etMotivo: EditText
+    private lateinit var etID_DetalleDev: EditText
+    private lateinit var etID_Devolucion: EditText
+    private lateinit var etID_Venta: EditText
+    private lateinit var etCantidad_Devuelta: EditText
+
     private lateinit var btnCrear: Button
-    private lateinit var btnDetalle: Button
     private lateinit var btnMostrar: Button
     private lateinit var btnActualizar: Button
     private lateinit var btnEliminar: Button
-    private lateinit var tvResultadoDevoluciones: TextView
+    private lateinit var tvResultadoDetalleDev: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_devoluciones, container, false)
+        val view = inflater.inflate(R.layout.fragment_detalle_dev, container, false)
 
-        etID_devolucion = view.findViewById(R.id.etID_devolucion)
-        etFecha_Devolucion = view.findViewById(R.id.etFecha_Devolucion)
-        etMotivo = view.findViewById(R.id.etMotivo)
+        etID_DetalleDev = view.findViewById(R.id.etID_DetalleDev)
+        etID_Devolucion = view.findViewById(R.id.etID_Devolucion)
+        etID_Venta = view.findViewById(R.id.etID_Venta)
+        etCantidad_Devuelta = view.findViewById(R.id.etCantidad_Devuelta)
 
-        btnDetalle = view.findViewById(R.id.btndetalledev)
-        btnCrear = view.findViewById(R.id.btnCrearDevo)
-        btnMostrar = view.findViewById(R.id.btnMostrarDevo)
-        btnActualizar = view.findViewById(R.id.btnActualizarDevo)
-        btnEliminar = view.findViewById(R.id.btnEliminarDevo)
-        tvResultadoDevoluciones = view.findViewById(R.id.tvResultadoDevoluciones)
+        btnCrear = view.findViewById(R.id.btnCrearDetalleDev)
+        btnMostrar = view.findViewById(R.id.btnMostrarDetalleDev)
+        btnActualizar = view.findViewById(R.id.btnActualizarDetalleDev)
+        btnEliminar = view.findViewById(R.id.btnEliminarDetalleDev)
+        tvResultadoDetalleDev = view.findViewById(R.id.tvResultadoDetalleDev)
 
-        btnDetalle.setOnClickListener { detalleDevo() }
         btnCrear.setOnClickListener { crearDevo() }
         btnMostrar.setOnClickListener { mostrarDevo() }
         btnActualizar.setOnClickListener { actualizarDevo() }
@@ -56,32 +56,25 @@ class DevolucionesFragment : Fragment() {
 
         return view
     }
-    private fun detalleDevo() {
-        val fragment = DetalleDevFragment()
 
-        requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.frame_layout, fragment)
-            .addToBackStack(null)
-            .commit()
-    }
     private fun crearDevo() {
-        val dev = Devoluciones(
-            IDDevolucion = etID_devolucion.text.toString().trim(),
-            FechaDevolucion = etFecha_Devolucion.text.toString().trim(),
-            Motivo = etMotivo.text.toString().trim(),
+        val detalledev = DetalleDev(
+            IDDetalleDev = etID_DetalleDev.text.toString().trim(),
+            IDDevolucion = etID_Devolucion.text.toString().trim(),
+            IDVenta = etID_Venta.text.toString().trim(),
+            CantidadDevuelta = etCantidad_Devuelta.text.toString().trim(),
+            )
 
-        )
-
-        if (dev.IDDevolucion.isEmpty() || dev.FechaDevolucion.isEmpty() || dev.Motivo.isEmpty()) {
+        if (detalledev.IDDetalleDev.isEmpty() || detalledev.IDDevolucion.isEmpty() || detalledev.IDVenta.isEmpty() || detalledev.CantidadDevuelta.isEmpty()) {
             Toast.makeText(requireContext(), "Todos los campos son obligatorios", Toast.LENGTH_SHORT).show()
             return
         }
 
-        RetroFitInstance.api2kotlin.crearDevolucion(dev)
+        RetroFitInstance.api2kotlin.crearDevo(detalledev)
             .enqueue(object : Callback<ResponseBody> {
                 override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                     if (response.isSuccessful) {
-                        Toast.makeText(requireContext(), "Devolución creada correctamente", Toast.LENGTH_LONG).show()
+                        Toast.makeText(requireContext(), "Detalle Devolución creado correctamente", Toast.LENGTH_LONG).show()
                         limpiarCampos()
                     } else {
                         Toast.makeText(requireContext(), "Error: ${response.code()}", Toast.LENGTH_LONG).show()
@@ -95,58 +88,61 @@ class DevolucionesFragment : Fragment() {
     }
 
     private fun mostrarDevo() {
-        RetroFitInstance.api2kotlin.getDevolucion()
+        RetroFitInstance.api2kotlin.getDetalleDev()
             .enqueue(object : Callback<List<String>> {
                 override fun onResponse(call: Call<List<String>>, response: Response<List<String>>) {
                     if (response.isSuccessful) {
                         val data = response.body().orEmpty()
 
                         if (data.isEmpty()) {
-                            tvResultadoDevoluciones.text = "No hay Devoluciones disponibles."
+                            tvResultadoDetalleDev.text = "No hay Detalle Devoluciones disponibles."
                         } else {
                             val texto = data.joinToString("\n\n") { item ->
                                 val partes = item.split("________")
-                                if (partes.size >= 3) {
+                                if (partes.size >= 4) {
                                     """
-                                    ID_Devolucion: ${partes[0]}
-                                    Fecha_Devolucion: ${partes[1]}
-                                    Motivo :${partes[2]}
+                                    ID_DetalleDev: ${partes[0]}
+                                    ID_Devolución: ${partes[1]}
+                                    ID_Venta :${partes[2]}
+                                    Cantidad_Devuelta :${partes[3]}
                                     """.trimIndent()
                                 } else {
                                     "Formato incorrecto: $item"
                                 }
                             }
-                            tvResultadoDevoluciones.text = texto
+                            tvResultadoDetalleDev.text = texto
                         }
                     } else {
-                        tvResultadoDevoluciones.text = "Error: ${response.code()}"
+                        tvResultadoDetalleDev.text = "Error: ${response.code()}"
                     }
                 }
 
                 override fun onFailure(call: Call<List<String>>, t: Throwable) {
-                    tvResultadoDevoluciones.text = "Error de conexión: ${t.message}"
+                    tvResultadoDetalleDev.text = "Error de conexión: ${t.message}"
                 }
             })
     }
 
     private fun actualizarDevo() {
-        val dev = etID_devolucion.text.toString().trim()
-        if (dev.isEmpty()) {
-            Toast.makeText(requireContext(), "Ingresa el ID Devolución para actualizar", Toast.LENGTH_SHORT).show()
+        val idD = etID_Devolucion.text.toString().trim()
+        val idV = etID_Venta.text.toString().trim()
+        if (idD.isEmpty() || idV.isEmpty()) {
+            Toast.makeText(requireContext(), "Ingresa el ID Devolución y ID Venta para actualizar", Toast.LENGTH_SHORT).show()
             return
         }
 
-        val devo = Devoluciones(
-            IDDevolucion = etID_devolucion.text.toString().trim(),
-            FechaDevolucion = etFecha_Devolucion.text.toString().trim(),
-            Motivo = etMotivo.text.toString().trim(),
+        val devo = DetalleDev(
+            IDDetalleDev = etID_DetalleDev.text.toString().trim(),
+            IDDevolucion = etID_Devolucion.text.toString().trim(),
+            IDVenta = etID_Venta.text.toString().trim(),
+            CantidadDevuelta = etCantidad_Devuelta.text.toString().trim(),
         )
 
-        RetroFitInstance.api2kotlin.actualizarDevolucion(dev, devo)
+        RetroFitInstance.api2kotlin.actualizarDetalleDev(idD, idV, devo  )
             .enqueue(object : Callback<ResponseBody> {
                 override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                     if (response.isSuccessful) {
-                        Toast.makeText(requireContext(), "Devolución actualizada correctamente", Toast.LENGTH_LONG).show()
+                        Toast.makeText(requireContext(), "Detalle Devolución actualizado correctamente", Toast.LENGTH_LONG).show()
                         limpiarCampos()
                     } else {
                         Toast.makeText(requireContext(), "Error al actualizar: ${response.code()}", Toast.LENGTH_LONG).show()
@@ -160,17 +156,18 @@ class DevolucionesFragment : Fragment() {
     }
 
     private fun eliminarDevo() {
-        val id = etID_devolucion.text.toString().trim()
-        if (id.isEmpty()) {
-            Toast.makeText(requireContext(), "Ingresa el ID Devolución para eliminar", Toast.LENGTH_SHORT).show()
+        val idD = etID_Devolucion.text.toString().trim()
+        val idV = etID_Venta.text.toString().trim()
+        if (idD.isEmpty() || idV.isEmpty()) {
+            Toast.makeText(requireContext(), "Ingresa el ID Devolución y ID Venta para eliminar", Toast.LENGTH_SHORT).show()
             return
         }
 
-        RetroFitInstance.api2kotlin.eliminarDevolucion(id)
+        RetroFitInstance.api2kotlin.eliminarDetalleDev(idD, idV)
             .enqueue(object : Callback<ResponseBody> {
                 override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                     if (response.isSuccessful) {
-                        Toast.makeText(requireContext(), "Devolución eliminada correctamente", Toast.LENGTH_LONG).show()
+                        Toast.makeText(requireContext(), "Detalle Devolución eliminada correctamente", Toast.LENGTH_LONG).show()
                         limpiarCampos()
                     } else {
                         Toast.makeText(requireContext(), "Error al eliminar: ${response.code()}", Toast.LENGTH_LONG).show()
@@ -184,9 +181,10 @@ class DevolucionesFragment : Fragment() {
     }
 
     private fun limpiarCampos() {
-        etID_devolucion.text.clear()
-        etFecha_Devolucion.text.clear()
-        etMotivo.text.clear()
+        etID_DetalleDev.text.clear()
+        etID_Devolucion.text.clear()
+        etID_Venta.text.clear()
+        etCantidad_Devuelta.text.clear()
     }
 
 }

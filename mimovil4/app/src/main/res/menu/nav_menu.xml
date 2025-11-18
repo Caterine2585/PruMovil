@@ -47,14 +47,10 @@
             android:title="Proveedores"/>
 
         <item
-            android:id="@+id/nav_share"
-            android:icon="@drawable/baseline_share_24"
-            android:title="Share"/>
+            android:id="@+id/nav_devoluciones"
+            android:icon="@drawable/ic_devolucion"
+            android:title="Devoluciones"/>
 
-        <item
-            android:id="@+id/nav_about"
-            android:icon="@drawable/baseline_info_24"
-            android:title="About Us"/>
     </group>
 
     <item android:title="">
