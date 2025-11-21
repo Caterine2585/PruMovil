@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import com.example.mimovil.Acciones.Cliente.clienteFragment
 import com.example.mimovil.model.EmpleadosFragment
 import com.example.mimovil.model.HomeFragment
 import com.google.android.material.navigation.NavigationView
@@ -38,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         navigationView.setNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_home        -> replaceFragment(HomeFragment())
-                R.id.nav_cliente     -> replaceFragment(ClienteFragment())
+                R.id.nav_cliente     -> replaceFragment(clienteFragment())
                 R.id.nav_empleados   -> replaceFragment(EmpleadosFragment())
                 R.id.nav_ventas      -> replaceFragment(VentasFragment())
                 R.id.nav_compras     -> replaceFragment(ComprasFragment())

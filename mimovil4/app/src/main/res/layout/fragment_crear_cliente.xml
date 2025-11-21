@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="20dp"
+        android:layout_above="@id/btnOpciones">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:text="Crear Cliente"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp" />
+
+            <EditText android:id="@+id/etDocumentoC" android:hint="Documento"
+                android:layout_width="match_parent" android:layout_height="wrap_content" />
+
+            <EditText android:id="@+id/etNombreC" android:hint="Nombre"
+                android:layout_width="match_parent" android:layout_height="wrap_content" />
+
+            <EditText android:id="@+id/etApellidoC" android:hint="Apellido"
+                android:layout_width="match_parent" android:layout_height="wrap_content" />
+
+            <EditText android:id="@+id/etTelefonoC" android:hint="Teléfono"
+                android:layout_width="match_parent" android:layout_height="wrap_content" />
+
+            <EditText android:id="@+id/etFechaC" android:hint="2005-02-26"
+                android:layout_width="match_parent" android:layout_height="wrap_content" />
+
+            <EditText android:id="@+id/etGeneroC" android:hint="(M/F)"
+                android:layout_width="match_parent" android:layout_height="wrap_content" />
+
+            <EditText android:id="@+id/etEstadoC" android:hint="Estado" android:text="EST001"
+                android:layout_width="match_parent" android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/btnCrearCliente"
+                android:text="Crear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp" />
+        </LinearLayout>
+
+    </ScrollView>
+
+    <ImageButton
+        android:id="@+id/btnOpciones"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:src="@drawable/ic_suma"
+        android:background="@android:color/transparent"
+        android:padding="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"/>
+
+</RelativeLayout>
