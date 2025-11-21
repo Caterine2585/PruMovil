@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:padding="30dp"
+              android:gravity="center_vertical"
+              android:background="#FFFFFF">
+
+    <TextView
+            android:id="@+id/tvBienvenido"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Iniciar Sesión"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginBottom="24dp"
+            android:textColor="#333333"/>
+
+    <EditText
+            android:id="@+id/etDocumentoLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Documento del empleado"
+            android:inputType="text"
+            android:padding="12dp"
+            android:background="@android:drawable/edit_text"
+            android:layout_marginBottom="16dp"/>
+
+    <EditText
+            android:id="@+id/etContrasenaLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Contraseña"
+            android:inputType="textPassword"
+            android:padding="12dp"
+            android:background="@android:drawable/edit_text"
+            android:layout_marginBottom="30dp"/>
+
+    <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ingresar"
+            android:padding="12dp"
+            android:background="@color/lavender"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"/>
+
+</LinearLayout>

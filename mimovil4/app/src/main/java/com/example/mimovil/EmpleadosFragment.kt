@@ -21,7 +21,7 @@ import java.net.URL
 class EmpleadosFragment : Fragment(R.layout.fragment_empleados) {
 
     // Cambia esto según dónde corre tu API que sirve /uploads/
-    private val BASE_URL_IMG = "http://192.168.80.15:8080/" // ej: "http://192.168.0.12:8080/"
+    private val BASE_URL_IMG = "http://192.168.80.17:8080/" // ej: "http://192.168.0.12:8080/"
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

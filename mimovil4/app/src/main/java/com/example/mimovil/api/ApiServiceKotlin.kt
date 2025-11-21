@@ -7,6 +7,7 @@ import com.example.mimovil.model.DetalleDev
 import com.example.mimovil.model.Detalle_Ventas
 import com.example.mimovil.model.Devoluciones
 import com.example.mimovil.model.Empleado
+import com.example.mimovil.model.LoginRequest
 import com.example.mimovil.model.Producto
 import com.example.mimovil.model.Proveedor
 import com.example.mimovil.model.Ventas
@@ -59,15 +60,22 @@ interface ApiServiceKotlin {
         @Path("Documento_Empleado") documento: String
     ): Call<ResponseBody>
 
+
     // ============================
-    // PRODUCTOS
+    // PRODUCTOS (PROTEGIDOS CON JWT)
     // ============================
     @GET("Productos")
-    fun getProducto(): Call<List<String>>
+    fun getProducto(
+        @Header("Authorization") authHeader: String
+    ): Call<List<String>>
 
     @Headers("Content-Type: application/json")
-    @POST("crearProducto")
-    fun crearProducto(@Body producto: Producto): Call<ResponseBody>
+    @POST("RegistroP")
+    fun crearProducto(
+        @Header("Authorization") authHeader: String,
+        @Body producto: Producto
+    ): Call<ResponseBody>
+
 
     // ============================
     // COMPRAS
@@ -87,6 +95,7 @@ interface ApiServiceKotlin {
 
     @DELETE("ComprasE/{ID_Entrada}")
     fun eliminarCompra(@Path("ID_Entrada") ID_Entrada: String): Call<ResponseBody>
+
 
     // ============================
     // DETALLE COMPRAS
@@ -113,9 +122,8 @@ interface ApiServiceKotlin {
 
 
     // ============================
-    // Ventas
+    // VENTAS
     // ============================
-
     @GET("/Ventas")
     fun getVentas(): Call<List<String>>
 
@@ -132,11 +140,10 @@ interface ApiServiceKotlin {
     @DELETE("VentaEliminar/{ID_Venta}")
     fun eliminarVenta(@Path("ID_Venta") documento: String): Call<ResponseBody>
 
-    // ============================
-    // Detalle Ventas
-    // ============================
 
-
+    // ============================
+    // DETALLE VENTAS
+    // ============================
     @GET("/DetalleVentas")
     fun getDetalleVentas(): Call<List<String>>
 
@@ -157,26 +164,30 @@ interface ApiServiceKotlin {
         @Path("ID_Venta") idVenta: String
     ): Call<ResponseBody>
 
-    // ============================
-    // Devolucion y detalle
-    // ============================
 
+    // ============================
+    // DEVOLUCIONES
+    // ============================
     @GET("Devoluciones")
     fun getDevolucion(): Call<List<String>>
+
     @Headers("Content-Type: application/json")
     @POST("AgregarDevolucion")
     fun crearDevolucion(@Body dev: Devoluciones): Call<ResponseBody>
+
     @PUT("ActualizarD/{ID_Devolucion}")
     fun actualizarDevolucion(
         @Path("ID_Devolucion") ID_Devolucion: String,
         @Body dev: Devoluciones
     ): Call<ResponseBody>
+
     @DELETE("EliminarDev/{ID_Devolucion}")
     fun eliminarDevolucion(@Path("ID_Devolucion") ID_Devolucion: String): Call<ResponseBody>
 
 
     @GET("DetalleD")
     fun getDetalleDev(): Call<List<String>>
+
     @Headers("Content-Type: application/json")
     @POST("AgregarDetalleD")
     fun crearDevo(@Body detalledev: DetalleDev): Call<ResponseBody>
@@ -194,28 +205,32 @@ interface ApiServiceKotlin {
         @Path("ID_Venta") ID_Venta: String
     ): Call<ResponseBody>
 
-    // ============================
-// PROVEEDORES
-// ============================
 
-    // GET: Obtener proveedores
+    // ============================
+    // PROVEEDORES
+    // ============================
     @GET("/Proveedor")
     fun getProveedores(): Call<List<String>>
 
-    // POST: Crear proveedor
     @Headers("Content-Type: application/json")
     @POST("/ProveeReg")
     fun crearProveedor(@Body proveedor: Proveedor): Call<ResponseBody>
 
-    // PUT: Actualizar proveedor
     @PUT("/ActualizaProv/{ID_Proveedor}")
     fun actualizarProveedor(
         @Path("ID_Proveedor") idProveedor: String,
         @Body proveedor: Proveedor
     ): Call<ResponseBody>
 
-    // DELETE: Eliminar proveedor
     @DELETE("/EliminarProve/{ID_Proveedor}")
     fun eliminarProveedor(@Path("ID_Proveedor") idProveedor: String): Call<ResponseBody>
 
+
+
+    // ============================
+    // LOGIN (JWT)
+    // ============================
+    @Headers("Content-Type: application/json")
+    @POST("/auth/login")
+    fun loginEmpleado(@Body loginRequest: LoginRequest): Call<ResponseBody>
 }
