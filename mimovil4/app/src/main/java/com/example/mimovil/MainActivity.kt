@@ -9,7 +9,8 @@ import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.example.mimovil.Acciones.Cliente.clienteFragment
-import com.example.mimovil.model.EmpleadosFragment
+import com.example.mimovil.Acciones.Empleado.empleadoFragment
+import com.example.mimovil.Acciones.Proveedor.proveedorFragment
 import com.example.mimovil.model.HomeFragment
 import com.google.android.material.navigation.NavigationView
 
@@ -40,10 +41,10 @@ class MainActivity : AppCompatActivity() {
             when (item.itemId) {
                 R.id.nav_home        -> replaceFragment(HomeFragment())
                 R.id.nav_cliente     -> replaceFragment(clienteFragment())
-                R.id.nav_empleados   -> replaceFragment(EmpleadosFragment())
+                R.id.nav_empleados   -> replaceFragment(empleadoFragment())
                 R.id.nav_ventas      -> replaceFragment(VentasFragment())
                 R.id.nav_compras     -> replaceFragment(ComprasFragment())
-                R.id.nav_proveedores -> replaceFragment(ProveedorFragment())
+                R.id.nav_proveedores -> replaceFragment(proveedorFragment())
                 R.id.nav_productos   -> replaceFragment(ProductoFragment())
                 R.id.nav_devoluciones-> replaceFragment(DevolucionesFragment())
                 R.id.nav_logout      -> {

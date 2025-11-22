@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- SCROLL PARA EL FORMULARIO -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="20dp"
+        android:layout_above="@+id/btnOpcionesEmpleado">
+
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- TÍTULO -->
+            <TextView
+                android:text="Eliminar Empleado"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp" />
+
+            <!-- DOCUMENTO -->
+            <EditText
+                android:id="@+id/etDocumentoEliminarEmp"
+                android:hint="Documento del empleado"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <!-- BUSCAR EMPLEADO -->
+            <Button
+                android:id="@+id/btnBuscarEmpleado"
+                android:text="Buscar Empleado"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp" />
+
+            <!-- ELIMINAR EMPLEADO -->
+            <Button
+                android:id="@+id/btnEliminarEmpleado"
+                android:text="Eliminar Empleado"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp" />
+        </LinearLayout>
+
+    </ScrollView>
+
+    <!-- BOTÓN FIJO ABAJO PARA VOLVER A OPCIONES -->
+    <ImageButton
+        android:id="@+id/btnOpcionesEmpleado"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:src="@drawable/ic_suma"
+        android:background="@android:color/transparent"
+        android:padding="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>

@@ -76,7 +76,7 @@ class clienteactualizar : Fragment(){
             com.google.android.material.R.style.Theme_Design_BottomSheetDialog
         )
 
-        val view = layoutInflater.inflate(R.layout.opciones, null)
+        val view = layoutInflater.inflate(R.layout.opcionescliente, null)
         bottomSheet.setContentView(view)
 
         bottomSheet.window?.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)

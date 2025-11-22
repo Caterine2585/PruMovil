@@ -8,10 +8,11 @@ import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.example.mimovil.Acciones.Cliente.clienteFragment
+import com.example.mimovil.Acciones.Empleado.empleadoFragment
+import com.example.mimovil.Acciones.Proveedor.proveedorFragment
 import com.example.mimovil.ComprasFragment
 import com.example.mimovil.DevolucionesFragment
 import com.example.mimovil.ProductoFragment
-import com.example.mimovil.ProveedorFragment
 import com.example.mimovil.R
 import com.example.mimovil.VentasFragment
 
@@ -34,9 +35,9 @@ class HomeFragment : Fragment() {
         configurarCard(cardProductos, ProductoFragment())
         configurarCard(cardCompra, ComprasFragment())
         configurarCard(cardCliente, clienteFragment())
-        configurarCard(cardEmpleado, EmpleadosFragment())
+        configurarCard(cardEmpleado, empleadoFragment())
         configurarCard(cardVentas, VentasFragment())
-        configurarCard(cardProveedor, ProveedorFragment())
+        configurarCard(cardProveedor, proveedorFragment())
         configurarCard(cardDevolución, DevolucionesFragment())
 
         return view

@@ -1,60 +1,116 @@
 package com.example.mimovil.Acciones.Empleado
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
+import android.widget.TextView
+import androidx.fragment.app.Fragment
 import com.example.mimovil.R
+import com.example.mimovil.api.RetroFitInstance
+import com.example.mimovil.model.Empleado
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [empleadoFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class empleadoFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var tvEmpleados: TextView
+    private lateinit var btnOpciones: ImageButton
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_empleado, container, false)
+
+        val view = inflater.inflate(R.layout.fragment_empleado, container, false)
+
+
+        tvEmpleados = view.findViewById(R.id.tvResultadoEmpleado)
+        btnOpciones = view.findViewById(R.id.btnOpcionesempleado)
+
+        mostrarEmpleados()
+
+        btnOpciones.setOnClickListener { mostrarMenuOpciones() }
+
+        return view
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment empleadoFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            empleadoFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    private fun mostrarEmpleados() {
+        RetroFitInstance.api2kotlin.getEmpleados().enqueue(object : Callback<List<String>> {
+            override fun onResponse(call: Call<List<String>>, response: Response<List<String>>) {
+                if (response.isSuccessful) {
+                    val data = response.body().orEmpty()
+                    if (data.isEmpty()) {
+                        tvEmpleados.text = "No hay empleados registrados."
+                    } else {
+                        val texto = data.joinToString("\n\n") { item ->
+                            val partes = item.split("________")
+                            if (partes.size >= 9) {
+                                """
+                        Nombre: ${partes[2]} 
+                        Apellido:${partes[3]}
+                        Documento: ${partes[1]}
+                        Tipo de documento: ${partes[0]}
+                        Edad: ${partes[4]}
+                        Correo: ${partes[5]}
+                        Teléfono: ${partes[6]}
+                        Género: ${partes[7]}
+                        Estado: ${partes[8]}
+                        Rol: ${partes[9]}
+                        Fotos :${partes[10]}
+                        """.trimIndent()
+                            } else {
+                                "Formato incorrecto: $item"
+                            }
+                        }
+                        tvEmpleados.text = texto
+                    }
+                } else {
+                    tvEmpleados.text = "Error: ${response.code()}"
                 }
             }
+
+            override fun onFailure(call: Call<List<String>>, t: Throwable) {
+                tvEmpleados.text = "Error de conexión: ${t.message}"
+            }
+        })
+    }
+
+        private fun mostrarMenuOpciones() {
+        val bottomSheet = BottomSheetDialog(
+            requireContext(),
+            com.google.android.material.R.style.Theme_Design_BottomSheetDialog
+        )
+
+        val view = layoutInflater.inflate(R.layout.opcionempleado, null)
+        bottomSheet.setContentView(view)
+
+        view.findViewById<android.widget.LinearLayout>(R.id.opregistraremp).setOnClickListener {
+            bottomSheet.dismiss()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.frame_layout, empleadoregistrar())
+                .addToBackStack(null).commit()
+        }
+
+        view.findViewById<android.widget.LinearLayout>(R.id.opactualizaremp).setOnClickListener {
+            bottomSheet.dismiss()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.frame_layout, empleadoactualizar())
+                .addToBackStack(null).commit()
+        }
+
+        view.findViewById<android.widget.LinearLayout>(R.id.opEliminaremp).setOnClickListener {
+            bottomSheet.dismiss()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.frame_layout, empleadoeliminar())
+                .addToBackStack(null).commit()
+        }
+
+        bottomSheet.show()
     }
 }
