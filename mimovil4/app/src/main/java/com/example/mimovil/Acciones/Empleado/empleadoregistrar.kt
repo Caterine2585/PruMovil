@@ -3,7 +3,9 @@ package com.example.mimovil.Acciones.Empleado
 import android.os.Bundle
 import android.view.View
 import android.widget.*
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import android.util.Base64
 import com.example.mimovil.R
 import com.example.mimovil.api.RetroFitInstance
 import com.example.mimovil.model.Empleado
@@ -15,6 +17,34 @@ import retrofit2.Response
 
 class empleadoregistrar : Fragment(R.layout.fragment_crear_empleado) {
 
+    // Guardamos la foto en Base64 aquí
+    private var base64Foto: String? = null
+
+    // ImageView para mostrar la foto
+    private var imgFotoEmpC: ImageView? = null
+
+    // Launcher para abrir la galería
+    private val seleccionarImagenLauncher =
+        registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+            if (uri != null) {
+                try {
+                    val inputStream = requireContext().contentResolver.openInputStream(uri)
+                    val bytes = inputStream?.readBytes()
+                    inputStream?.close()
+
+                    if (bytes != null) {
+                        // Importante: NO usar Base64.DEFAULT para evitar saltos de línea
+                        base64Foto = Base64.encodeToString(bytes, Base64.NO_WRAP)
+                        imgFotoEmpC?.setImageURI(uri)
+                    } else {
+                        Toast.makeText(requireContext(), "No se pudo leer la imagen", Toast.LENGTH_SHORT).show()
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    Toast.makeText(requireContext(), "Error al cargar la imagen", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -34,6 +64,15 @@ class empleadoregistrar : Fragment(R.layout.fragment_crear_empleado) {
         val btnCrear = view.findViewById<Button>(R.id.btnCrearEmpleado)
         val btnOpciones = view.findViewById<ImageButton>(R.id.btnOpcionesCrearEmp)
 
+        // FOTO
+        val btnSeleccionarFoto = view.findViewById<Button>(R.id.btnSeleccionarFotoC)
+        imgFotoEmpC = view.findViewById(R.id.imgFotoEmpC)
+
+        // CLICK PARA SELECCIONAR FOTO
+        btnSeleccionarFoto.setOnClickListener {
+            seleccionarImagenLauncher.launch("image/*")
+        }
+
         // BOTÓN CREAR EMPLEADO
         btnCrear.setOnClickListener {
 
@@ -48,7 +87,8 @@ class empleadoregistrar : Fragment(R.layout.fragment_crear_empleado) {
                 genero = etGenero.text.toString(),
                 idEstado = etEstado.text.toString(),
                 idRol = etRol.text.toString(),
-                fotos = "" // Si quieres agregar foto luego, lo manejas aparte
+                // Mandamos la foto en Base64. Si no ha escogido foto, va vacío.
+                fotos = base64Foto ?: ""
             )
 
             val campos = arrayOf(
@@ -57,20 +97,13 @@ class empleadoregistrar : Fragment(R.layout.fragment_crear_empleado) {
             )
 
             crearEmpleado(empleado, btnCrear, campos)
-            val btnSeleccionarFoto = view.findViewById<Button>(R.id.btnSeleccionarFotoC)
-            val imgFoto = view.findViewById<ImageView>(R.id.imgFotoEmpC)
-
-
-
         }
 
         // BOTÓN MENÚ
         btnOpciones.setOnClickListener {
             mostrarMenuOpciones()
         }
-
     }
-
 
     // =============================
     // CREAR EMPLEADO
@@ -89,6 +122,11 @@ class empleadoregistrar : Fragment(R.layout.fragment_crear_empleado) {
                     if (response.isSuccessful) {
                         Toast.makeText(requireContext(), "Empleado creado correctamente", Toast.LENGTH_SHORT).show()
                         campos.forEach { it.text.clear() }
+                        // Limpiamos también la foto
+                        base64Foto = null
+                        imgFotoEmpC?.setImageDrawable(null)
+
+                        // o alguna imagen por defecto
                     } else {
                         Toast.makeText(requireContext(), "Error: ${response.code()}", Toast.LENGTH_LONG).show()
                     }

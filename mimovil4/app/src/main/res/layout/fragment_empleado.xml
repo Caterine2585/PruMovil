@@ -1,51 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
     <!-- CONTENIDO SCROLLEABLE -->
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/btnOpcionesempleado">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/btnOpcionesempleado">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="20dp">
-
-            <TextView
-                android:id="@+id/tvTituloCliente"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Gestión de empleado"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:layout_marginBottom="16dp" />
+                android:orientation="vertical"
+                android:padding="20dp">
 
+            <!-- TÍTULO -->
             <TextView
-                android:id="@+id/tvResultadoEmpleado"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:padding="10dp"
-                android:background="#EEEEEE"
-                android:text="Aquí se mostrarán los resultados" />
+                    android:id="@+id/tvTituloCliente"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Gestión de empleado"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:layout_marginBottom="16dp" />
+
+            <!-- (Opcional) Texto de estado / mensajes -->
+            <TextView
+                    android:id="@+id/tvResultadoEmpleado"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:padding="10dp"
+                    android:background="#EEEEEE"
+                    android:text="Aquí se mostrarán los resultados" />
+
+            <!-- Contenedor dinámico para empleados + botón Mostrar imagen -->
+            <LinearLayout
+                    android:id="@+id/layoutEmpleados"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="16dp" />
 
         </LinearLayout>
     </ScrollView>
 
     <!-- BOTÓN + CENTRADO ABAJO -->
     <ImageButton
-        android:id="@+id/btnOpcionesempleado"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:src="@drawable/ic_suma"
-        android:background="@android:color/transparent"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:padding="10dp" />
+            android:id="@+id/btnOpcionesempleado"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@drawable/ic_suma"
+            android:background="@android:color/transparent"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:padding="10dp" />
 
 </RelativeLayout>
