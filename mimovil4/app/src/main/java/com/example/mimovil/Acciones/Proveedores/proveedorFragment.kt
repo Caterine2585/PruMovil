@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -43,21 +44,29 @@ class proveedorFragment : Fragment() {
         return view
     }
 
+
+    //MENÚ DESPLEGABLE
+
     private fun mostrarMenuOpciones() {
-
-        val bottomSheet = BottomSheetDialog(
-            requireContext(),
-            com.google.android.material.R.style.Theme_Design_BottomSheetDialog
-        )
-
+        val bottomSheet = BottomSheetDialog(requireContext(), com.google.android.material.R.style.Theme_Design_BottomSheetDialog)
         val view = layoutInflater.inflate(R.layout.opcionproveedor, null)
-        bottomSheet.setContentView(view)
 
+        bottomSheet.setContentView(view)
+        bottomSheet.window?.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
+
+        val opVer = view.findViewById<LinearLayout>(R.id.opverproveedor)
         val opRegistrar = view.findViewById<LinearLayout>(R.id.opregistrarproveedor)
         val opActualizar = view.findViewById<LinearLayout>(R.id.opactualizarproveedor)
         val opEliminar = view.findViewById<LinearLayout>(R.id.opEliminarproveedor)
 
-        // ✔ Navegar a Registrar proveedor
+        opVer.setOnClickListener {
+            bottomSheet.dismiss()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.frame_layout, proveedorFragment())
+                .addToBackStack(null)
+                .commit()
+        }
+
         opRegistrar.setOnClickListener {
             bottomSheet.dismiss()
             parentFragmentManager.beginTransaction()
@@ -66,7 +75,6 @@ class proveedorFragment : Fragment() {
                 .commit()
         }
 
-        // ✔ Navegar a Actualizar proveedor
         opActualizar.setOnClickListener {
             bottomSheet.dismiss()
             parentFragmentManager.beginTransaction()
@@ -75,7 +83,6 @@ class proveedorFragment : Fragment() {
                 .commit()
         }
 
-        // ✔ Navegar a Eliminar proveedor
         opEliminar.setOnClickListener {
             bottomSheet.dismiss()
             parentFragmentManager.beginTransaction()
@@ -86,6 +93,7 @@ class proveedorFragment : Fragment() {
 
         bottomSheet.show()
     }
+
 
     private fun mostrarProveedores() {
 

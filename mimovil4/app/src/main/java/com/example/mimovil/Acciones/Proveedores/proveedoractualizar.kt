@@ -7,6 +7,11 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.*
 import androidx.fragment.app.Fragment
+import com.example.mimovil.Acciones.Cliente.clienteFragment
+import com.example.mimovil.Acciones.Cliente.clienteactualizar
+import com.example.mimovil.Acciones.Cliente.clienteeliminar
+import com.example.mimovil.Acciones.Cliente.clienteregistrar
+import com.example.mimovil.Acciones.Proveedor.proveedorFragment
 import com.example.mimovil.R
 import com.example.mimovil.api.RetroFitInstance
 import com.example.mimovil.model.Proveedor
@@ -36,7 +41,7 @@ class proveedoractualizar : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_actualizarproveedor, container, false)
 
-        // Inputs
+
         etBuscarId = view.findViewById(R.id.etBuscarIdProveedor)
         etId = view.findViewById(R.id.etIdProveedor)
         etNombre = view.findViewById(R.id.etNombreProveedor)
@@ -44,12 +49,12 @@ class proveedoractualizar : Fragment() {
         etTelefono = view.findViewById(R.id.etTelefonoProveedor)
         etEstado = view.findViewById(R.id.etEstadoProveedor)
 
-        // Botones
+
         btnBuscar = view.findViewById(R.id.btnBuscarProveedor)
         btnActualizar = view.findViewById(R.id.btnActualizarProveedor)
         btnOpciones = view.findViewById(R.id.btnOpciones)
 
-        // Eventos
+
         btnBuscar.setOnClickListener { buscarProveedor() }
         btnActualizar.setOnClickListener { actualizarProveedor() }
         btnOpciones.setOnClickListener { mostrarMenuOpciones() }
@@ -57,21 +62,29 @@ class proveedoractualizar : Fragment() {
         return view
     }
 
-    // ============================
-    // Menú opciones (BottomSheet)
-    // ============================
+
+
+    //MENÚ DESPLEGABLE
+
     private fun mostrarMenuOpciones() {
-        val bottomSheet = BottomSheetDialog(
-            requireContext(),
-            com.google.android.material.R.style.Theme_Design_BottomSheetDialog
-        )
+        val bottomSheet = BottomSheetDialog(requireContext(), com.google.android.material.R.style.Theme_Design_BottomSheetDialog)
         val view = layoutInflater.inflate(R.layout.opcionproveedor, null)
+
         bottomSheet.setContentView(view)
         bottomSheet.window?.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
 
+        val opVer = view.findViewById<LinearLayout>(R.id.opverproveedor)
         val opRegistrar = view.findViewById<LinearLayout>(R.id.opregistrarproveedor)
         val opActualizar = view.findViewById<LinearLayout>(R.id.opactualizarproveedor)
         val opEliminar = view.findViewById<LinearLayout>(R.id.opEliminarproveedor)
+
+        opVer.setOnClickListener {
+            bottomSheet.dismiss()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.frame_layout, proveedorFragment())
+                .addToBackStack(null)
+                .commit()
+        }
 
         opRegistrar.setOnClickListener {
             bottomSheet.dismiss()
@@ -82,8 +95,11 @@ class proveedoractualizar : Fragment() {
         }
 
         opActualizar.setOnClickListener {
-            Toast.makeText(requireContext(), "Ya estás en Actualizar", Toast.LENGTH_SHORT).show()
             bottomSheet.dismiss()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.frame_layout, proveedoractualizar())
+                .addToBackStack(null)
+                .commit()
         }
 
         opEliminar.setOnClickListener {
@@ -97,9 +113,10 @@ class proveedoractualizar : Fragment() {
         bottomSheet.show()
     }
 
-    // ============================
+
+
     // Buscar proveedor (GET)
-    // ============================
+
     private fun buscarProveedor() {
         val id = etBuscarId.text.toString()
         if (id.isEmpty()) {
@@ -144,9 +161,9 @@ class proveedoractualizar : Fragment() {
             })
     }
 
-    // ============================
+
     // Actualizar proveedor (PUT)
-    // ============================
+
     private fun actualizarProveedor() {
         val id = etId.text.toString()
         if (id.isEmpty()) {

@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="20dp"
-        android:layout_above="@id/btnOpciones">
+        android:layout_above="@+id/btnOpciones">
 
         <LinearLayout
             android:orientation="vertical"
@@ -28,30 +28,40 @@
             <!-- ID PROVEEDOR -->
             <EditText
                 android:id="@+id/etIdProveedorEliminar"
-                android:hint="ID del proveedor a eliminar"
+                android:hint="ID del proveedor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <!-- BUSCAR PROVEEDOR -->
+            <!-- BOTÓN BUSCAR -->
             <Button
                 android:id="@+id/btnBuscarProveedorEliminar"
                 android:text="Buscar Proveedor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"/>
+                android:layout_marginTop="20dp" />
 
-            <!-- ELIMINAR PROVEEDOR -->
+            <!-- TEXTO RESULTADO -->
+            <TextView
+                android:id="@+id/tvResultadoProveedor"
+                android:text="Ingrese un ID para buscar..."
+                android:textSize="16sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp" />
+
+            <!-- BOTÓN ELIMINAR -->
             <Button
                 android:id="@+id/btnEliminarProveedor"
                 android:text="Eliminar Proveedor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"/>
+                android:layout_marginTop="25dp" />
+
         </LinearLayout>
 
     </ScrollView>
 
-    <!-- BOTÓN FIJO ABAJO PARA VOLVER A OPCIONES -->
+    <!-- BOTÓN OPCIONES ABAJO -->
     <ImageButton
         android:id="@+id/btnOpciones"
         android:layout_width="110dp"
@@ -60,5 +70,6 @@
         android:background="@android:color/transparent"
         android:padding="10dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true" />
+
 </RelativeLayout>

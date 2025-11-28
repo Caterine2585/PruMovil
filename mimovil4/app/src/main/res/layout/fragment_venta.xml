@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- CONTENIDO SCROLLEABLE -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/btnOpcionesVenta">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                android:id="@+id/tvTituloVentas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Gestión de Ventas"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_marginBottom="16dp" />
+
+            <TextView
+                android:id="@+id/tvResultadoVentas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:padding="10dp"
+                android:background="#EEEEEE"
+                android:text="Aquí se mostrarán las ventas" />
+            <Button
+                android:id="@+id/btnDetalleventa"
+                android:text="Detalle venta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- BOTÓN + CENTRADO ABAJO -->
+    <ImageButton
+        android:id="@+id/btnOpcionesVenta"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:src="@drawable/ic_suma"
+        android:background="@android:color/transparent"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:padding="10dp" />
+
+</RelativeLayout>

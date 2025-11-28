@@ -4,25 +4,24 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.Toast
+import android.view.WindowManager
+import android.widget.*
 import androidx.fragment.app.Fragment
 import com.example.mimovil.R
 import com.example.mimovil.api.RetroFitInstance
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class clienteeliminar : Fragment(){
-
+class clienteeliminar : Fragment() {
 
     private lateinit var etDocumentoEliminar: EditText
     private lateinit var btnBuscarEliminar: Button
     private lateinit var btnEliminarCliente: Button
-    private lateinit var btnOpciones: ImageButton   // Botón flotante
+    private lateinit var btnOpciones: ImageButton
+    private lateinit var tvResultadoCliente: TextView   // ⬅ NUEVO
 
     private var documentoEncontrado: String? = null
 
@@ -34,25 +33,21 @@ class clienteeliminar : Fragment(){
         val view = inflater.inflate(R.layout.fragment_eliminar_cliente, container, false)
 
         etDocumentoEliminar = view.findViewById(R.id.etDocumentoEliminar)
-        btnBuscarEliminar = view.findViewById(R.id.btnBuscarEliminar)
+        btnBuscarEliminar = view.findViewById(R.id.btnBuscarCliente)
         btnEliminarCliente = view.findViewById(R.id.btnEliminarCliente)
         btnOpciones = view.findViewById(R.id.btnOpciones)
+        tvResultadoCliente = view.findViewById(R.id.tvResultadoCliente) // ⬅ NUEVO
 
-        // Buscar cliente antes de eliminar
         btnBuscarEliminar.setOnClickListener { buscarCliente() }
-
-        // Eliminar cliente
         btnEliminarCliente.setOnClickListener { eliminarCliente() }
-
-        // Volver al menú de opciones (bottom sheet)
-        btnOpciones.setOnClickListener { abrirOpciones() }
+        btnOpciones.setOnClickListener { mostrarMenuOpciones() }
 
         return view
     }
 
-    // ============================
-    //      BUSCAR CLIENTE
-    // ============================
+
+    // BUSCAR CLIENTE
+
     private fun buscarCliente() {
 
         val documento = etDocumentoEliminar.text.toString()
@@ -77,13 +72,30 @@ class clienteeliminar : Fragment(){
 
                     val lista = response.body().orEmpty()
 
-                    // Buscar por coincidencia EXACTA
+
                     val encontrado = lista.find { it.startsWith("${documento}_") }
 
                     if (encontrado == null) {
-                        Toast.makeText(requireContext(), "Cliente NO encontrado", Toast.LENGTH_SHORT).show()
+
+                        tvResultadoCliente.text = "Cliente NO encontrado"
+
                         documentoEncontrado = null
+                        Toast.makeText(requireContext(), "Cliente NO encontrado", Toast.LENGTH_SHORT).show()
+
                     } else {
+
+                        val partes = encontrado.split("________")
+
+                        tvResultadoCliente.text = """
+                            Documento: ${partes.getOrNull(0)}
+                            Nombre: ${partes.getOrNull(1)}
+                            Apellido:${partes.getOrNull(2)}
+                            Teléfono: ${partes.getOrNull(3)}
+                            Fecha de nacimiento: ${partes.getOrNull(4)}
+                            Genero: ${partes.getOrNull(5)}
+                            Estado: ${partes.getOrNull(6)}
+                        """.trimIndent()
+
                         documentoEncontrado = documento
                         Toast.makeText(requireContext(), "Cliente encontrado. Puede eliminarlo.", Toast.LENGTH_SHORT).show()
                     }
@@ -95,9 +107,9 @@ class clienteeliminar : Fragment(){
             })
     }
 
-    // ============================
-    //      ELIMINAR CLIENTE
-    // ============================
+
+    //ELIMINAR CLIENTE
+
     private fun eliminarCliente() {
 
         val documento = documentoEncontrado
@@ -118,6 +130,7 @@ class clienteeliminar : Fragment(){
                     if (response.isSuccessful) {
                         Toast.makeText(requireContext(), "Cliente eliminado correctamente", Toast.LENGTH_SHORT).show()
                         etDocumentoEliminar.text.clear()
+                        tvResultadoCliente.text = ""
                         documentoEncontrado = null
                     } else {
                         Toast.makeText(requireContext(), "Error al eliminar", Toast.LENGTH_SHORT).show()
@@ -130,14 +143,52 @@ class clienteeliminar : Fragment(){
             })
     }
 
-    // ============================
-    //     VOLVER A OPCIONES
-    // ============================
-    private fun abrirOpciones() {
-        parentFragmentManager.beginTransaction()
-            .replace(R.id.frame_layout, clienteFragment())
-            .addToBackStack(null)
-            .commit()
+
+    //MENÚ DESPLEGABLE
+
+    private fun mostrarMenuOpciones() {
+        val bottomSheet = BottomSheetDialog(requireContext(), com.google.android.material.R.style.Theme_Design_BottomSheetDialog)
+        val view = layoutInflater.inflate(R.layout.opcionescliente, null)
+        bottomSheet.setContentView(view)
+        bottomSheet.window?.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
+
+        val opVer = view.findViewById<LinearLayout>(R.id.opver)
+        val opRegistrar = view.findViewById<LinearLayout>(R.id.opregistrar)
+        val opActualizar = view.findViewById<LinearLayout>(R.id.opactualizar)
+        val opEliminar = view.findViewById<LinearLayout>(R.id.opEliminar)
+
+        opVer.setOnClickListener {
+            bottomSheet.dismiss()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.frame_layout, clienteFragment())
+                .addToBackStack(null)
+                .commit()
+        }
+
+        opRegistrar.setOnClickListener {
+            bottomSheet.dismiss()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.frame_layout, clienteregistrar())
+                .addToBackStack(null)
+                .commit()
+        }
+
+        opActualizar.setOnClickListener {
+            bottomSheet.dismiss()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.frame_layout, clienteactualizar())
+                .addToBackStack(null)
+                .commit()
+        }
+
+        opEliminar.setOnClickListener {
+            bottomSheet.dismiss()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.frame_layout, clienteeliminar())
+                .addToBackStack(null)
+                .commit()
+        }
+
+        bottomSheet.show()
     }
 }
-

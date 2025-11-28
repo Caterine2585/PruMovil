@@ -2,8 +2,10 @@ package com.example.mimovil.Acciones.Proveedores
 
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
 import android.widget.*
 import androidx.fragment.app.Fragment
+import com.example.mimovil.Acciones.Proveedor.proveedorFragment
 import com.example.mimovil.R
 import com.example.mimovil.api.RetroFitInstance
 import com.example.mimovil.model.Proveedor
@@ -28,9 +30,9 @@ class Proveedorregistrar : Fragment(R.layout.fragment_crearproveedor) {
         val btnOpciones = view.findViewById<ImageButton>(R.id.btnOpcionesProveedor)
         val btnCrear = view.findViewById<Button>(R.id.btnCrearProveedor)
 
-        // BOTÓN CREAR PROVEEDOR
+
         btnCrear.setOnClickListener {
-            // Validar campos obligatorios
+
             if (etId.text.isEmpty() || etNombre.text.isEmpty()) {
                 Toast.makeText(requireContext(), "ID y Nombre son obligatorios", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
@@ -54,9 +56,9 @@ class Proveedorregistrar : Fragment(R.layout.fragment_crearproveedor) {
         }
     }
 
-    // =============================
+
     // CREAR PROVEEDOR
-    // =============================
+
     private fun crearProveedor(
         proveedor: Proveedor,
         btnCrear: Button,
@@ -83,25 +85,36 @@ class Proveedorregistrar : Fragment(R.layout.fragment_crearproveedor) {
             })
     }
 
-    // =============================
-    // MENÚ OPCIONES
-    // =============================
+
+    //MENÚ DESPLEGABLE
+
     private fun mostrarMenuOpciones() {
-        val bottomSheet = BottomSheetDialog(
-            requireContext(),
-            com.google.android.material.R.style.Theme_Design_BottomSheetDialog
-        )
-
+        val bottomSheet = BottomSheetDialog(requireContext(), com.google.android.material.R.style.Theme_Design_BottomSheetDialog)
         val view = layoutInflater.inflate(R.layout.opcionproveedor, null)
-        bottomSheet.setContentView(view)
-        bottomSheet.window?.clearFlags(android.view.WindowManager.LayoutParams.FLAG_DIM_BEHIND)
 
+        bottomSheet.setContentView(view)
+        bottomSheet.window?.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
+
+        val opVer = view.findViewById<LinearLayout>(R.id.opverproveedor)
         val opRegistrar = view.findViewById<LinearLayout>(R.id.opregistrarproveedor)
         val opActualizar = view.findViewById<LinearLayout>(R.id.opactualizarproveedor)
         val opEliminar = view.findViewById<LinearLayout>(R.id.opEliminarproveedor)
 
-        // Registrar → ya estás aquí
-        opRegistrar.setOnClickListener { bottomSheet.dismiss() }
+        opVer.setOnClickListener {
+            bottomSheet.dismiss()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.frame_layout, proveedorFragment())
+                .addToBackStack(null)
+                .commit()
+        }
+
+        opRegistrar.setOnClickListener {
+            bottomSheet.dismiss()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.frame_layout, Proveedorregistrar())
+                .addToBackStack(null)
+                .commit()
+        }
 
         opActualizar.setOnClickListener {
             bottomSheet.dismiss()
@@ -121,4 +134,5 @@ class Proveedorregistrar : Fragment(R.layout.fragment_crearproveedor) {
 
         bottomSheet.show()
     }
+
 }

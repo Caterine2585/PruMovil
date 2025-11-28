@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="20dp"
+        android:layout_above="@id/btnOpcionesVentas">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:text="Registrar Venta"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp" />
+
+            <!-- ID Venta -->
+            <EditText
+                android:id="@+id/etIDVenta"
+                android:hint="ID Venta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <!-- DOCUMENTO CLIENTE -->
+            <EditText
+                android:id="@+id/etDocumentoCliente"
+                android:hint="Documento Cliente"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <!-- DOCUMENTO EMPLEADO -->
+            <EditText
+                android:id="@+id/etDocumentoEmpleado"
+                android:hint="Documento Empleado"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <!-- BOTÓN CREAR VENTA -->
+            <Button
+                android:id="@+id/btnCrearVenta"
+                android:text="Registrar Venta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <!-- BOTÓN OPCIONES ABAJO -->
+    <ImageButton
+        android:id="@+id/btnOpcionesVentas"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:src="@drawable/ic_suma"
+        android:background="@android:color/transparent"
+        android:padding="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"/>
+</RelativeLayout>

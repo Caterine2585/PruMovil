@@ -10,6 +10,10 @@ import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import android.graphics.BitmapFactory
+import com.example.mimovil.Acciones.Compras.ComprasFragment
+import com.example.mimovil.Acciones.Compras.Comprasactualizar
+import com.example.mimovil.Acciones.Compras.Compraseliminar
+import com.example.mimovil.Acciones.Compras.Comprasregistrar
 import com.example.mimovil.R
 import com.example.mimovil.api.RetroFitInstance
 import com.example.mimovil.model.Empleado
@@ -23,7 +27,7 @@ import java.net.URL
 class empleadoactualizar : Fragment() {
 
     // ⚠️ Cambia esto a la IP/puerto de tu backend
-    private val BASE_URL_IMG = "http://192.168.80.17:8080/"
+    private val BASE_URL_IMG = "http://192.168.101.12:8080/"
 
     // INPUTS
     private lateinit var etBuscarDocumento: EditText
@@ -41,7 +45,7 @@ class empleadoactualizar : Fragment() {
 
     // IMAGEN
     private lateinit var imgFoto: ImageView
-    private var fotoBase64: String? = null   // solo se llena si el usuario elige NUEVA foto
+    private var fotoBase64: String? = null
 
     // BOTONES
     private lateinit var btnBuscar: Button
@@ -49,9 +53,9 @@ class empleadoactualizar : Fragment() {
     private lateinit var btnSeleccionarFoto: Button
     private lateinit var btnOpciones: ImageButton
 
-    // =============================
+
     //  SELECTOR DE IMAGEN (GetContent)
-    // =============================
+
     private val seleccionarImagenLauncher =
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
             if (uri != null) {
@@ -63,7 +67,7 @@ class empleadoactualizar : Fragment() {
                     inputStream?.close()
 
                     if (bytes != null) {
-                        // NO_WRAP para evitar saltos de línea
+
                         fotoBase64 = Base64.encodeToString(bytes, Base64.NO_WRAP)
                     } else {
                         Toast.makeText(
@@ -90,9 +94,9 @@ class empleadoactualizar : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_actualizar_empleado, container, false)
 
-        // =============================
+
         //  ENLAZAR VISTAS
-        // =============================
+
         etBuscarDocumento = view.findViewById(R.id.etBuscarDocumentoEmp)
 
         etDocumento = view.findViewById(R.id.etDocumentoEmp)
@@ -113,9 +117,9 @@ class empleadoactualizar : Fragment() {
         btnActualizar = view.findViewById(R.id.btnActualizarEmpleado)
         btnOpciones = view.findViewById(R.id.btnOpcionesempleado)
 
-        // =============================
-        //     EVENTOS
-        // =============================
+
+        //EVENTOS
+
         btnBuscar.setOnClickListener { buscarEmpleado() }
         btnSeleccionarFoto.setOnClickListener { seleccionarFoto() }
         btnActualizar.setOnClickListener { actualizarEmpleado() }
@@ -124,24 +128,26 @@ class empleadoactualizar : Fragment() {
         return view
     }
 
-    // =============================
-    //      MENÚ OPCIONES
-    // =============================
+    // MENÚ OPCIONES
+
     private fun mostrarMenuOpciones() {
-
-        val bottomSheet = BottomSheetDialog(
-            requireContext(),
-            com.google.android.material.R.style.Theme_Design_BottomSheetDialog
-        )
-
+        val bottomSheet = BottomSheetDialog(requireContext(), com.google.android.material.R.style.Theme_Design_BottomSheetDialog)
         val view = layoutInflater.inflate(R.layout.opcionempleado, null)
         bottomSheet.setContentView(view)
-
         bottomSheet.window?.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
 
+        val opVer = view.findViewById<LinearLayout>(R.id.opveremp)
         val opRegistrar = view.findViewById<LinearLayout>(R.id.opregistraremp)
         val opActualizar = view.findViewById<LinearLayout>(R.id.opactualizaremp)
         val opEliminar = view.findViewById<LinearLayout>(R.id.opEliminaremp)
+
+        opVer.setOnClickListener {
+            bottomSheet.dismiss()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.frame_layout, empleadoFragment())
+                .addToBackStack(null)
+                .commit()
+        }
 
         opRegistrar.setOnClickListener {
             bottomSheet.dismiss()
@@ -152,8 +158,11 @@ class empleadoactualizar : Fragment() {
         }
 
         opActualizar.setOnClickListener {
-            Toast.makeText(requireContext(), "Ya estás en Actualizar", Toast.LENGTH_SHORT).show()
             bottomSheet.dismiss()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.frame_layout, empleadoactualizar())
+                .addToBackStack(null)
+                .commit()
         }
 
         opEliminar.setOnClickListener {
@@ -167,9 +176,9 @@ class empleadoactualizar : Fragment() {
         bottomSheet.show()
     }
 
-    // ==============================================
-    //          ✔ GET: BUSCAR EMPLEADO
-    // ==============================================
+
+    //GET: BUSCAR EMPLEADO
+
     private fun buscarEmpleado() {
         val documento = etBuscarDocumento.text.toString()
 
@@ -232,14 +241,10 @@ class empleadoactualizar : Fragment() {
                     etEstado.setText(partes[8])
                     etRol.setText(partes[9])
 
-                    // FOTO: ahora tratamos partes[10] como RUTA (uploads/...) y la cargamos desde el backend
-                    if (partes.size >= 11 && partes[10].isNotEmpty()) {
-                        val rutaFoto = partes[10] // ejemplo: "uploads/empleado_123.jpg"
-                        val url = BASE_URL_IMG + rutaFoto
 
-                        // Importante: no ponemos nada en fotoBase64 aquí.
-                        // Solo estamos mostrando la foto actual desde el servidor.
-                        // fotoBase64 se llenará SOLO si el usuario elige una nueva imagen.
+                    if (partes.size >= 11 && partes[10].isNotEmpty()) {
+                        val rutaFoto = partes[10]
+                        val url = BASE_URL_IMG + rutaFoto
 
                         Thread {
                             try {
@@ -262,11 +267,11 @@ class empleadoactualizar : Fragment() {
                             }
                         }.start()
                     } else {
-                        // No hay foto → dejamos el cuadro gris
+
                         imgFoto.setImageDrawable(null)
                     }
 
-                    // No tocamos fotoBase64 aquí → sigue null hasta que el usuario seleccione una nueva foto
+
                     fotoBase64 = null
 
                     Toast.makeText(
@@ -286,16 +291,16 @@ class empleadoactualizar : Fragment() {
             })
     }
 
-    // ==============================================
-    //          ✔ SELECTOR DE IMAGEN
-    // ==============================================
+
+    //SELECTOR DE IMAGEN
+
     private fun seleccionarFoto() {
         seleccionarImagenLauncher.launch("image/*")
     }
 
-    // ==============================================
-    //        ✔ PUT: ACTUALIZAR EMPLEADO
-    // ==============================================
+
+    //PUT: ACTUALIZAR EMPLEADO
+
     private fun actualizarEmpleado() {
 
         val documento = etDocumento.text.toString()
@@ -320,7 +325,7 @@ class empleadoactualizar : Fragment() {
             genero = etGenero.text.toString(),
             idEstado = etEstado.text.toString(),
             idRol = etRol.text.toString(),
-            // Si no se cambia la foto, fotoBase64 sigue null → se manda "" y el backend mantiene la foto actual
+
             fotos = fotoBase64 ?: ""
         )
 

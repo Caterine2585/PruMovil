@@ -1,4 +1,5 @@
-package com.example.mimovil.model
+package com.example.mimovil
+
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,11 +11,10 @@ import androidx.fragment.app.FragmentTransaction
 import com.example.mimovil.Acciones.Cliente.clienteFragment
 import com.example.mimovil.Acciones.Empleado.empleadoFragment
 import com.example.mimovil.Acciones.Proveedor.proveedorFragment
-import com.example.mimovil.ComprasFragment
-import com.example.mimovil.DevolucionesFragment
-import com.example.mimovil.ProductoFragment
-import com.example.mimovil.R
-import com.example.mimovil.VentasFragment
+import com.example.mimovil.Acciones.Compras.ComprasFragment
+import com.example.mimovil.Acciones.Ventas.ventasFragment
+import com.example.mimovil.Acciones.Devoluciones.DevolucionFragment
+
 
 class HomeFragment : Fragment() {
 
@@ -30,15 +30,16 @@ class HomeFragment : Fragment() {
         val cardEmpleado = view.findViewById<LinearLayout>(R.id.cardEmpleado)
         val cardVentas = view.findViewById<LinearLayout>(R.id.cardVenta)
         val cardProveedor = view.findViewById<LinearLayout>(R.id.cardProveedor)
-        val cardDevolución = view.findViewById<LinearLayout>(R.id.cardDevolución)
+        val cardDevolucion = view.findViewById<LinearLayout>(R.id.cardDevolucion)   // ← SIN TILDE
 
         configurarCard(cardProductos, ProductoFragment())
         configurarCard(cardCompra, ComprasFragment())
         configurarCard(cardCliente, clienteFragment())
         configurarCard(cardEmpleado, empleadoFragment())
-        configurarCard(cardVentas, VentasFragment())
+        configurarCard(cardVentas, ventasFragment())
         configurarCard(cardProveedor, proveedorFragment())
-        configurarCard(cardDevolución, DevolucionesFragment())
+        configurarCard(cardDevolucion, DevolucionFragment()) // ← NOMBRE CORRECTO
+
 
         return view
     }

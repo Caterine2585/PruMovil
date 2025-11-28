@@ -19,7 +19,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class clienteregistrar : Fragment(R.layout.fragment_crear_cliente){
+class clienteregistrar : Fragment(R.layout.fragment_crear_cliente) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -65,32 +65,45 @@ class clienteregistrar : Fragment(R.layout.fragment_crear_cliente){
                 })
         }
 
-        // ✔ BOTÓN OPCIONES — ABRE EL MISMO MENÚ
+
         btnOpciones.setOnClickListener {
             mostrarMenuOpciones()
         }
     }
 
-    private fun mostrarMenuOpciones() {
 
+    //MENÚ DESPLEGABLE
+
+    private fun mostrarMenuOpciones() {
         val bottomSheet = BottomSheetDialog(
             requireContext(),
             com.google.android.material.R.style.Theme_Design_BottomSheetDialog
         )
-
         val view = layoutInflater.inflate(R.layout.opcionescliente, null)
         bottomSheet.setContentView(view)
-
         bottomSheet.window?.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
 
+        val opVer = view.findViewById<LinearLayout>(R.id.opver)
         val opRegistrar = view.findViewById<LinearLayout>(R.id.opregistrar)
         val opActualizar = view.findViewById<LinearLayout>(R.id.opactualizar)
         val opEliminar = view.findViewById<LinearLayout>(R.id.opEliminar)
 
-        // Registrar → ya estamos aquí, no hace nada
-        opRegistrar.setOnClickListener { bottomSheet.dismiss() }
+        opVer.setOnClickListener {
+            bottomSheet.dismiss()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.frame_layout, clienteFragment())
+                .addToBackStack(null)
+                .commit()
+        }
 
-        // Ir a actualizar
+        opRegistrar.setOnClickListener {
+            bottomSheet.dismiss()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.frame_layout, clienteregistrar())
+                .addToBackStack(null)
+                .commit()
+        }
+
         opActualizar.setOnClickListener {
             bottomSheet.dismiss()
             parentFragmentManager.beginTransaction()
@@ -99,7 +112,6 @@ class clienteregistrar : Fragment(R.layout.fragment_crear_cliente){
                 .commit()
         }
 
-        // Ir a eliminar
         opEliminar.setOnClickListener {
             bottomSheet.dismiss()
             parentFragmentManager.beginTransaction()
@@ -110,8 +122,7 @@ class clienteregistrar : Fragment(R.layout.fragment_crear_cliente){
 
         bottomSheet.show()
     }
+
 }
-
-
 
 
