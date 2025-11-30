@@ -48,7 +48,11 @@ class ProductoFragment : Fragment(R.layout.fragment_producto) {
             )
 
             if (producto.ID_Producto.isEmpty() || producto.Nombre_Producto.isEmpty()) {
-                Toast.makeText(requireContext(), "ID Producto y Nombre del Producto son obligatorios", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    "ID Producto y Nombre del Producto son obligatorios",
+                    Toast.LENGTH_SHORT
+                ).show()
                 return@setOnClickListener
             }
 
@@ -56,7 +60,11 @@ class ProductoFragment : Fragment(R.layout.fragment_producto) {
             val token = prefs.getString("jwt_token", null)
 
             if (token.isNullOrEmpty()) {
-                Toast.makeText(requireContext(), "Debes iniciar sesión primero (token no encontrado)", Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    requireContext(),
+                    "Debes iniciar sesión primero (token no encontrado)",
+                    Toast.LENGTH_LONG
+                ).show()
                 return@setOnClickListener
             }
 
@@ -64,7 +72,10 @@ class ProductoFragment : Fragment(R.layout.fragment_producto) {
 
             RetroFitInstance.api2kotlin.crearProducto(authHeader, producto)
                 .enqueue(object : Callback<ResponseBody> {
-                    override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                    override fun onResponse(
+                        call: Call<ResponseBody>,
+                        response: Response<ResponseBody>
+                    ) {
                         if (response.isSuccessful) {
                             val body = response.body()?.string().orEmpty()
                             Toast.makeText(requireContext(), "OK: $body", Toast.LENGTH_LONG).show()
@@ -81,11 +92,20 @@ class ProductoFragment : Fragment(R.layout.fragment_producto) {
                             )
                         } else {
                             val err = response.errorBody()?.string().orEmpty()
-                            Toast.makeText(requireContext(), "Error: ${response.code()} $err", Toast.LENGTH_LONG).show()
+                            Toast.makeText(
+                                requireContext(),
+                                "Error: ${response.code()} $err",
+                                Toast.LENGTH_LONG
+                            ).show()
                         }
                     }
+
                     override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                        Toast.makeText(requireContext(), "Fallo: ${t.message}", Toast.LENGTH_LONG).show()
+                        Toast.makeText(
+                            requireContext(),
+                            "Fallo: ${t.message}",
+                            Toast.LENGTH_LONG
+                        ).show()
                     }
                 })
         }
@@ -96,7 +116,11 @@ class ProductoFragment : Fragment(R.layout.fragment_producto) {
             val token = prefs.getString("jwt_token", null)
 
             if (token.isNullOrEmpty()) {
-                Toast.makeText(requireContext(), "Debes iniciar sesión primero (token no encontrado)", Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    requireContext(),
+                    "Debes iniciar sesión primero (token no encontrado)",
+                    Toast.LENGTH_LONG
+                ).show()
                 return@setOnClickListener
             }
 
@@ -111,7 +135,6 @@ class ProductoFragment : Fragment(R.layout.fragment_producto) {
                         if (response.isSuccessful) {
                             val data = response.body().orEmpty()
                             if (data.isNotEmpty()) {
-                                // Cada producto en una línea o bloque
                                 val texto = data.joinToString("\n\n") { it }
                                 tvProductos.text = texto
                             } else {
@@ -119,12 +142,20 @@ class ProductoFragment : Fragment(R.layout.fragment_producto) {
                             }
                         } else {
                             val err = response.errorBody()?.string().orEmpty()
-                            Toast.makeText(requireContext(), "Error: ${response.code()} $err", Toast.LENGTH_LONG).show()
+                            Toast.makeText(
+                                requireContext(),
+                                "Error: ${response.code()} $err",
+                                Toast.LENGTH_LONG
+                            ).show()
                         }
                     }
 
                     override fun onFailure(call: Call<List<String>>, t: Throwable) {
-                        Toast.makeText(requireContext(), "Fallo: ${t.message}", Toast.LENGTH_LONG).show()
+                        Toast.makeText(
+                            requireContext(),
+                            "Fallo: ${t.message}",
+                            Toast.LENGTH_LONG
+                        ).show()
                     }
                 })
         }

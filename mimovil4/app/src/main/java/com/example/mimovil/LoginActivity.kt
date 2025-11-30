@@ -2,7 +2,7 @@ package com.example.mimovil
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log       // 🔥 IMPORT NECESARIO
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -43,9 +43,11 @@ class LoginActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+            // ✅ AHORA COINCIDE CON EL BACKEND:
+            //  documento_Empleado  +  contrasena
             val request = LoginRequest(
-                documento = documento,
-                idContrasena = contrasena
+                documentoEmpleado = documento,
+                contrasena = contrasena
             )
 
             RetroFitInstance.api2kotlin.loginEmpleado(request)
@@ -58,7 +60,7 @@ class LoginActivity : AppCompatActivity() {
 
                             val token = response.body()?.string().orEmpty()
 
-                            // 🔥🔥 MOSTRAR TOKEN EN LOGCAT 🔥🔥
+                            // 🔥 Ver el token en Logcat
                             Log.d("TOKEN_DEBUG", "TOKEN RECIBIDO: $token")
 
                             if (token.length < 20) {

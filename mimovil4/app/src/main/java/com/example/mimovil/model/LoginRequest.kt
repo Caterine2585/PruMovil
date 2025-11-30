@@ -3,9 +3,9 @@ package com.example.mimovil.model
 import com.google.gson.annotations.SerializedName
 
 data class LoginRequest(
-    @SerializedName("Documento_Empleado")
-    val documento: String,
+    @SerializedName("documento_Empleado")
+    val documentoEmpleado: String,
 
-    @SerializedName("ID_Contrasena")
-    val idContrasena: String
+    @SerializedName("contrasena")
+    val contrasena: String
 )

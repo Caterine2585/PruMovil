@@ -11,8 +11,6 @@ import com.example.mimovil.model.LoginRequest
 import com.example.mimovil.model.Producto
 import com.example.mimovil.model.Proveedor
 import com.example.mimovil.model.Ventas
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
@@ -224,7 +222,6 @@ interface ApiServiceKotlin {
 
     @DELETE("/EliminarProve/{ID_Proveedor}")
     fun eliminarProveedor(@Path("ID_Proveedor") idProveedor: String): Call<ResponseBody>
-
 
 
     // ============================
