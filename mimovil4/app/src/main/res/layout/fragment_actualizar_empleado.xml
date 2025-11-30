@@ -27,7 +27,7 @@
             <!-- BUSCAR EMPLEADO -->
             <EditText
                 android:id="@+id/etBuscarDocumentoEmp"
-                android:hint="Documento para buscar"
+                android:hint="Documento del empleado"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -83,7 +83,7 @@
 
             <EditText
                 android:id="@+id/etGeneroEmp"
-                android:hint="(F/M)"
+                android:hint="F/M"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 

@@ -6,6 +6,11 @@ import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import android.util.Base64
+import android.view.WindowManager
+import com.example.mimovil.Acciones.Cliente.clienteFragment
+import com.example.mimovil.Acciones.Cliente.clienteactualizar
+import com.example.mimovil.Acciones.Cliente.clienteeliminar
+import com.example.mimovil.Acciones.Cliente.clienteregistrar
 import com.example.mimovil.R
 import com.example.mimovil.api.RetroFitInstance
 import com.example.mimovil.model.Empleado
@@ -16,14 +21,9 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class empleadoregistrar : Fragment(R.layout.fragment_crear_empleado) {
-
-    // Guardamos la foto en Base64 aquí
     private var base64Foto: String? = null
-
-    // ImageView para mostrar la foto
     private var imgFotoEmpC: ImageView? = null
 
-    // Launcher para abrir la galería
     private val seleccionarImagenLauncher =
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
             if (uri != null) {
@@ -33,7 +33,7 @@ class empleadoregistrar : Fragment(R.layout.fragment_crear_empleado) {
                     inputStream?.close()
 
                     if (bytes != null) {
-                        // Importante: NO usar Base64.DEFAULT para evitar saltos de línea
+
                         base64Foto = Base64.encodeToString(bytes, Base64.NO_WRAP)
                         imgFotoEmpC?.setImageURI(uri)
                     } else {
@@ -68,12 +68,12 @@ class empleadoregistrar : Fragment(R.layout.fragment_crear_empleado) {
         val btnSeleccionarFoto = view.findViewById<Button>(R.id.btnSeleccionarFotoC)
         imgFotoEmpC = view.findViewById(R.id.imgFotoEmpC)
 
-        // CLICK PARA SELECCIONAR FOTO
+
         btnSeleccionarFoto.setOnClickListener {
             seleccionarImagenLauncher.launch("image/*")
         }
 
-        // BOTÓN CREAR EMPLEADO
+
         btnCrear.setOnClickListener {
 
             val empleado = Empleado(
@@ -87,7 +87,7 @@ class empleadoregistrar : Fragment(R.layout.fragment_crear_empleado) {
                 genero = etGenero.text.toString(),
                 idEstado = etEstado.text.toString(),
                 idRol = etRol.text.toString(),
-                // Mandamos la foto en Base64. Si no ha escogido foto, va vacío.
+
                 fotos = base64Foto ?: ""
             )
 
@@ -99,15 +99,15 @@ class empleadoregistrar : Fragment(R.layout.fragment_crear_empleado) {
             crearEmpleado(empleado, btnCrear, campos)
         }
 
-        // BOTÓN MENÚ
+
         btnOpciones.setOnClickListener {
             mostrarMenuOpciones()
         }
     }
 
-    // =============================
+
     // CREAR EMPLEADO
-    // =============================
+
     private fun crearEmpleado(
         empleado: Empleado,
         btnCrear: Button,
@@ -139,27 +139,34 @@ class empleadoregistrar : Fragment(R.layout.fragment_crear_empleado) {
             })
     }
 
-    // =============================
     // MENÚ OPCIONES
-    // =============================
+
     private fun mostrarMenuOpciones() {
-
-        val bottomSheet = BottomSheetDialog(
-            requireContext(),
-            com.google.android.material.R.style.Theme_Design_BottomSheetDialog
-        )
-
+        val bottomSheet = BottomSheetDialog(requireContext(), com.google.android.material.R.style.Theme_Design_BottomSheetDialog)
         val view = layoutInflater.inflate(R.layout.opcionempleado, null)
         bottomSheet.setContentView(view)
+        bottomSheet.window?.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
 
-        bottomSheet.window?.clearFlags(android.view.WindowManager.LayoutParams.FLAG_DIM_BEHIND)
-
+        val opVer = view.findViewById<LinearLayout>(R.id.opveremp)
         val opRegistrar = view.findViewById<LinearLayout>(R.id.opregistraremp)
         val opActualizar = view.findViewById<LinearLayout>(R.id.opactualizaremp)
         val opEliminar = view.findViewById<LinearLayout>(R.id.opEliminaremp)
 
-        // Registrar → ya estás aquí
-        opRegistrar.setOnClickListener { bottomSheet.dismiss() }
+        opVer.setOnClickListener {
+            bottomSheet.dismiss()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.frame_layout, empleadoFragment())
+                .addToBackStack(null)
+                .commit()
+        }
+
+        opRegistrar.setOnClickListener {
+            bottomSheet.dismiss()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.frame_layout, empleadoregistrar())
+                .addToBackStack(null)
+                .commit()
+        }
 
         opActualizar.setOnClickListener {
             bottomSheet.dismiss()
@@ -179,4 +186,5 @@ class empleadoregistrar : Fragment(R.layout.fragment_crear_empleado) {
 
         bottomSheet.show()
     }
+
 }

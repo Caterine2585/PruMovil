@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -12,6 +13,10 @@ import android.widget.TextView
 import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.mimovil.Acciones.Cliente.clienteFragment
+import com.example.mimovil.Acciones.Cliente.clienteactualizar
+import com.example.mimovil.Acciones.Cliente.clienteeliminar
+import com.example.mimovil.Acciones.Cliente.clienteregistrar
 import com.example.mimovil.R
 import com.example.mimovil.api.RetroFitInstance
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -22,8 +27,7 @@ import java.net.URL
 
 class empleadoFragment : Fragment() {
 
-    // ⚠️ AJUSTA ESTA URL A TU IP / PUERTO DEL BACKEND
-    private val BASE_URL_IMG = "http://192.168.80.17:8080/"
+    private val BASE_URL_IMG = "http://192.168.101.12:8080/"
 
     private lateinit var btnOpciones: ImageButton
     private lateinit var layoutEmpleados: LinearLayout
@@ -46,11 +50,11 @@ class empleadoFragment : Fragment() {
         return view
     }
 
-    // ============================
-    //       GET + Mostrar imagen
-    // ============================
+
+    //  GET EMPLEADOS + FOTO
+
     private fun mostrarEmpleados() {
-        // Limpiamos lo anterior
+
         layoutEmpleados.removeAllViews()
 
         RetroFitInstance.api2kotlin.getEmpleados()
@@ -60,10 +64,10 @@ class empleadoFragment : Fragment() {
                     response: Response<List<String>>
                 ) {
                     if (response.isSuccessful) {
+
                         val empleados = response.body().orEmpty()
 
                         if (empleados.isEmpty()) {
-                            // Si no hay empleados, mostramos un texto dentro del layout
                             val txt = TextView(requireContext()).apply {
                                 text = "No hay empleados registrados."
                                 textSize = 16f
@@ -73,42 +77,57 @@ class empleadoFragment : Fragment() {
                         }
 
                         for (item in empleados) {
-                            val p = item.split("________")
 
-                            // Esperamos al menos 11 campos
-                            if (p.size >= 11) {
-                                val doc = p[0]
-                                val nombreCompleto = "${p[2]} ${p[3]}"
-                                val correo = p[5]
-                                val tel = p[6]
-                                val rol = p[9]
-                                val fotoRuta = p[10]   // ej: "uploads/empleado_123.jpg"
+                            val partes = item.split("________")
 
-                                // Contenedor vertical para cada empleado
+                            if (partes.size >= 10) {
+
+
+                                //   CAMPOS EXACTOS DE EMPLEADOS
+
+                                val doc = partes[0]
+                                val tipoDoc = partes[1]
+                                val nombre = partes[2]
+                                val apellido = partes[3]
+                                val edad = partes[4]
+                                val correo = partes[5]
+                                val tel = partes[6]
+                                val genero = partes[7]
+                                val estado = partes[8]
+                                val rol = partes[9]
+                                val fotoRuta = if (partes.size > 10) partes[10] else ""
+
+                                val nombreCompleto = "$nombre $apellido"
+
+
                                 val contenedor = LinearLayout(requireContext()).apply {
                                     orientation = LinearLayout.VERTICAL
-                                    setPadding(0, 16, 0, 16)
+                                    setPadding(0, 20, 0, 20)
                                 }
 
-                                // Texto info
+                                // Texto con todos los campos
                                 val info = TextView(requireContext()).apply {
                                     text = """
                                         Documento: $doc
+                                        Tipo doc.: $tipoDoc
                                         Nombre: $nombreCompleto
+                                        Edad: $edad
                                         Correo: $correo
                                         Teléfono: $tel
+                                        Género: $genero
+                                        Estado: $estado
                                         Rol: $rol
                                     """.trimIndent()
                                     textSize = 15f
                                 }
 
-                                // Botón "Mostrar imagen"
+
                                 val btnMostrar = Button(requireContext()).apply {
                                     text = "Mostrar imagen"
                                     textSize = 12f
                                 }
 
-                                // ImageView para la miniatura
+
                                 val thumbMaxH = (160 * resources.displayMetrics.density).toInt()
 
                                 val img = ImageView(requireContext()).apply {
@@ -117,10 +136,14 @@ class empleadoFragment : Fragment() {
                                         LinearLayout.LayoutParams.WRAP_CONTENT
                                     )
                                     adjustViewBounds = true
-                                    maxHeight = thumbMaxH        // miniatura
+                                    maxHeight = thumbMaxH
                                     scaleType = ImageView.ScaleType.FIT_CENTER
-                                    visibility = View.GONE       // se muestra al tocar el botón
+                                    visibility = View.GONE
                                 }
+
+
+                                //     LÓGICA DE LA FOTO
+                                // (NO SE MOVIÓ NADA)
 
                                 btnMostrar.setOnClickListener {
                                     if (img.visibility == View.GONE) {
@@ -161,19 +184,21 @@ class empleadoFragment : Fragment() {
                                     }
                                 }
 
+                                // Agregar elementos
                                 contenedor.addView(info)
                                 contenedor.addView(btnMostrar)
                                 contenedor.addView(img)
 
                                 layoutEmpleados.addView(contenedor)
+
                             } else {
-                                // Por si el backend manda algo raro
                                 val errorTxt = TextView(requireContext()).apply {
                                     text = "Formato incorrecto: $item"
                                 }
                                 layoutEmpleados.addView(errorTxt)
                             }
                         }
+
                     } else {
                         Toast.makeText(
                             requireContext(),
@@ -193,37 +218,53 @@ class empleadoFragment : Fragment() {
             })
     }
 
-    // ============================
-    //        MENÚ OPCIONES
-    // ============================
+
+    //  MENÚ OPCIONES
+
     private fun mostrarMenuOpciones() {
         val bottomSheet = BottomSheetDialog(
             requireContext(),
             com.google.android.material.R.style.Theme_Design_BottomSheetDialog
         )
-
         val view = layoutInflater.inflate(R.layout.opcionempleado, null)
         bottomSheet.setContentView(view)
+        bottomSheet.window?.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
 
-        view.findViewById<android.widget.LinearLayout>(R.id.opregistraremp).setOnClickListener {
+        val opVer = view.findViewById<LinearLayout>(R.id.opveremp)
+        val opRegistrar = view.findViewById<LinearLayout>(R.id.opregistraremp)
+        val opActualizar = view.findViewById<LinearLayout>(R.id.opactualizaremp)
+        val opEliminar = view.findViewById<LinearLayout>(R.id.opEliminaremp)
+
+        opVer.setOnClickListener {
+            bottomSheet.dismiss()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.frame_layout, empleadoFragment())
+                .addToBackStack(null)
+                .commit()
+        }
+
+        opRegistrar.setOnClickListener {
             bottomSheet.dismiss()
             parentFragmentManager.beginTransaction()
                 .replace(R.id.frame_layout, empleadoregistrar())
-                .addToBackStack(null).commit()
+                .addToBackStack(null)
+                .commit()
         }
 
-        view.findViewById<android.widget.LinearLayout>(R.id.opactualizaremp).setOnClickListener {
+        opActualizar.setOnClickListener {
             bottomSheet.dismiss()
             parentFragmentManager.beginTransaction()
                 .replace(R.id.frame_layout, empleadoactualizar())
-                .addToBackStack(null).commit()
+                .addToBackStack(null)
+                .commit()
         }
 
-        view.findViewById<android.widget.LinearLayout>(R.id.opEliminaremp).setOnClickListener {
+        opEliminar.setOnClickListener {
             bottomSheet.dismiss()
             parentFragmentManager.beginTransaction()
                 .replace(R.id.frame_layout, empleadoeliminar())
-                .addToBackStack(null).commit()
+                .addToBackStack(null)
+                .commit()
         }
 
         bottomSheet.show()

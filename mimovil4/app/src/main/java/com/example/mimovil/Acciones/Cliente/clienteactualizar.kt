@@ -16,8 +16,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class clienteactualizar : Fragment(){
-
+class clienteactualizar : Fragment() {
 
     private lateinit var etBuscarDocumento: EditText
 
@@ -33,6 +32,8 @@ class clienteactualizar : Fragment(){
     private lateinit var btnActualizar: Button
     private lateinit var btnOpciones: ImageButton
 
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -40,7 +41,6 @@ class clienteactualizar : Fragment(){
 
         val view = inflater.inflate(R.layout.fragment_actualizar_cliente, container, false)
 
-        // Inputs
         etBuscarDocumento = view.findViewById(R.id.etBuscarDocumento)
 
         etDocumento = view.findViewById(R.id.etDocumentoC)
@@ -51,41 +51,40 @@ class clienteactualizar : Fragment(){
         etGenero = view.findViewById(R.id.etGeneroC)
         etEstado = view.findViewById(R.id.etEstadoC)
 
-        // Botones
         btnBuscar = view.findViewById(R.id.btnBuscar)
         btnActualizar = view.findViewById(R.id.btnActualizarCliente)
         btnOpciones = view.findViewById(R.id.btnOpciones)
 
-        // Eventos
         btnBuscar.setOnClickListener { buscarCliente() }
         btnActualizar.setOnClickListener { actualizarCliente() }
-
-        // ✔ BOTÓN OPCIONES — MISMO MENÚ
         btnOpciones.setOnClickListener { mostrarMenuOpciones() }
 
         return view
     }
 
-    // ============================
-    //   ✔ MENÚ OPCIONES (BottomSheet)
-    // ============================
+
+
+    //MENÚ DESPLEGABLE
+
     private fun mostrarMenuOpciones() {
-
-        val bottomSheet = BottomSheetDialog(
-            requireContext(),
-            com.google.android.material.R.style.Theme_Design_BottomSheetDialog
-        )
-
+        val bottomSheet = BottomSheetDialog(requireContext(), com.google.android.material.R.style.Theme_Design_BottomSheetDialog)
         val view = layoutInflater.inflate(R.layout.opcionescliente, null)
         bottomSheet.setContentView(view)
-
         bottomSheet.window?.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
 
+        val opVer = view.findViewById<LinearLayout>(R.id.opver)
         val opRegistrar = view.findViewById<LinearLayout>(R.id.opregistrar)
         val opActualizar = view.findViewById<LinearLayout>(R.id.opactualizar)
         val opEliminar = view.findViewById<LinearLayout>(R.id.opEliminar)
 
-        // Registrar → abrir registrar
+        opVer.setOnClickListener {
+            bottomSheet.dismiss()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.frame_layout, clienteFragment())
+                .addToBackStack(null)
+                .commit()
+        }
+
         opRegistrar.setOnClickListener {
             bottomSheet.dismiss()
             parentFragmentManager.beginTransaction()
@@ -94,13 +93,14 @@ class clienteactualizar : Fragment(){
                 .commit()
         }
 
-        // Actualizar → estamos en actualizar, nada
         opActualizar.setOnClickListener {
-            Toast.makeText(requireContext(), "Ya estás en Actualizar", Toast.LENGTH_SHORT).show()
             bottomSheet.dismiss()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.frame_layout, clienteactualizar())
+                .addToBackStack(null)
+                .commit()
         }
 
-        // Eliminar → abrir eliminar
         opEliminar.setOnClickListener {
             bottomSheet.dismiss()
             parentFragmentManager.beginTransaction()
@@ -112,10 +112,12 @@ class clienteactualizar : Fragment(){
         bottomSheet.show()
     }
 
-    // ============================
-    //  ✔ Buscar cliente (GET)
-    // ============================
+
+
+    //GET
+
     private fun buscarCliente() {
+
         val documento = etBuscarDocumento.text.toString()
 
         if (documento.isEmpty()) {
@@ -138,9 +140,8 @@ class clienteactualizar : Fragment(){
 
                     val lista = response.body().orEmpty()
 
-                    // Buscar por formato "documento________..."
                     val clienteEncontrado = lista.find {
-                        it.startsWith(documento + "_")
+                        it.startsWith("${documento}_")
                     }
 
                     if (clienteEncontrado == null) {
@@ -154,6 +155,7 @@ class clienteactualizar : Fragment(){
                         Toast.makeText(requireContext(), "Formato inválido", Toast.LENGTH_SHORT).show()
                         return
                     }
+
 
                     etDocumento.setText(partes[0])
                     etNombre.setText(partes[1])
@@ -172,9 +174,9 @@ class clienteactualizar : Fragment(){
             })
     }
 
-    // ============================
-    //  ✔ Actualizar cliente (PUT)
-    // ============================
+
+    // PUT
+
     private fun actualizarCliente() {
 
         val documento = etDocumento.text.toString()
@@ -214,6 +216,3 @@ class clienteactualizar : Fragment(){
             })
     }
 }
-
-
-

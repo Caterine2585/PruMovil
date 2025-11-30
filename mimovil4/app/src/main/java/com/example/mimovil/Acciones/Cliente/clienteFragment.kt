@@ -8,7 +8,6 @@ import android.view.WindowManager
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.mimovil.R
 import com.example.mimovil.api.RetroFitInstance
@@ -43,23 +42,27 @@ class clienteFragment : Fragment() {
         return view
     }
 
+    // MENÚ DESPLEGABLE
+
     private fun mostrarMenuOpciones() {
-
-        val bottomSheet = BottomSheetDialog(
-            requireContext(),
-            com.google.android.material.R.style.Theme_Design_BottomSheetDialog
-        )
-
+        val bottomSheet = BottomSheetDialog(requireContext(), com.google.android.material.R.style.Theme_Design_BottomSheetDialog)
         val view = layoutInflater.inflate(R.layout.opcionescliente, null)
         bottomSheet.setContentView(view)
-
         bottomSheet.window?.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
 
+        val opVer = view.findViewById<LinearLayout>(R.id.opver)
         val opRegistrar = view.findViewById<LinearLayout>(R.id.opregistrar)
         val opActualizar = view.findViewById<LinearLayout>(R.id.opactualizar)
         val opEliminar = view.findViewById<LinearLayout>(R.id.opEliminar)
 
-        // ✔ Navegar a Registrar cliente
+        opVer.setOnClickListener {
+            bottomSheet.dismiss()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.frame_layout, clienteFragment())
+                .addToBackStack(null)
+                .commit()
+        }
+
         opRegistrar.setOnClickListener {
             bottomSheet.dismiss()
             parentFragmentManager.beginTransaction()
@@ -68,7 +71,6 @@ class clienteFragment : Fragment() {
                 .commit()
         }
 
-        // ✔ Navegar a Actualizar cliente
         opActualizar.setOnClickListener {
             bottomSheet.dismiss()
             parentFragmentManager.beginTransaction()
@@ -77,7 +79,6 @@ class clienteFragment : Fragment() {
                 .commit()
         }
 
-        // ✔ Navegar a Eliminar cliente
         opEliminar.setOnClickListener {
             bottomSheet.dismiss()
             parentFragmentManager.beginTransaction()
@@ -88,6 +89,8 @@ class clienteFragment : Fragment() {
 
         bottomSheet.show()
     }
+
+
 
     private fun mostrarClientes() {
 

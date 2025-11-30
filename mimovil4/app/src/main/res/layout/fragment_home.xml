@@ -218,7 +218,7 @@
 
             <!-- TARJETA DEVOLUCIÓN -->
             <LinearLayout
-                android:id="@+id/cardDevolución"
+                android:id="@+id/cardDevolucion"
                 android:layout_width="0dp"
                 android:layout_height="130dp"
                 android:layout_weight="1"

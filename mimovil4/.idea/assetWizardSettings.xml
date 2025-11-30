@@ -18,7 +18,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialsymbolsoutlined/close_small/outline_close_small_24.xml" />
+                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialsymbolsoutlined/content_paste_search/outline_content_paste_search_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -28,7 +28,8 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_cerrar" />
+                            <entry key="color" value="8692f7" />
+                            <entry key="outputName" value="ic_ver" />
                             <entry key="sourceFile" value="C:\Users\rnico\Music\trabajo\mimovil4" />
                           </map>
                         </option>

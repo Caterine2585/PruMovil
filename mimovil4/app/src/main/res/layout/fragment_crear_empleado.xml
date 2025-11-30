@@ -75,7 +75,7 @@
 
             <EditText
                 android:id="@+id/etGeneroEmpC"
-                android:hint="Género (F/M)"
+                android:hint="F/M"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 

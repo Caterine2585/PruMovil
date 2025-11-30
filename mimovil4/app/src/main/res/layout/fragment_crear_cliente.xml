@@ -38,7 +38,7 @@
             <EditText android:id="@+id/etFechaC" android:hint="2005-02-26"
                 android:layout_width="match_parent" android:layout_height="wrap_content" />
 
-            <EditText android:id="@+id/etGeneroC" android:hint="(M/F)"
+            <EditText android:id="@+id/etGeneroC" android:hint="M/F"
                 android:layout_width="match_parent" android:layout_height="wrap_content" />
 
             <EditText android:id="@+id/etEstadoC" android:hint="Estado" android:text="EST001"

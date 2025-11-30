@@ -27,7 +27,7 @@
             <!-- CAMPO DE BÚSQUEDA -->
             <EditText
                 android:id="@+id/etBuscarDocumento"
-                android:hint="Documento para buscar"
+                android:hint="Documento del cliente "
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
