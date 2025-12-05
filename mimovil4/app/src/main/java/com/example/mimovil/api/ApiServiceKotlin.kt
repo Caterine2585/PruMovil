@@ -74,6 +74,22 @@ interface ApiServiceKotlin {
         @Body producto: Producto
     ): Call<ResponseBody>
 
+    // 🔹 NUEVO: ACTUALIZAR PRODUCTO (PUT)
+    @Headers("Content-Type: application/json")
+    @PUT("ActualizaProd/{id}")
+    fun actualizarProducto(
+        @Header("Authorization") authHeader: String,
+        @Path("id") id: String,
+        @Body producto: Producto
+    ): Call<ResponseBody>
+
+    // 🔹 NUEVO: ELIMINAR PRODUCTO (DELETE)
+    @DELETE("EliminarPro/{id}")
+    fun eliminarProducto(
+        @Header("Authorization") authHeader: String,
+        @Path("id") id: String
+    ): Call<ResponseBody>
+
 
     // ============================
     // COMPRAS

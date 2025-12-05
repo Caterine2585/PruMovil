@@ -29,9 +29,13 @@ class ProductoFragment : Fragment(R.layout.fragment_producto) {
         val etID_Estado       = view.findViewById<EditText>(R.id.etID_Estado)
         val etID_Gama         = view.findViewById<EditText>(R.id.etID_Gama)
         val etFotos           = view.findViewById<EditText>(R.id.etFotos)
-        val btnCrear          = view.findViewById<Button>(R.id.btnCrearProducto)
-        val btnGet            = view.findViewById<Button>(R.id.btnGetProductos)
-        val tvProductos       = view.findViewById<TextView>(R.id.tvProductos)
+
+        val btnCrear      = view.findViewById<Button>(R.id.btnCrearProducto)
+        val btnGet        = view.findViewById<Button>(R.id.btnGetProductos)
+        val btnActualizar = view.findViewById<Button>(R.id.btnActualizarProducto)
+        val btnEliminar   = view.findViewById<Button>(R.id.btnEliminarProducto)
+
+        val tvProductos   = view.findViewById<TextView>(R.id.tvProductos)
 
         // ========== POST: Crear producto ==========
         btnCrear.setOnClickListener {
@@ -110,7 +114,7 @@ class ProductoFragment : Fragment(R.layout.fragment_producto) {
                 })
         }
 
-        // ========== GET: Listar productos ==========
+        // ========== GET: Listar productos (FORMATEADO, sin "________") ==========
         btnGet.setOnClickListener {
             val prefs = requireContext().getSharedPreferences("usuario", Context.MODE_PRIVATE)
             val token = prefs.getString("jwt_token", null)
@@ -134,11 +138,31 @@ class ProductoFragment : Fragment(R.layout.fragment_producto) {
                     ) {
                         if (response.isSuccessful) {
                             val data = response.body().orEmpty()
-                            if (data.isNotEmpty()) {
-                                val texto = data.joinToString("\n\n") { it }
-                                tvProductos.text = texto
+
+                            if (data.isEmpty()) {
+                                tvProductos.text = "No hay productos disponibles."
                             } else {
-                                tvProductos.text = "No hay productos disponibles"
+                                val texto = data.joinToString("\n\n") { item ->
+                                    val partes = item.split("________")
+
+                                    if (partes.size >= 9) {
+                                        """
+                                            ID Producto: ${partes[0]}
+                                            Nombre: ${partes[1]}
+                                            Descripción: ${partes[2]}
+                                            Precio Venta: ${partes[3]}
+                                            Stock Mínimo: ${partes[4]}
+                                            ID Categoría: ${partes[5]}
+                                            ID Estado: ${partes[6]}
+                                            ID Gama: ${partes[7]}
+                                            Foto: ${partes[8]}
+                                        """.trimIndent()
+                                    } else {
+                                        "Formato incorrecto: $item"
+                                    }
+                                }
+
+                                tvProductos.text = texto
                             }
                         } else {
                             val err = response.errorBody()?.string().orEmpty()
@@ -154,6 +178,139 @@ class ProductoFragment : Fragment(R.layout.fragment_producto) {
                         Toast.makeText(
                             requireContext(),
                             "Fallo: ${t.message}",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                })
+        }
+
+        // ========== PUT: Actualizar producto ==========
+        btnActualizar.setOnClickListener {
+            val id = etID_Producto.text.toString().trim()
+
+            if (id.isEmpty()) {
+                Toast.makeText(
+                    requireContext(),
+                    "Debes escribir el ID del producto a actualizar",
+                    Toast.LENGTH_SHORT
+                ).show()
+                return@setOnClickListener
+            }
+
+            val producto = Producto(
+                ID_Producto     = id,
+                Nombre_Producto = etNombre_Producto.text.toString().trim(),
+                Descripcion     = etDescripcion.text.toString().trim(),
+                Precio_Venta    = etPrecio_Venta.text.toString().trim(),
+                Stock_Minimo    = etStock_Minimo.text.toString().trim(),
+                ID_Categoria    = etID_Categoria.text.toString().trim(),
+                ID_Estado       = etID_Estado.text.toString().trim().ifEmpty { "EST001" },
+                ID_Gama         = etID_Gama.text.toString().trim(),
+                Fotos           = etFotos.text.toString().trim()
+            )
+
+            val prefs = requireContext().getSharedPreferences("usuario", Context.MODE_PRIVATE)
+            val token = prefs.getString("jwt_token", null)
+
+            if (token.isNullOrEmpty()) {
+                Toast.makeText(
+                    requireContext(),
+                    "Debes iniciar sesión primero (token no encontrado)",
+                    Toast.LENGTH_LONG
+                ).show()
+                return@setOnClickListener
+            }
+
+            val authHeader = "Bearer $token"
+
+            RetroFitInstance.api2kotlin.actualizarProducto(authHeader, id, producto)
+                .enqueue(object : Callback<ResponseBody> {
+                    override fun onResponse(
+                        call: Call<ResponseBody>,
+                        response: Response<ResponseBody>
+                    ) {
+                        if (response.isSuccessful) {
+                            val body = response.body()?.string().orEmpty()
+                            Toast.makeText(
+                                requireContext(),
+                                "Actualizado: $body",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        } else {
+                            val err = response.errorBody()?.string().orEmpty()
+                            Toast.makeText(
+                                requireContext(),
+                                "Error al actualizar: ${response.code()} $err",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
+                    }
+
+                    override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                        Toast.makeText(
+                            requireContext(),
+                            "Fallo al actualizar: ${t.message}",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                })
+        }
+
+        // ========== DELETE: Eliminar producto ==========
+        btnEliminar.setOnClickListener {
+            val id = etID_Producto.text.toString().trim()
+
+            if (id.isEmpty()) {
+                Toast.makeText(
+                    requireContext(),
+                    "Debes escribir el ID del producto a eliminar",
+                    Toast.LENGTH_SHORT
+                ).show()
+                return@setOnClickListener
+            }
+
+            val prefs = requireContext().getSharedPreferences("usuario", Context.MODE_PRIVATE)
+            val token = prefs.getString("jwt_token", null)
+
+            if (token.isNullOrEmpty()) {
+                Toast.makeText(
+                    requireContext(),
+                    "Debes iniciar sesión primero (token no encontrado)",
+                    Toast.LENGTH_LONG
+                ).show()
+                return@setOnClickListener
+            }
+
+            val authHeader = "Bearer $token"
+
+            RetroFitInstance.api2kotlin.eliminarProducto(authHeader, id)
+                .enqueue(object : Callback<ResponseBody> {
+                    override fun onResponse(
+                        call: Call<ResponseBody>,
+                        response: Response<ResponseBody>
+                    ) {
+                        if (response.isSuccessful) {
+                            val body = response.body()?.string().orEmpty()
+                            Toast.makeText(
+                                requireContext(),
+                                "Eliminado: $body",
+                                Toast.LENGTH_LONG
+                            ).show()
+                            limpiarCampos(etID_Producto)
+                        } else {
+                            val err = response.errorBody()?.string().orEmpty()
+                            Toast.makeText(
+                                requireContext(),
+                                "Error al eliminar: ${response.code()} $err",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
+                    }
+
+                    override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                        Toast.makeText(
+                            requireContext(),
+                            "Fallo al eliminar: ${t.message}",
                             Toast.LENGTH_LONG
                         ).show()
                     }

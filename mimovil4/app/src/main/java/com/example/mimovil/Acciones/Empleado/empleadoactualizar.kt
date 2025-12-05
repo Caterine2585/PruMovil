@@ -27,7 +27,7 @@ import java.net.URL
 class empleadoactualizar : Fragment() {
 
     // ⚠️ Cambia esto a la IP/puerto de tu backend
-    private val BASE_URL_IMG = "http://192.168.101.12:8080/"
+    private val BASE_URL_IMG = "http://192.168.80.13:8080/"
 
     // INPUTS
     private lateinit var etBuscarDocumento: EditText

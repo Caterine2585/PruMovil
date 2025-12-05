@@ -9,6 +9,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+        <!-- CAMPOS DEL PRODUCTO -->
+
         <EditText
                 android:id="@+id/etID_Producto"
                 android:hint="ID_Producto"
@@ -66,7 +68,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-        <!-- Botón POST -->
+        <!-- BOTONES CRUD -->
+
+        <!-- Crear (POST) -->
         <Button
                 android:id="@+id/btnCrearProducto"
                 android:text="Crear Producto"
@@ -74,7 +78,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp" />
 
-        <!-- Botón GET -->
+        <!-- Ver (GET) -->
         <Button
                 android:id="@+id/btnGetProductos"
                 android:text="Ver Productos"
@@ -82,7 +86,24 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp" />
 
-        <!-- TextView para mostrar la lista -->
+        <!-- Actualizar (PUT) -->
+        <Button
+                android:id="@+id/btnActualizarProducto"
+                android:text="Actualizar Producto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp" />
+
+        <!-- Eliminar (DELETE) -->
+        <Button
+                android:id="@+id/btnEliminarProducto"
+                android:text="Eliminar Producto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp" />
+
+        <!-- RESULTADO / LISTADO -->
+
         <TextView
                 android:id="@+id/tvProductos"
                 android:layout_width="match_parent"

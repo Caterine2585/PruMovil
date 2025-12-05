@@ -27,7 +27,7 @@ import java.net.URL
 
 class empleadoFragment : Fragment() {
 
-    private val BASE_URL_IMG = "http://192.168.101.12:8080/"
+    private val BASE_URL_IMG = "http://192.168.80.13:8080/"
 
     private lateinit var btnOpciones: ImageButton
     private lateinit var layoutEmpleados: LinearLayout
