@@ -14,6 +14,7 @@ import com.example.mimovil.Acciones.Proveedor.proveedorFragment
 import com.example.mimovil.Acciones.Compras.ComprasFragment
 import com.example.mimovil.Acciones.Ventas.ventasFragment
 import com.example.mimovil.Acciones.Devoluciones.DevolucionFragment
+import com.example.mimovil.Acciones.Producto.ProductoFragment
 
 
 class HomeFragment : Fragment() {

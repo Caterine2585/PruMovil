@@ -88,10 +88,9 @@ class proveedoreliminar : Fragment() {
                         tvResultadoProveedor.text = """
                             ID: ${partes.getOrNull(0)}
                             Nombre: ${partes.getOrNull(1)}
-                            Teléfono: ${partes.getOrNull(2)}
-                            Dirección: ${partes.getOrNull(3)}
-                            Correo: ${partes.getOrNull(4)}
-                            Estado: ${partes.getOrNull(5)}
+                            Corrreo: ${partes.getOrNull(2)}
+                            Teléfono: ${partes.getOrNull(3)}
+                            Estado: ${partes.getOrNull(4)}
                         """.trimIndent()
 
                         idProveedorEncontrado = id

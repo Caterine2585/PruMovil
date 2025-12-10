@@ -7,15 +7,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="20dp"
-        android:layout_above="@+id/btnOpcionesDetalleDevolucion">
+        android:layout_above="@+id/btnOpcionesProducto">
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <!-- TÍTULO -->
             <TextView
-                android:text="Eliminar Detalle de Devolución"
+                android:text="Eliminar Producto"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:gravity="center"
@@ -23,39 +24,34 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp" />
 
-            <!-- ID Detalle Dev -->
+            <!-- ID PRODUCTO -->
             <EditText
-                android:id="@+id/etIDDetalleDevDD"
-                android:hint="ID  Devolucion"
+                android:id="@+id/etID_ProductoEliminar"
+                android:hint="ID del Producto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <!-- ID Devolución -->
-            <EditText
-                android:id="@+id/etIDDevolucionDD"
-                android:hint="ID Venta"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp" />
-
+            <!-- BOTÓN BUSCAR -->
             <Button
-                android:id="@+id/btnBuscarDetalleDevolucion"
-                android:text="Buscar Detalle"
+                android:id="@+id/btnBuscarProducto"
+                android:text="Buscar Producto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp" />
 
+            <!-- RESULTADO -->
             <TextView
-                android:id="@+id/tvResultadoDetalleDevolucion"
-                android:text="Ingrese los dos IDs para buscar el detalle..."
+                android:id="@+id/tvResultadoProducto"
+                android:text="Ingrese un ID para buscar..."
                 android:textSize="16sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp" />
 
+            <!-- BOTÓN ELIMINAR -->
             <Button
-                android:id="@+id/btnEliminarDetalleDevolucion"
-                android:text="Eliminar Detalle"
+                android:id="@+id/btnEliminarProducto"
+                android:text="Eliminar Producto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp" />
@@ -64,8 +60,9 @@
 
     </ScrollView>
 
+    <!-- BOTÓN OPCIONES (ABAJO CENTRADO) -->
     <ImageButton
-        android:id="@+id/btnOpcionesDetalleDevolucion"
+        android:id="@+id/btnOpcionesProducto"
         android:layout_width="110dp"
         android:layout_height="110dp"
         android:src="@drawable/ic_suma"
