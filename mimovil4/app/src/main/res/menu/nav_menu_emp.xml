@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:showIn="navigation_view">
+
+    <group
+            android:checkableBehavior="single">
+
+        <item
+                android:id="@+id/nav_home"
+                android:icon="@drawable/ic_home"
+                android:title="Home"/>
+
+        <item
+                android:id="@+id/nav_cliente"
+                android:icon="@drawable/ic_menucliente"
+                android:title="Cliente"/>
+
+        <item
+                android:id="@+id/nav_productos"
+                android:icon="@drawable/outline_box_24"
+                android:title="Productos" />
+
+
+
+
+        <item
+                android:id="@+id/nav_ventas"
+                android:icon="@drawable/ic_ventas"
+                android:title="Ventas"/>
+        <item
+                android:id="@+id/nav_devoluciones"
+                android:icon="@drawable/ic_devolucion"
+                android:title="Devoluciones"/>
+
+    </group>
+
+    <item android:title="">
+        <menu>
+            <item
+                    android:id="@+id/nav_logout"
+                    android:icon="@drawable/ic_cerrar"
+                    android:title="Logout"/>
+        </menu>
+    </item>
+
+</menu>

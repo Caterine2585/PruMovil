@@ -25,10 +25,16 @@
             </intent-filter>
         </activity>
 
-        <!-- 🔹 MAIN: ya no es launcher, solo se abre después del login -->
+        <!-- 🔹 MAIN ADMIN -->
         <activity
                 android:name=".MainActivity"
                 android:exported="false" />
+
+        <!-- 🔹 MAIN EMPLEADO (ESTA FALTABA) -->
+        <activity
+                android:name=".MainEmpleadoActivity"
+                android:exported="false" />
+
     </application>
 
 </manifest>

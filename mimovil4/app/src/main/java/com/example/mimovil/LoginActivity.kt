@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.mimovil.api.RetroFitInstance
 import com.example.mimovil.model.LoginRequest
-import okhttp3.ResponseBody
+import com.example.mimovil.model.LoginResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -19,23 +19,25 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // 👉 Si ya hay token guardado, salta el login
+        // 👉 Si ya hay token guardado, salta el login (pero ahora según rol)
         val prefs = getSharedPreferences("usuario", MODE_PRIVATE)
         val tokenGuardado = prefs.getString("jwt_token", null)
-        if (tokenGuardado != null) {
-            irAMain()
+        val rolGuardado = prefs.getString("rol", null)
+
+        if (!tokenGuardado.isNullOrEmpty() && !rolGuardado.isNullOrEmpty()) {
+            irSegunRol(rolGuardado)
             return
         }
 
         setContentView(R.layout.fragment_login)
 
-        val etDocumento   = findViewById<EditText>(R.id.etDocumentoLogin)
-        val etContrasena  = findViewById<EditText>(R.id.etContrasenaLogin)
-        val btnLogin      = findViewById<Button>(R.id.btnLogin)
+        val etDocumento = findViewById<EditText>(R.id.etDocumentoLogin)
+        val etContrasena = findViewById<EditText>(R.id.etContrasenaLogin)
+        val btnLogin = findViewById<Button>(R.id.btnLogin)
 
         btnLogin.setOnClickListener {
 
-            val documento  = etDocumento.text.toString().trim()
+            val documento = etDocumento.text.toString().trim()
             val contrasena = etContrasena.text.toString().trim()
 
             if (documento.isEmpty() || contrasena.isEmpty()) {
@@ -43,43 +45,45 @@ class LoginActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            // ✅ AHORA COINCIDE CON EL BACKEND:
-            //  documento_Empleado  +  contrasena
             val request = LoginRequest(
                 documentoEmpleado = documento,
                 contrasena = contrasena
             )
 
+            // ✅ OJO: ahora esperamos LoginResponse (JSON), NO ResponseBody
             RetroFitInstance.api2kotlin.loginEmpleado(request)
-                .enqueue(object : Callback<ResponseBody> {
+                .enqueue(object : Callback<LoginResponse> {
                     override fun onResponse(
-                        call: Call<ResponseBody>,
-                        response: Response<ResponseBody>
+                        call: Call<LoginResponse>,
+                        response: Response<LoginResponse>
                     ) {
                         if (response.isSuccessful) {
 
-                            val token = response.body()?.string().orEmpty()
+                            val body = response.body()
 
-                            // 🔥 Ver el token en Logcat
+                            val token = body?.token.orEmpty()
+                            val rol = body?.rol.orEmpty()
+
                             Log.d("TOKEN_DEBUG", "TOKEN RECIBIDO: $token")
+                            Log.d("ROL_DEBUG", "ROL RECIBIDO: $rol")
 
-                            if (token.length < 20) {
+                            if (token.length < 20 || rol.isEmpty()) {
                                 Toast.makeText(
                                     this@LoginActivity,
-                                    "Token inválido o no recibido",
+                                    "Token o rol inválido/no recibido",
                                     Toast.LENGTH_LONG
                                 ).show()
                                 return
                             }
 
-                            // 👉 Guardar token
-                            val prefs = getSharedPreferences("usuario", MODE_PRIVATE)
+                            // 👉 Guardar token y rol
                             prefs.edit()
                                 .putString("jwt_token", token)
+                                .putString("rol", rol)
                                 .apply()
 
                             Toast.makeText(this@LoginActivity, "Login correcto", Toast.LENGTH_SHORT).show()
-                            irAMain()
+                            irSegunRol(rol)
 
                         } else {
                             val err = response.errorBody()?.string().orEmpty()
@@ -91,7 +95,7 @@ class LoginActivity : AppCompatActivity() {
                         }
                     }
 
-                    override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                    override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
                         Toast.makeText(
                             this@LoginActivity,
                             "Fallo: ${t.message}",
@@ -102,8 +106,13 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun irAMain() {
-        startActivity(Intent(this, MainActivity::class.java))
+    private fun irSegunRol(rol: String) {
+        // ROL001 = Admin, ROL002 = Empleado (según tu BD)
+        if (rol == "ROL001") {
+            startActivity(Intent(this, MainActivity::class.java))
+        } else {
+            startActivity(Intent(this, MainEmpleadoActivity::class.java))
+        }
         finish()
     }
 }

@@ -8,6 +8,7 @@ import com.example.mimovil.model.Detalle_Ventas
 import com.example.mimovil.model.Devoluciones
 import com.example.mimovil.model.Empleado
 import com.example.mimovil.model.LoginRequest
+import com.example.mimovil.model.LoginResponse
 import com.example.mimovil.model.Producto
 import com.example.mimovil.model.Proveedor
 import com.example.mimovil.model.Ventas
@@ -245,5 +246,6 @@ interface ApiServiceKotlin {
     // ============================
     @Headers("Content-Type: application/json")
     @POST("/auth/login")
-    fun loginEmpleado(@Body loginRequest: LoginRequest): Call<ResponseBody>
+    fun loginEmpleado(@Body loginRequest: LoginRequest): Call<LoginResponse>
+
 }
