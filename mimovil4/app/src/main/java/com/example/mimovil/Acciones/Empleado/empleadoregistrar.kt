@@ -34,7 +34,8 @@ class empleadoregistrar : Fragment(R.layout.fragment_crear_empleado) {
 
                     if (bytes != null) {
 
-                        base64Foto = Base64.encodeToString(bytes, Base64.NO_WRAP)
+                        base64Foto = "data:image/jpeg;base64," + Base64.encodeToString(bytes, Base64.NO_WRAP)
+
                         imgFotoEmpC?.setImageURI(uri)
                     } else {
                         Toast.makeText(requireContext(), "No se pudo leer la imagen", Toast.LENGTH_SHORT).show()

@@ -1,5 +1,6 @@
 package com.example.mimovil.Acciones.Empleado
 
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Base64
 import android.view.LayoutInflater
@@ -9,11 +10,6 @@ import android.view.WindowManager
 import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
-import android.graphics.BitmapFactory
-import com.example.mimovil.Acciones.Compras.ComprasFragment
-import com.example.mimovil.Acciones.Compras.Comprasactualizar
-import com.example.mimovil.Acciones.Compras.Compraseliminar
-import com.example.mimovil.Acciones.Compras.Comprasregistrar
 import com.example.mimovil.R
 import com.example.mimovil.api.RetroFitInstance
 import com.example.mimovil.model.Empleado
@@ -26,10 +22,8 @@ import java.net.URL
 
 class empleadoactualizar : Fragment() {
 
-    // ⚠️ Cambia esto a la IP/puerto de tu backend
     private val BASE_URL_IMG = "http://192.168.80.13:8080/"
 
-    // INPUTS
     private lateinit var etBuscarDocumento: EditText
 
     private lateinit var etDocumento: EditText
@@ -43,18 +37,13 @@ class empleadoactualizar : Fragment() {
     private lateinit var etEstado: EditText
     private lateinit var etRol: EditText
 
-    // IMAGEN
     private lateinit var imgFoto: ImageView
     private var fotoBase64: String? = null
 
-    // BOTONES
     private lateinit var btnBuscar: Button
     private lateinit var btnActualizar: Button
     private lateinit var btnSeleccionarFoto: Button
     private lateinit var btnOpciones: ImageButton
-
-
-    //  SELECTOR DE IMAGEN (GetContent)
 
     private val seleccionarImagenLauncher =
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
@@ -67,22 +56,14 @@ class empleadoactualizar : Fragment() {
                     inputStream?.close()
 
                     if (bytes != null) {
-
+                        // (opcional) puedes dejarlo así, Spring ya recorta prefijo si viene
                         fotoBase64 = Base64.encodeToString(bytes, Base64.NO_WRAP)
                     } else {
-                        Toast.makeText(
-                            requireContext(),
-                            "No se pudo leer la imagen",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        Toast.makeText(requireContext(), "No se pudo leer la imagen", Toast.LENGTH_SHORT).show()
                     }
                 } catch (e: Exception) {
                     e.printStackTrace()
-                    Toast.makeText(
-                        requireContext(),
-                        "Error al cargar la imagen",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    Toast.makeText(requireContext(), "Error al cargar la imagen", Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -90,12 +71,9 @@ class empleadoactualizar : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         val view = inflater.inflate(R.layout.fragment_actualizar_empleado, container, false)
-
-
-        //  ENLAZAR VISTAS
 
         etBuscarDocumento = view.findViewById(R.id.etBuscarDocumentoEmp)
 
@@ -117,9 +95,6 @@ class empleadoactualizar : Fragment() {
         btnActualizar = view.findViewById(R.id.btnActualizarEmpleado)
         btnOpciones = view.findViewById(R.id.btnOpcionesempleado)
 
-
-        //EVENTOS
-
         btnBuscar.setOnClickListener { buscarEmpleado() }
         btnSeleccionarFoto.setOnClickListener { seleccionarFoto() }
         btnActualizar.setOnClickListener { actualizarEmpleado() }
@@ -128,20 +103,18 @@ class empleadoactualizar : Fragment() {
         return view
     }
 
-    // MENÚ OPCIONES
+    // ===================== MENÚ OPCIONES =====================
 
     private fun mostrarMenuOpciones() {
-        val bottomSheet = BottomSheetDialog(requireContext(), com.google.android.material.R.style.Theme_Design_BottomSheetDialog)
+        val bottomSheet = BottomSheetDialog(
+            requireContext(),
+            com.google.android.material.R.style.Theme_Design_BottomSheetDialog
+        )
         val view = layoutInflater.inflate(R.layout.opcionempleado, null)
         bottomSheet.setContentView(view)
         bottomSheet.window?.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
 
-        val opVer = view.findViewById<LinearLayout>(R.id.opveremp)
-        val opRegistrar = view.findViewById<LinearLayout>(R.id.opregistraremp)
-        val opActualizar = view.findViewById<LinearLayout>(R.id.opactualizaremp)
-        val opEliminar = view.findViewById<LinearLayout>(R.id.opEliminaremp)
-
-        opVer.setOnClickListener {
+        view.findViewById<LinearLayout>(R.id.opveremp).setOnClickListener {
             bottomSheet.dismiss()
             parentFragmentManager.beginTransaction()
                 .replace(R.id.frame_layout, empleadoFragment())
@@ -149,7 +122,7 @@ class empleadoactualizar : Fragment() {
                 .commit()
         }
 
-        opRegistrar.setOnClickListener {
+        view.findViewById<LinearLayout>(R.id.opregistraremp).setOnClickListener {
             bottomSheet.dismiss()
             parentFragmentManager.beginTransaction()
                 .replace(R.id.frame_layout, empleadoregistrar())
@@ -157,7 +130,7 @@ class empleadoactualizar : Fragment() {
                 .commit()
         }
 
-        opActualizar.setOnClickListener {
+        view.findViewById<LinearLayout>(R.id.opactualizaremp).setOnClickListener {
             bottomSheet.dismiss()
             parentFragmentManager.beginTransaction()
                 .replace(R.id.frame_layout, empleadoactualizar())
@@ -165,7 +138,7 @@ class empleadoactualizar : Fragment() {
                 .commit()
         }
 
-        opEliminar.setOnClickListener {
+        view.findViewById<LinearLayout>(R.id.opEliminaremp).setOnClickListener {
             bottomSheet.dismiss()
             parentFragmentManager.beginTransaction()
                 .replace(R.id.frame_layout, empleadoeliminar())
@@ -176,11 +149,10 @@ class empleadoactualizar : Fragment() {
         bottomSheet.show()
     }
 
-
-    //GET: BUSCAR EMPLEADO
+    // ===================== GET: BUSCAR EMPLEADO =====================
 
     private fun buscarEmpleado() {
-        val documento = etBuscarDocumento.text.toString()
+        val documento = etBuscarDocumento.text.toString().trim()
 
         if (documento.isEmpty()) {
             Toast.makeText(requireContext(), "Ingresa un documento", Toast.LENGTH_SHORT).show()
@@ -190,43 +162,29 @@ class empleadoactualizar : Fragment() {
         RetroFitInstance.api2kotlin.getEmpleados()
             .enqueue(object : Callback<List<String>> {
 
-                override fun onResponse(
-                    call: Call<List<String>>,
-                    response: Response<List<String>>
-                ) {
-
+                override fun onResponse(call: Call<List<String>>, response: Response<List<String>>) {
                     if (!response.isSuccessful) {
-                        Toast.makeText(
-                            requireContext(),
-                            "Error obteniendo datos",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        Toast.makeText(requireContext(), "Error obteniendo datos", Toast.LENGTH_SHORT).show()
                         return
                     }
 
                     val lista = response.body().orEmpty()
 
-                    val empleadoEncontrado = lista.find {
-                        it.startsWith("${documento}_")
+                    // ✅ FIX: buscar por el primer campo (Documento_Empleado)
+                    val empleadoEncontrado = lista.firstOrNull { row ->
+                        val p = row.split("________")
+                        p.isNotEmpty() && p[0].trim() == documento
                     }
 
                     if (empleadoEncontrado == null) {
-                        Toast.makeText(
-                            requireContext(),
-                            "Empleado no encontrado",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        Toast.makeText(requireContext(), "Empleado no encontrado", Toast.LENGTH_SHORT).show()
                         return
                     }
 
                     val partes = empleadoEncontrado.split("________")
 
                     if (partes.size < 10) {
-                        Toast.makeText(
-                            requireContext(),
-                            "Formato inválido desde el servidor",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        Toast.makeText(requireContext(), "Formato inválido desde el servidor", Toast.LENGTH_SHORT).show()
                         return
                     }
 
@@ -241,14 +199,24 @@ class empleadoactualizar : Fragment() {
                     etEstado.setText(partes[8])
                     etRol.setText(partes[9])
 
+                    // ✅ FIX: cargar foto (ruta/URL) correctamente
+                    val rutaFotoRaw = if (partes.size >= 11) partes[10].trim() else ""
 
-                    if (partes.size >= 11 && partes[10].isNotEmpty()) {
-                        val rutaFoto = partes[10]
-                        val url = BASE_URL_IMG + rutaFoto
+                    if (rutaFotoRaw.isNotBlank()) {
+
+                        val rutaLimpia = rutaFotoRaw
+                            .replace("\\", "/")
+                            .removePrefix("/")
+
+                        val urlFinal = if (rutaLimpia.startsWith("http")) {
+                            rutaLimpia
+                        } else {
+                            BASE_URL_IMG + rutaLimpia
+                        }
 
                         Thread {
                             try {
-                                URL(url).openStream().use { input ->
+                                URL(urlFinal).openStream().use { input ->
                                     val bmp = BitmapFactory.decodeStream(input)
                                     requireActivity().runOnUiThread {
                                         imgFoto.setImageBitmap(bmp)
@@ -257,60 +225,42 @@ class empleadoactualizar : Fragment() {
                             } catch (e: Exception) {
                                 e.printStackTrace()
                                 requireActivity().runOnUiThread {
-                                    Toast.makeText(
-                                        requireContext(),
-                                        "Error al cargar la foto del empleado",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
+                                    Toast.makeText(requireContext(), "Error al cargar la foto", Toast.LENGTH_SHORT).show()
                                     imgFoto.setImageDrawable(null)
                                 }
                             }
                         }.start()
-                    } else {
 
+                    } else {
                         imgFoto.setImageDrawable(null)
                     }
 
-
+                    // al buscar, dejamos fotoBase64 nula (solo se llena si seleccionas nueva)
                     fotoBase64 = null
 
-                    Toast.makeText(
-                        requireContext(),
-                        "Empleado cargado",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    Toast.makeText(requireContext(), "Empleado cargado", Toast.LENGTH_SHORT).show()
                 }
 
                 override fun onFailure(call: Call<List<String>>, t: Throwable) {
-                    Toast.makeText(
-                        requireContext(),
-                        "Error: ${t.message}",
-                        Toast.LENGTH_LONG
-                    ).show()
+                    Toast.makeText(requireContext(), "Error: ${t.message}", Toast.LENGTH_LONG).show()
                 }
             })
     }
 
-
-    //SELECTOR DE IMAGEN
+    // ===================== SELECTOR DE IMAGEN =====================
 
     private fun seleccionarFoto() {
         seleccionarImagenLauncher.launch("image/*")
     }
 
-
-    //PUT: ACTUALIZAR EMPLEADO
+    // ===================== PUT: ACTUALIZAR EMPLEADO =====================
 
     private fun actualizarEmpleado() {
 
-        val documento = etDocumento.text.toString()
+        val documento = etDocumento.text.toString().trim()
 
         if (documento.isEmpty()) {
-            Toast.makeText(
-                requireContext(),
-                "Busca primero un empleado",
-                Toast.LENGTH_SHORT
-            ).show()
+            Toast.makeText(requireContext(), "Busca primero un empleado", Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -325,38 +275,22 @@ class empleadoactualizar : Fragment() {
             genero = etGenero.text.toString(),
             idEstado = etEstado.text.toString(),
             idRol = etRol.text.toString(),
-
-            fotos = fotoBase64 ?: ""
+            fotos = fotoBase64 ?: "" // si no escoges foto nueva, va vacío y Spring NO toca Fotos
         )
 
         RetroFitInstance.api2kotlin.actualizarEmpleado(documento, empleado)
             .enqueue(object : Callback<ResponseBody> {
 
-                override fun onResponse(
-                    call: Call<ResponseBody>,
-                    response: Response<ResponseBody>
-                ) {
+                override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                     if (response.isSuccessful) {
-                        Toast.makeText(
-                            requireContext(),
-                            "Empleado actualizado",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        Toast.makeText(requireContext(), "Empleado actualizado", Toast.LENGTH_SHORT).show()
                     } else {
-                        Toast.makeText(
-                            requireContext(),
-                            "Error al actualizar: ${response.code()}",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        Toast.makeText(requireContext(), "Error al actualizar: ${response.code()}", Toast.LENGTH_SHORT).show()
                     }
                 }
 
                 override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                    Toast.makeText(
-                        requireContext(),
-                        "Error: ${t.message}",
-                        Toast.LENGTH_LONG
-                    ).show()
+                    Toast.makeText(requireContext(), "Error: ${t.message}", Toast.LENGTH_LONG).show()
                 }
             })
     }

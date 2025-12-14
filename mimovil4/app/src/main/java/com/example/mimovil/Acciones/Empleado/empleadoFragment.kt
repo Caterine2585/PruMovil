@@ -6,17 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Button
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.Fragment
-import com.example.mimovil.Acciones.Cliente.clienteFragment
-import com.example.mimovil.Acciones.Cliente.clienteactualizar
-import com.example.mimovil.Acciones.Cliente.clienteeliminar
-import com.example.mimovil.Acciones.Cliente.clienteregistrar
 import com.example.mimovil.R
 import com.example.mimovil.api.RetroFitInstance
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -36,7 +27,7 @@ class empleadoFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         val view = inflater.inflate(R.layout.fragment_empleado, container, false)
 
@@ -50,8 +41,7 @@ class empleadoFragment : Fragment() {
         return view
     }
 
-
-    //  GET EMPLEADOS + FOTO
+    // ===================== GET EMPLEADOS =====================
 
     private fun mostrarEmpleados() {
 
@@ -59,183 +49,156 @@ class empleadoFragment : Fragment() {
 
         RetroFitInstance.api2kotlin.getEmpleados()
             .enqueue(object : Callback<List<String>> {
+
                 override fun onResponse(
                     call: Call<List<String>>,
                     response: Response<List<String>>
                 ) {
-                    if (response.isSuccessful) {
+                    if (!response.isSuccessful) {
+                        Toast.makeText(requireContext(), "Error: ${response.code()}", Toast.LENGTH_SHORT).show()
+                        return
+                    }
 
-                        val empleados = response.body().orEmpty()
+                    val empleados = response.body().orEmpty()
 
-                        if (empleados.isEmpty()) {
-                            val txt = TextView(requireContext()).apply {
-                                text = "No hay empleados registrados."
-                                textSize = 16f
-                            }
-                            layoutEmpleados.addView(txt)
-                            return
+                    if (empleados.isEmpty()) {
+                        layoutEmpleados.addView(TextView(requireContext()).apply {
+                            text = "No hay empleados registrados."
+                            textSize = 16f
+                        })
+                        return
+                    }
+
+                    for (item in empleados) {
+
+                        val partes = item.split("________")
+
+                        if (partes.size < 10) continue
+
+                        val doc = partes[0]
+                        val tipoDoc = partes[1]
+                        val nombre = partes[2]
+                        val apellido = partes[3]
+                        val edad = partes[4]
+                        val correo = partes[5]
+                        val tel = partes[6]
+                        val genero = partes[7]
+                        val estado = partes[8]
+                        val rol = partes[9]
+                        val fotoRuta = if (partes.size > 10) partes[10] else ""
+
+                        val contenedor = LinearLayout(requireContext()).apply {
+                            orientation = LinearLayout.VERTICAL
+                            setPadding(0, 20, 0, 20)
                         }
 
-                        for (item in empleados) {
+                        val info = TextView(requireContext()).apply {
+                            text = """
+                                Documento: $doc
+                                Tipo doc.: $tipoDoc
+                                Nombre: $nombre $apellido
+                                Edad: $edad
+                                Correo: $correo
+                                Teléfono: $tel
+                                Género: $genero
+                                Estado: $estado
+                                Rol: $rol
+                            """.trimIndent()
+                            textSize = 15f
+                        }
 
-                            val partes = item.split("________")
+                        val btnMostrar = Button(requireContext()).apply {
+                            text = "Mostrar imagen"
+                            textSize = 12f
+                        }
 
-                            if (partes.size >= 10) {
+                        val img = ImageView(requireContext()).apply {
+                            layoutParams = LinearLayout.LayoutParams(
+                                LinearLayout.LayoutParams.MATCH_PARENT,
+                                LinearLayout.LayoutParams.WRAP_CONTENT
+                            )
+                            adjustViewBounds = true
+                            maxHeight = (160 * resources.displayMetrics.density).toInt()
+                            scaleType = ImageView.ScaleType.FIT_CENTER
+                            visibility = View.GONE
+                        }
 
+                        // ===================== FOTO (CORREGIDO) =====================
 
-                                //   CAMPOS EXACTOS DE EMPLEADOS
+                        btnMostrar.setOnClickListener {
+                            if (img.visibility == View.GONE) {
 
-                                val doc = partes[0]
-                                val tipoDoc = partes[1]
-                                val nombre = partes[2]
-                                val apellido = partes[3]
-                                val edad = partes[4]
-                                val correo = partes[5]
-                                val tel = partes[6]
-                                val genero = partes[7]
-                                val estado = partes[8]
-                                val rol = partes[9]
-                                val fotoRuta = if (partes.size > 10) partes[10] else ""
-
-                                val nombreCompleto = "$nombre $apellido"
-
-
-                                val contenedor = LinearLayout(requireContext()).apply {
-                                    orientation = LinearLayout.VERTICAL
-                                    setPadding(0, 20, 0, 20)
+                                if (fotoRuta.isBlank()) {
+                                    Toast.makeText(requireContext(), "Este empleado no tiene foto", Toast.LENGTH_SHORT).show()
+                                    return@setOnClickListener
                                 }
 
-                                // Texto con todos los campos
-                                val info = TextView(requireContext()).apply {
-                                    text = """
-                                        Documento: $doc
-                                        Tipo doc.: $tipoDoc
-                                        Nombre: $nombreCompleto
-                                        Edad: $edad
-                                        Correo: $correo
-                                        Teléfono: $tel
-                                        Género: $genero
-                                        Estado: $estado
-                                        Rol: $rol
-                                    """.trimIndent()
-                                    textSize = 15f
+                                val rutaLimpia = fotoRuta.trim()
+                                    .replace("\\", "/")   // 🔥 FIX WINDOWS
+                                    .removePrefix("/")
+
+                                val urlFinal = if (rutaLimpia.startsWith("http")) {
+                                    rutaLimpia
+                                } else {
+                                    BASE_URL_IMG + rutaLimpia
                                 }
 
-
-                                val btnMostrar = Button(requireContext()).apply {
-                                    text = "Mostrar imagen"
-                                    textSize = 12f
-                                }
-
-
-                                val thumbMaxH = (160 * resources.displayMetrics.density).toInt()
-
-                                val img = ImageView(requireContext()).apply {
-                                    layoutParams = LinearLayout.LayoutParams(
-                                        LinearLayout.LayoutParams.MATCH_PARENT,
-                                        LinearLayout.LayoutParams.WRAP_CONTENT
-                                    )
-                                    adjustViewBounds = true
-                                    maxHeight = thumbMaxH
-                                    scaleType = ImageView.ScaleType.FIT_CENTER
-                                    visibility = View.GONE
-                                }
-
-
-                                //     LÓGICA DE LA FOTO
-                                // (NO SE MOVIÓ NADA)
-
-                                btnMostrar.setOnClickListener {
-                                    if (img.visibility == View.GONE) {
-                                        if (fotoRuta.isNotEmpty()) {
-                                            val url = BASE_URL_IMG + fotoRuta
-
-                                            Thread {
-                                                try {
-                                                    URL(url).openStream().use { input ->
-                                                        val bmp = BitmapFactory.decodeStream(input)
-                                                        requireActivity().runOnUiThread {
-                                                            img.setImageBitmap(bmp)
-                                                            img.visibility = View.VISIBLE
-                                                            btnMostrar.text = "Ocultar imagen"
-                                                        }
-                                                    }
-                                                } catch (e: Exception) {
-                                                    e.printStackTrace()
-                                                    requireActivity().runOnUiThread {
-                                                        Toast.makeText(
-                                                            requireContext(),
-                                                            "No se pudo cargar la imagen",
-                                                            Toast.LENGTH_SHORT
-                                                        ).show()
-                                                    }
-                                                }
-                                            }.start()
-                                        } else {
+                                Thread {
+                                    try {
+                                        URL(urlFinal).openStream().use { input ->
+                                            val bmp = BitmapFactory.decodeStream(input)
+                                            requireActivity().runOnUiThread {
+                                                img.setImageBitmap(bmp)
+                                                img.visibility = View.VISIBLE
+                                                btnMostrar.text = "Ocultar imagen"
+                                            }
+                                        }
+                                    } catch (e: Exception) {
+                                        e.printStackTrace()
+                                        requireActivity().runOnUiThread {
                                             Toast.makeText(
                                                 requireContext(),
-                                                "Este empleado no tiene foto",
+                                                "No se pudo cargar la imagen",
                                                 Toast.LENGTH_SHORT
                                             ).show()
                                         }
-                                    } else {
-                                        img.visibility = View.GONE
-                                        btnMostrar.text = "Mostrar imagen"
                                     }
-                                }
-
-                                // Agregar elementos
-                                contenedor.addView(info)
-                                contenedor.addView(btnMostrar)
-                                contenedor.addView(img)
-
-                                layoutEmpleados.addView(contenedor)
+                                }.start()
 
                             } else {
-                                val errorTxt = TextView(requireContext()).apply {
-                                    text = "Formato incorrecto: $item"
-                                }
-                                layoutEmpleados.addView(errorTxt)
+                                img.visibility = View.GONE
+                                btnMostrar.text = "Mostrar imagen"
                             }
                         }
 
-                    } else {
-                        Toast.makeText(
-                            requireContext(),
-                            "Error: ${response.code()}",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        contenedor.addView(info)
+                        contenedor.addView(btnMostrar)
+                        contenedor.addView(img)
+
+                        layoutEmpleados.addView(contenedor)
                     }
                 }
 
                 override fun onFailure(call: Call<List<String>>, t: Throwable) {
-                    Toast.makeText(
-                        requireContext(),
-                        "Error de conexión: ${t.message}",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    Toast.makeText(requireContext(), "Error de conexión: ${t.message}", Toast.LENGTH_SHORT).show()
                 }
             })
     }
 
-
-    //  MENÚ OPCIONES
+    // ===================== MENÚ OPCIONES =====================
 
     private fun mostrarMenuOpciones() {
+
         val bottomSheet = BottomSheetDialog(
             requireContext(),
             com.google.android.material.R.style.Theme_Design_BottomSheetDialog
         )
+
         val view = layoutInflater.inflate(R.layout.opcionempleado, null)
         bottomSheet.setContentView(view)
         bottomSheet.window?.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
 
-        val opVer = view.findViewById<LinearLayout>(R.id.opveremp)
-        val opRegistrar = view.findViewById<LinearLayout>(R.id.opregistraremp)
-        val opActualizar = view.findViewById<LinearLayout>(R.id.opactualizaremp)
-        val opEliminar = view.findViewById<LinearLayout>(R.id.opEliminaremp)
-
-        opVer.setOnClickListener {
+        view.findViewById<LinearLayout>(R.id.opveremp).setOnClickListener {
             bottomSheet.dismiss()
             parentFragmentManager.beginTransaction()
                 .replace(R.id.frame_layout, empleadoFragment())
@@ -243,7 +206,7 @@ class empleadoFragment : Fragment() {
                 .commit()
         }
 
-        opRegistrar.setOnClickListener {
+        view.findViewById<LinearLayout>(R.id.opregistraremp).setOnClickListener {
             bottomSheet.dismiss()
             parentFragmentManager.beginTransaction()
                 .replace(R.id.frame_layout, empleadoregistrar())
@@ -251,7 +214,7 @@ class empleadoFragment : Fragment() {
                 .commit()
         }
 
-        opActualizar.setOnClickListener {
+        view.findViewById<LinearLayout>(R.id.opactualizaremp).setOnClickListener {
             bottomSheet.dismiss()
             parentFragmentManager.beginTransaction()
                 .replace(R.id.frame_layout, empleadoactualizar())
@@ -259,7 +222,7 @@ class empleadoFragment : Fragment() {
                 .commit()
         }
 
-        opEliminar.setOnClickListener {
+        view.findViewById<LinearLayout>(R.id.opEliminaremp).setOnClickListener {
             bottomSheet.dismiss()
             parentFragmentManager.beginTransaction()
                 .replace(R.id.frame_layout, empleadoeliminar())
