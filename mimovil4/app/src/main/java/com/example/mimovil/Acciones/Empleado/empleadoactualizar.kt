@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import com.example.mimovil.R
 import com.example.mimovil.api.RetroFitInstance
 import com.example.mimovil.model.Empleado
+import com.example.mimovil.model.EmpleadoActualizarRequest   // ✅ NUEVO IMPORT
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -36,6 +37,8 @@ class empleadoactualizar : Fragment() {
     private lateinit var etGenero: EditText
     private lateinit var etEstado: EditText
     private lateinit var etRol: EditText
+
+    private lateinit var etContrasena: EditText // ✅ NUEVO CAMPO
 
     private lateinit var imgFoto: ImageView
     private var fotoBase64: String? = null
@@ -87,6 +90,8 @@ class empleadoactualizar : Fragment() {
         etGenero = view.findViewById(R.id.etGeneroEmp)
         etEstado = view.findViewById(R.id.etEstadoEmp)
         etRol = view.findViewById(R.id.etRolEmp)
+
+        etContrasena = view.findViewById(R.id.etContrasenaEmp) // ✅ NUEVO findViewById
 
         imgFoto = view.findViewById(R.id.imgFotoEmp)
 
@@ -170,7 +175,6 @@ class empleadoactualizar : Fragment() {
 
                     val lista = response.body().orEmpty()
 
-                    // ✅ FIX: buscar por el primer campo (Documento_Empleado)
                     val empleadoEncontrado = lista.firstOrNull { row ->
                         val p = row.split("________")
                         p.isNotEmpty() && p[0].trim() == documento
@@ -199,7 +203,6 @@ class empleadoactualizar : Fragment() {
                     etEstado.setText(partes[8])
                     etRol.setText(partes[9])
 
-                    // ✅ FIX: cargar foto (ruta/URL) correctamente
                     val rutaFotoRaw = if (partes.size >= 11) partes[10].trim() else ""
 
                     if (rutaFotoRaw.isNotBlank()) {
@@ -235,8 +238,10 @@ class empleadoactualizar : Fragment() {
                         imgFoto.setImageDrawable(null)
                     }
 
-                    // al buscar, dejamos fotoBase64 nula (solo se llena si seleccionas nueva)
                     fotoBase64 = null
+
+                    // ✅ opcional: limpiar contraseña al cargar empleado
+                    etContrasena.setText("")
 
                     Toast.makeText(requireContext(), "Empleado cargado", Toast.LENGTH_SHORT).show()
                 }
@@ -264,8 +269,8 @@ class empleadoactualizar : Fragment() {
             return
         }
 
-        val empleado = Empleado(
-            documento = documento,
+        // ✅ NUEVO: request para update con contraseña opcional
+        val request = EmpleadoActualizarRequest(
             tipoDocumento = etTipoDoc.text.toString(),
             nombre = etNombre.text.toString(),
             apellido = etApellido.text.toString(),
@@ -275,15 +280,24 @@ class empleadoactualizar : Fragment() {
             genero = etGenero.text.toString(),
             idEstado = etEstado.text.toString(),
             idRol = etRol.text.toString(),
-            fotos = fotoBase64 ?: "" // si no escoges foto nueva, va vacío y Spring NO toca Fotos
+
+            // ✅ si NO seleccionas foto, enviamos null para no tocarla
+            fotos = fotoBase64?.takeIf { it.isNotBlank() },
+
+            // ✅ SOLO si escriben contraseña, la enviamos
+            contrasena = etContrasena.text.toString().takeIf { it.isNotBlank() }
         )
 
-        RetroFitInstance.api2kotlin.actualizarEmpleado(documento, empleado)
+        RetroFitInstance.api2kotlin.actualizarEmpleado(documento, request)
             .enqueue(object : Callback<ResponseBody> {
 
                 override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                     if (response.isSuccessful) {
                         Toast.makeText(requireContext(), "Empleado actualizado", Toast.LENGTH_SHORT).show()
+                        // ✅ opcional: limpiar contraseña tras actualizar
+                        etContrasena.setText("")
+                        // y limpiar fotoBase64 para que no se reenvíe sin querer
+                        fotoBase64 = null
                     } else {
                         Toast.makeText(requireContext(), "Error al actualizar: ${response.code()}", Toast.LENGTH_SHORT).show()
                     }

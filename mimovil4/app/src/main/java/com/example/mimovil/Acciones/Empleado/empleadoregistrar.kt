@@ -14,6 +14,7 @@ import com.example.mimovil.Acciones.Cliente.clienteregistrar
 import com.example.mimovil.R
 import com.example.mimovil.api.RetroFitInstance
 import com.example.mimovil.model.Empleado
+import com.example.mimovil.model.EmpleadoRegistroRequest  // ✅ (1) NUEVO IMPORT
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -62,6 +63,8 @@ class empleadoregistrar : Fragment(R.layout.fragment_crear_empleado) {
         val etEstado = view.findViewById<EditText>(R.id.etEstadoEmpC)
         val etRol = view.findViewById<EditText>(R.id.etRolEmpC)
 
+        val etContrasena = view.findViewById<EditText>(R.id.etContrasenaEmpC) // ✅ (2) NUEVO CAMPO
+
         val btnCrear = view.findViewById<Button>(R.id.btnCrearEmpleado)
         val btnOpciones = view.findViewById<ImageButton>(R.id.btnOpcionesCrearEmp)
 
@@ -69,15 +72,14 @@ class empleadoregistrar : Fragment(R.layout.fragment_crear_empleado) {
         val btnSeleccionarFoto = view.findViewById<Button>(R.id.btnSeleccionarFotoC)
         imgFotoEmpC = view.findViewById(R.id.imgFotoEmpC)
 
-
         btnSeleccionarFoto.setOnClickListener {
             seleccionarImagenLauncher.launch("image/*")
         }
 
-
         btnCrear.setOnClickListener {
 
-            val empleado = Empleado(
+            // ✅ (3) AHORA SE ENVÍA EMPLEADO + CONTRASEÑA
+            val empleado = EmpleadoRegistroRequest(
                 documento = etDocumento.text.toString(),
                 tipoDocumento = etTipoDoc.text.toString(),
                 nombre = etNombre.text.toString(),
@@ -88,35 +90,34 @@ class empleadoregistrar : Fragment(R.layout.fragment_crear_empleado) {
                 genero = etGenero.text.toString(),
                 idEstado = etEstado.text.toString(),
                 idRol = etRol.text.toString(),
-
-                fotos = base64Foto ?: ""
+                fotos = base64Foto ?: "",
+                contrasena = etContrasena.text.toString()
             )
 
             val campos = arrayOf(
                 etDocumento, etTipoDoc, etNombre, etApellido,
-                etEdad, etCorreo, etTelefono, etGenero, etEstado, etRol
+                etEdad, etCorreo, etTelefono, etGenero, etEstado, etRol,
+                etContrasena // ✅ limpiar también contraseña
             )
 
             crearEmpleado(empleado, btnCrear, campos)
         }
-
 
         btnOpciones.setOnClickListener {
             mostrarMenuOpciones()
         }
     }
 
-
     // CREAR EMPLEADO
 
     private fun crearEmpleado(
-        empleado: Empleado,
+        empleado: EmpleadoRegistroRequest, // ✅ (4) CAMBIO DE TIPO
         btnCrear: Button,
         campos: Array<EditText>
     ) {
         btnCrear.isEnabled = false
 
-        RetroFitInstance.api2kotlin.crearEmpleado(empleado)
+        RetroFitInstance.api2kotlin.crearEmpleado(empleado) // ✅ ahora manda el request con contraseña
             .enqueue(object : Callback<ResponseBody> {
                 override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                     btnCrear.isEnabled = true
@@ -126,8 +127,6 @@ class empleadoregistrar : Fragment(R.layout.fragment_crear_empleado) {
                         // Limpiamos también la foto
                         base64Foto = null
                         imgFotoEmpC?.setImageDrawable(null)
-
-                        // o alguna imagen por defecto
                     } else {
                         Toast.makeText(requireContext(), "Error: ${response.code()}", Toast.LENGTH_LONG).show()
                     }
@@ -187,5 +186,4 @@ class empleadoregistrar : Fragment(R.layout.fragment_crear_empleado) {
 
         bottomSheet.show()
     }
-
 }

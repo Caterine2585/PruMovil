@@ -46,12 +46,12 @@ interface ApiServiceKotlin {
 
     @Headers("Content-Type: application/json")
     @POST("EmpleadoRegistro")
-    fun crearEmpleado(@Body empleado: Empleado): Call<ResponseBody>
+    fun crearEmpleado(@Body empleado: com.example.mimovil.model.EmpleadoRegistroRequest): Call<ResponseBody>
 
-    @PUT("/EmpleadoActualizar/{Documento_Empleado}")
+    @PUT("EmpleadoActualizar/{Documento_Empleado}")
     fun actualizarEmpleado(
         @Path("Documento_Empleado") documento: String,
-        @Body empleado: Empleado
+        @Body empleado: com.example.mimovil.model.EmpleadoActualizarRequest
     ): Call<ResponseBody>
 
     @DELETE("/EmpleadoEliminar/{Documento_Empleado}")

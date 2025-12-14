@@ -1,136 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
     <!-- CONTENIDO SCROLLEABLE -->
     <ScrollView
-        android:id="@+id/scrollCrearEmpleado"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="20dp"
-        android:layout_above="@id/btnOpcionesCrearEmp">
+            android:id="@+id/scrollCrearEmpleado"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="20dp"
+            android:layout_above="@id/btnOpcionesCrearEmp">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
             <!-- TÍTULO -->
             <TextView
-                android:id="@+id/tvTituloCrearEmpleado"
-                android:text="Crear Empleado"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp" />
+                    android:id="@+id/tvTituloCrearEmpleado"
+                    android:text="Crear Empleado"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp" />
 
             <!-- CAMPOS DEL EMPLEADO -->
             <EditText
-                android:id="@+id/etDocumentoEmpC"
-                android:hint="Documento"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                    android:id="@+id/etDocumentoEmpC"
+                    android:hint="Documento"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
             <EditText
-                android:id="@+id/etTipoDocEmpC"
-                android:hint="Tipo de Documento"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                    android:id="@+id/etTipoDocEmpC"
+                    android:hint="Tipo de Documento"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
             <EditText
-                android:id="@+id/etNombreEmpC"
-                android:hint="Nombre"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                    android:id="@+id/etNombreEmpC"
+                    android:hint="Nombre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
             <EditText
-                android:id="@+id/etApellidoEmpC"
-                android:hint="Apellido"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                    android:id="@+id/etApellidoEmpC"
+                    android:hint="Apellido"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
             <EditText
-                android:id="@+id/etEdadEmpC"
-                android:hint="Edad"
-                android:inputType="number"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                    android:id="@+id/etEdadEmpC"
+                    android:hint="Edad"
+                    android:inputType="number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
             <EditText
-                android:id="@+id/etCorreoEmpC"
-                android:hint="Correo"
-                android:inputType="textEmailAddress"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                    android:id="@+id/etCorreoEmpC"
+                    android:hint="Correo"
+                    android:inputType="textEmailAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
             <EditText
-                android:id="@+id/etTelefonoEmpC"
-                android:hint="Teléfono"
-                android:inputType="phone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                    android:id="@+id/etTelefonoEmpC"
+                    android:hint="Teléfono"
+                    android:inputType="phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
             <EditText
-                android:id="@+id/etGeneroEmpC"
-                android:hint="F/M"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                    android:id="@+id/etGeneroEmpC"
+                    android:hint="F/M"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
             <EditText
-                android:id="@+id/etEstadoEmpC"
-                android:hint="Estado"
-                android:text="EST001"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                    android:id="@+id/etEstadoEmpC"
+                    android:hint="Estado"
+                    android:text="EST001"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
             <EditText
-                android:id="@+id/etRolEmpC"
-                android:hint="Rol"
-                android:text="ROL001"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                    android:id="@+id/etRolEmpC"
+                    android:hint="Rol"
+                    android:text="ROL001"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            <!-- 🔐 CONTRASEÑA (NUEVO) -->
+            <EditText
+                    android:id="@+id/etContrasenaEmpC"
+                    android:hint="Contraseña"
+                    android:inputType="textPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp" />
 
             <!-- IMAGEN DEL EMPLEADO -->
             <ImageView
-                android:id="@+id/imgFotoEmpC"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="8dp"
-                android:contentDescription="Foto del empleado"
-                android:background="#EEEEEE"
-                android:scaleType="centerCrop" />
+                    android:id="@+id/imgFotoEmpC"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="8dp"
+                    android:contentDescription="Foto del empleado"
+                    android:background="#EEEEEE"
+                    android:scaleType="centerCrop" />
 
             <Button
-                android:id="@+id/btnSeleccionarFotoC"
-                android:text="Seleccionar Foto"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp" />
+                    android:id="@+id/btnSeleccionarFotoC"
+                    android:text="Seleccionar Foto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp" />
 
             <!-- BOTÓN CREAR -->
             <Button
-                android:id="@+id/btnCrearEmpleado"
-                android:text="Crear"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp" />
+                    android:id="@+id/btnCrearEmpleado"
+                    android:text="Crear"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp" />
 
         </LinearLayout>
     </ScrollView>
 
     <!-- BOTÓN FLOTANTE OPCIONES -->
     <ImageButton
-        android:id="@+id/btnOpcionesCrearEmp"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:src="@drawable/ic_suma"
-        android:background="@android:color/transparent"
-        android:padding="10dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+            android:id="@+id/btnOpcionesCrearEmp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@drawable/ic_suma"
+            android:background="@android:color/transparent"
+            android:padding="10dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
