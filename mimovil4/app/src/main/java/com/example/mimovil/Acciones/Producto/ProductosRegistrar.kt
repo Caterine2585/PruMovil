@@ -2,13 +2,11 @@ package com.example.mimovil.Acciones.Producto
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Base64
 import android.view.View
 import android.view.WindowManager
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.LinearLayout
-import android.widget.Toast
+import android.widget.*
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import com.example.mimovil.R
 import com.example.mimovil.api.RetroFitInstance
@@ -21,9 +19,38 @@ import retrofit2.Response
 
 class ProductosRegistrar : Fragment(R.layout.fragment_crear_productos) {
 
+    private var base64Foto: String? = null
+    private lateinit var imgPreview: ImageView
+
+    // 📸 Selector de imagen (igual que empleados)
+    private val seleccionarImagenLauncher =
+        registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+            if (uri != null) {
+                try {
+                    val inputStream = requireContext().contentResolver.openInputStream(uri)
+                    val bytes = inputStream?.readBytes()
+                    inputStream?.close()
+
+                    if (bytes != null) {
+                        base64Foto =
+                            "data:image/jpeg;base64," +
+                                    Base64.encodeToString(bytes, Base64.NO_WRAP)
+
+                        imgPreview.setImageURI(uri)
+                    } else {
+                        Toast.makeText(requireContext(), "No se pudo leer la imagen", Toast.LENGTH_SHORT).show()
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    Toast.makeText(requireContext(), "Error al cargar la imagen", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // CAMPOS
         val etID_Producto     = view.findViewById<EditText>(R.id.etID_Producto)
         val etNombre_Producto = view.findViewById<EditText>(R.id.etNombre_Producto)
         val etDescripcion     = view.findViewById<EditText>(R.id.etDescripcion)
@@ -32,14 +59,19 @@ class ProductosRegistrar : Fragment(R.layout.fragment_crear_productos) {
         val etID_Categoria    = view.findViewById<EditText>(R.id.etID_Categoria)
         val etID_Estado       = view.findViewById<EditText>(R.id.etID_Estado)
         val etID_Gama         = view.findViewById<EditText>(R.id.etID_Gama)
-        val etFoto            = view.findViewById<EditText>(R.id.etFotos)
 
-        val btnCrear = view.findViewById<Button>(R.id.btnCrearProducto)
+        val btnCrear    = view.findViewById<Button>(R.id.btnCrearProducto)
         val btnOpciones = view.findViewById<ImageButton>(R.id.btnOpcionesProducto)
+        val btnImagen   = view.findViewById<Button>(R.id.btnSeleccionarImagen)
 
+        imgPreview = view.findViewById(R.id.imgPreviewProducto)
 
+        // 📸 Seleccionar imagen
+        btnImagen.setOnClickListener {
+            seleccionarImagenLauncher.launch("image/*")
+        }
 
-        // ========== POST: Crear producto ==========
+        // 💾 Crear producto
         btnCrear.setOnClickListener {
 
             val producto = Producto(
@@ -51,7 +83,7 @@ class ProductosRegistrar : Fragment(R.layout.fragment_crear_productos) {
                 ID_Categoria    = etID_Categoria.text.toString().trim(),
                 ID_Estado       = etID_Estado.text.toString().trim().ifEmpty { "EST001" },
                 ID_Gama         = etID_Gama.text.toString().trim(),
-                Fotos           = etFoto.text.toString().trim()
+                Fotos           = base64Foto ?: ""   // ✅ FOTO BASE64
             )
 
             if (producto.ID_Producto.isEmpty() || producto.Nombre_Producto.isEmpty()) {
@@ -61,40 +93,44 @@ class ProductosRegistrar : Fragment(R.layout.fragment_crear_productos) {
 
             val prefs = requireContext().getSharedPreferences("usuario", Context.MODE_PRIVATE)
             val token = prefs.getString("jwt_token", null)
-
-            if (token.isNullOrEmpty()) {
-                Toast.makeText(requireContext(), "Debes iniciar sesión primero", Toast.LENGTH_LONG).show()
-                return@setOnClickListener
-            }
+            if (token.isNullOrEmpty()) return@setOnClickListener
 
             val authHeader = "Bearer $token"
 
+            // 🚀 LLAMADA JSON NORMAL (RegistroP)
             RetroFitInstance.api2kotlin.crearProducto(authHeader, producto)
                 .enqueue(object : Callback<ResponseBody> {
+
                     override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                         if (response.isSuccessful) {
-                            Toast.makeText(requireContext(), "Producto creado", Toast.LENGTH_SHORT).show()
-                            limpiarCampos(
+                            Toast.makeText(requireContext(), "Producto creado correctamente", Toast.LENGTH_SHORT).show()
+
+                            arrayOf(
                                 etID_Producto, etNombre_Producto, etDescripcion, etPrecio_Venta,
-                                etStock_Minimo, etID_Categoria, etID_Estado, etID_Gama, etFoto
-                            )
+                                etStock_Minimo, etID_Categoria, etID_Estado, etID_Gama
+                            ).forEach { it.text.clear() }
+
+                            base64Foto = null
+                            imgPreview.setImageDrawable(null)
                         } else {
-                            Toast.makeText(requireContext(), "Error al crear", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                requireContext(),
+                                "Error: ${response.code()}",
+                                Toast.LENGTH_LONG
+                            ).show()
                         }
                     }
 
                     override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                        Toast.makeText(requireContext(), "Fallo: ${t.message}", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), "Fallo: ${t.message}", Toast.LENGTH_LONG).show()
                     }
                 })
         }
 
-        btnOpciones.setOnClickListener {
-            mostrarMenuOpciones()
-        }
+        btnOpciones.setOnClickListener { mostrarMenuOpciones() }
     }
 
-    // MENÚ DESPLEGABLE
+    // MENÚ OPCIONES (igual al tuyo)
     private fun mostrarMenuOpciones() {
         val bottomSheet = BottomSheetDialog(
             requireContext(),
@@ -104,13 +140,7 @@ class ProductosRegistrar : Fragment(R.layout.fragment_crear_productos) {
         bottomSheet.setContentView(view)
         bottomSheet.window?.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
 
-
-        val opVer = view.findViewById<LinearLayout>(R.id.opverProductos)
-        val opRegistrar = view.findViewById<LinearLayout>(R.id.opregistrarProductos)
-        val opActualizar = view.findViewById<LinearLayout>(R.id.opactualizarProductos)
-        val opEliminar = view.findViewById<LinearLayout>(R.id.opEliminarProductos)
-
-        opVer.setOnClickListener {
+        view.findViewById<LinearLayout>(R.id.opverProductos).setOnClickListener {
             bottomSheet.dismiss()
             parentFragmentManager.beginTransaction()
                 .replace(R.id.frame_layout, ProductoFragment())
@@ -118,7 +148,7 @@ class ProductosRegistrar : Fragment(R.layout.fragment_crear_productos) {
                 .commit()
         }
 
-        opRegistrar.setOnClickListener {
+        view.findViewById<LinearLayout>(R.id.opregistrarProductos).setOnClickListener {
             bottomSheet.dismiss()
             parentFragmentManager.beginTransaction()
                 .replace(R.id.frame_layout, ProductosRegistrar())
@@ -126,7 +156,7 @@ class ProductosRegistrar : Fragment(R.layout.fragment_crear_productos) {
                 .commit()
         }
 
-        opActualizar.setOnClickListener {
+        view.findViewById<LinearLayout>(R.id.opactualizarProductos).setOnClickListener {
             bottomSheet.dismiss()
             parentFragmentManager.beginTransaction()
                 .replace(R.id.frame_layout, ProductoActualizar())
@@ -134,7 +164,7 @@ class ProductosRegistrar : Fragment(R.layout.fragment_crear_productos) {
                 .commit()
         }
 
-        opEliminar.setOnClickListener {
+        view.findViewById<LinearLayout>(R.id.opEliminarProductos).setOnClickListener {
             bottomSheet.dismiss()
             parentFragmentManager.beginTransaction()
                 .replace(R.id.frame_layout, ProductoEliminar())
@@ -143,9 +173,5 @@ class ProductosRegistrar : Fragment(R.layout.fragment_crear_productos) {
         }
 
         bottomSheet.show()
-    }
-
-    private fun limpiarCampos(vararg ets: EditText) {
-        ets.forEach { it.text?.clear() }
     }
 }

@@ -1,120 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-    <!-- FORMULARIO CON SCROLL -->
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="20dp"
-        android:layout_above="@id/btnOpcionesProducto">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="20dp"
+            android:layout_above="@id/btnOpcionesProducto">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
             <TextView
-                android:text="Actualizar Producto"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp" />
+                    android:text="Actualizar Producto"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp" />
 
-            <!-- CAMPO DE BÚSQUEDA -->
+            <!-- BUSCAR -->
             <EditText
-                android:id="@+id/etBuscarID_Producto"
-                android:hint="ID del producto"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                    android:id="@+id/etBuscarID_Producto"
+                    android:hint="ID del producto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
             <Button
-                android:id="@+id/btnBuscarProducto"
-                android:text="Buscar Producto"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp" />
+                    android:id="@+id/btnBuscarProducto"
+                    android:text="Buscar Producto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp" />
 
-            <!-- CAMPOS A EDITAR -->
+            <!-- CAMPOS -->
+            <EditText
+                    android:id="@+id/etID_Producto"
+                    android:hint="ID Producto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
             <EditText
-                android:id="@+id/etID_Producto"
-                android:hint="ID Producto"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                    android:id="@+id/etNombre_Producto"
+                    android:hint="Nombre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
             <EditText
-                android:id="@+id/etNombre_Producto"
-                android:hint="Nombre"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                    android:id="@+id/etDescripcion"
+                    android:hint="Descripción"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
             <EditText
-                android:id="@+id/etDescripcion"
-                android:hint="Descripción"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                    android:id="@+id/etPrecio_Venta"
+                    android:hint="Precio de venta"
+                    android:inputType="numberDecimal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
             <EditText
-                android:id="@+id/etPrecio_Venta"
-                android:hint="Precio de venta"
-                android:inputType="numberDecimal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                    android:id="@+id/etStock_Minimo"
+                    android:hint="Stock mínimo"
+                    android:inputType="number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
             <EditText
-                android:id="@+id/etStock_Minimo"
-                android:hint="Stock mínimo"
-                android:inputType="number"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                    android:id="@+id/etID_Categoria"
+                    android:hint="ID Categoría"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
             <EditText
-                android:id="@+id/etID_Categoria"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="ID Categoría" />
+                    android:id="@+id/etID_Estado"
+                    android:hint="ID Estado"
+                    android:text="EST001"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
             <EditText
-                android:id="@+id/etID_Estado"
-                android:hint="ID Estado"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                    android:id="@+id/etID_Gama"
+                    android:hint="ID Gama"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-            <EditText
-                android:id="@+id/etID_Gama"
-                android:hint="ID Gama"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+            <!-- 🖼️ PREVIEW -->
+            <ImageView
+                    android:id="@+id/imgProductoPreview"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="12dp"
+                    android:background="#EEEEEE"
+                    android:scaleType="centerCrop" />
 
-            <EditText
-                android:id="@+id/etFotos"
-                android:hint="URL Foto"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+            <!-- 📸 BOTÓN FOTO -->
+            <Button
+                    android:id="@+id/btnSeleccionarFotoProducto"
+                    android:text="Seleccionar Foto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp" />
 
             <Button
-                android:id="@+id/btnActualizarProducto"
-                android:text="Actualizar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp" />
+                    android:id="@+id/btnActualizarProducto"
+                    android:text="Actualizar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp" />
+
         </LinearLayout>
 
     </ScrollView>
 
-    <!-- BOTÓN FIJO ABAJO -->
     <ImageButton
-        android:id="@+id/btnOpcionesProducto"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:src="@drawable/ic_suma"
-        android:background="@android:color/transparent"
-        android:padding="10dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"/>
+            android:id="@+id/btnOpcionesProducto"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@drawable/ic_suma"
+            android:background="@android:color/transparent"
+            android:padding="10dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

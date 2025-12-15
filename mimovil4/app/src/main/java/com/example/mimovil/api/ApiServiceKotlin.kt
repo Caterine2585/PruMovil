@@ -6,12 +6,13 @@ import com.example.mimovil.model.DetalleCompras
 import com.example.mimovil.model.DetalleDev
 import com.example.mimovil.model.Detalle_Ventas
 import com.example.mimovil.model.Devoluciones
-import com.example.mimovil.model.Empleado
 import com.example.mimovil.model.LoginRequest
 import com.example.mimovil.model.LoginResponse
 import com.example.mimovil.model.Producto
 import com.example.mimovil.model.Proveedor
 import com.example.mimovil.model.Ventas
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
@@ -75,7 +76,7 @@ interface ApiServiceKotlin {
         @Body producto: Producto
     ): Call<ResponseBody>
 
-    // 🔹 NUEVO: ACTUALIZAR PRODUCTO (PUT)
+    // 🔹 ACTUALIZAR PRODUCTO (PUT) JSON
     @Headers("Content-Type: application/json")
     @PUT("ActualizaProd/{id}")
     fun actualizarProducto(
@@ -84,11 +85,32 @@ interface ApiServiceKotlin {
         @Body producto: Producto
     ): Call<ResponseBody>
 
-    // 🔹 NUEVO: ELIMINAR PRODUCTO (DELETE)
+    // 🔹 ELIMINAR PRODUCTO (DELETE)
     @DELETE("EliminarPro/{id}")
     fun eliminarProducto(
         @Header("Authorization") authHeader: String,
         @Path("id") id: String
+    ): Call<ResponseBody>
+
+    // ============================
+    // ✅ PRODUCTOS MULTIPART (IMAGEN)
+    // ============================
+
+    @Multipart
+    @POST("RegistroPMultipart")
+    fun crearProductoMultipart(
+        @Header("Authorization") authHeader: String,
+        @Part("data") data: RequestBody,
+        @Part file: MultipartBody.Part?
+    ): Call<ResponseBody>
+
+    @Multipart
+    @PUT("ActualizaProdMultipart/{id}")
+    fun actualizarProductoMultipart(
+        @Header("Authorization") authHeader: String,
+        @Path("id") id: String,
+        @Part("data") data: RequestBody,
+        @Part file: MultipartBody.Part?
     ): Call<ResponseBody>
 
 
@@ -247,5 +269,4 @@ interface ApiServiceKotlin {
     @Headers("Content-Type: application/json")
     @POST("/auth/login")
     fun loginEmpleado(@Body loginRequest: LoginRequest): Call<LoginResponse>
-
 }

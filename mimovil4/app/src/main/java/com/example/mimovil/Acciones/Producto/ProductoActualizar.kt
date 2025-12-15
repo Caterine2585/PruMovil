@@ -1,12 +1,15 @@
 package com.example.mimovil.Acciones.Producto
 
 import android.content.Context
+import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.*
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import com.example.mimovil.R
 import com.example.mimovil.api.RetroFitInstance
@@ -16,116 +19,89 @@ import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.net.URL
 
 class ProductoActualizar : Fragment() {
 
-    private lateinit var etBuscarID: EditText
+    private val BASE_URL = "http://192.168.80.13:8080/"
 
-    private lateinit var etID_Producto: EditText
+    private lateinit var etBuscarID: EditText
+    private lateinit var etID: EditText
     private lateinit var etNombre: EditText
     private lateinit var etDescripcion: EditText
     private lateinit var etPrecio: EditText
-    private lateinit var etStockMin: EditText
+    private lateinit var etStock: EditText
     private lateinit var etCategoria: EditText
     private lateinit var etEstado: EditText
     private lateinit var etGama: EditText
-    private lateinit var etFoto: EditText
+
+    private lateinit var imgPreview: ImageView
+    private lateinit var btnSeleccionarFoto: Button
+
+    private var fotoBase64Nueva: String? = null
 
     private lateinit var btnBuscar: Button
     private lateinit var btnActualizar: Button
     private lateinit var btnOpciones: ImageButton
 
+    // ===================== SELECTOR (igual que empleados) =====================
+    private val seleccionarImagenLauncher =
+        registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+            if (uri != null) {
+                try {
+                    imgPreview.setImageURI(uri)
+                    imgPreview.visibility = View.VISIBLE
+
+                    val input = requireContext().contentResolver.openInputStream(uri)
+                    val bytes = input?.readBytes()
+                    input?.close()
+
+                    if (bytes != null) {
+                        fotoBase64Nueva = "data:image/jpeg;base64," +
+                                Base64.encodeToString(bytes, Base64.NO_WRAP)
+                    } else {
+                        Toast.makeText(requireContext(), "No se pudo leer la imagen", Toast.LENGTH_SHORT).show()
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    Toast.makeText(requireContext(), "Error al cargar imagen", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         val view = inflater.inflate(R.layout.fragment_actualizar_producto, container, false)
 
-        etBuscarID    = view.findViewById(R.id.etBuscarID_Producto)
-
-
-        etID_Producto = view.findViewById(R.id.etID_Producto)
-        etNombre      = view.findViewById(R.id.etNombre_Producto)
+        etBuscarID = view.findViewById(R.id.etBuscarID_Producto)
+        etID = view.findViewById(R.id.etID_Producto)
+        etNombre = view.findViewById(R.id.etNombre_Producto)
         etDescripcion = view.findViewById(R.id.etDescripcion)
-        etPrecio      = view.findViewById(R.id.etPrecio_Venta)
-        etStockMin    = view.findViewById(R.id.etStock_Minimo)
-        etCategoria   = view.findViewById(R.id.etID_Categoria)
-        etEstado      = view.findViewById(R.id.etID_Estado)
-        etGama        = view.findViewById(R.id.etID_Gama)
-        etFoto        = view.findViewById(R.id.etFotos)
+        etPrecio = view.findViewById(R.id.etPrecio_Venta)
+        etStock = view.findViewById(R.id.etStock_Minimo)
+        etCategoria = view.findViewById(R.id.etID_Categoria)
+        etEstado = view.findViewById(R.id.etID_Estado)
+        etGama = view.findViewById(R.id.etID_Gama)
 
-        btnBuscar     = view.findViewById(R.id.btnBuscarProducto)
+        imgPreview = view.findViewById(R.id.imgProductoPreview)
+        btnSeleccionarFoto = view.findViewById(R.id.btnSeleccionarFotoProducto)
+
+        btnBuscar = view.findViewById(R.id.btnBuscarProducto)
         btnActualizar = view.findViewById(R.id.btnActualizarProducto)
-        btnOpciones   = view.findViewById(R.id.btnOpcionesProducto)
+        btnOpciones = view.findViewById(R.id.btnOpcionesProducto)
 
         btnBuscar.setOnClickListener { buscarProducto() }
         btnActualizar.setOnClickListener { actualizarProducto() }
+        btnSeleccionarFoto.setOnClickListener { seleccionarImagenLauncher.launch("image/*") }
         btnOpciones.setOnClickListener { mostrarMenuOpciones() }
 
         return view
     }
 
-    // ============================================================
-    // MENÚ DESPLEGABLE
-    // ============================================================
-
-    private fun mostrarMenuOpciones() {
-        val bottomSheet = BottomSheetDialog(
-            requireContext(),
-            com.google.android.material.R.style.Theme_Design_BottomSheetDialog
-        )
-        val view = layoutInflater.inflate(R.layout.opcionproductos, null)
-        bottomSheet.setContentView(view)
-        bottomSheet.window?.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
-
-
-        val opVer = view.findViewById<LinearLayout>(R.id.opverProductos)
-        val opRegistrar = view.findViewById<LinearLayout>(R.id.opregistrarProductos)
-        val opActualizar = view.findViewById<LinearLayout>(R.id.opactualizarProductos)
-        val opEliminar = view.findViewById<LinearLayout>(R.id.opEliminarProductos)
-
-        opVer.setOnClickListener {
-            bottomSheet.dismiss()
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.frame_layout, ProductoFragment())
-                .addToBackStack(null)
-                .commit()
-        }
-
-        opRegistrar.setOnClickListener {
-            bottomSheet.dismiss()
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.frame_layout, ProductosRegistrar())
-                .addToBackStack(null)
-                .commit()
-        }
-
-        opActualizar.setOnClickListener {
-            bottomSheet.dismiss()
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.frame_layout, ProductoActualizar())
-                .addToBackStack(null)
-                .commit()
-        }
-
-        opEliminar.setOnClickListener {
-            bottomSheet.dismiss()
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.frame_layout, ProductoEliminar())
-                .addToBackStack(null)
-                .commit()
-        }
-
-        bottomSheet.show()
-    }
-
-
-    // ============================================================
-    // GET: BUSCAR PRODUCTO
-    // ============================================================
-
+    // ===================== BUSCAR PRODUCTO =====================
     private fun buscarProducto() {
         val id = etBuscarID.text.toString().trim()
         if (id.isEmpty()) {
@@ -133,57 +109,52 @@ class ProductoActualizar : Fragment() {
             return
         }
 
-        // Obtener token (mejor usar auth real)
         val prefs = requireContext().getSharedPreferences("usuario", Context.MODE_PRIVATE)
         val token = prefs.getString("jwt_token", null)
         if (token.isNullOrEmpty()) {
-            Toast.makeText(requireContext(), "Debes iniciar sesión primero", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Debes iniciar sesión", Toast.LENGTH_SHORT).show()
             return
         }
-        val authHeader = "Bearer $token"
 
-        RetroFitInstance.api2kotlin.getProducto(authHeader)
+        RetroFitInstance.api2kotlin.getProducto("Bearer $token")
             .enqueue(object : Callback<List<String>> {
                 override fun onResponse(call: Call<List<String>>, response: Response<List<String>>) {
+
                     if (!response.isSuccessful) {
-                        Toast.makeText(requireContext(), "Error al obtener productos: ${response.code()}", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), "Error: ${response.code()}", Toast.LENGTH_SHORT).show()
                         return
                     }
 
-                    val lista = response.body().orEmpty()
-
-                    // DEBUG: si quieres ver la lista en Logcat o en pantalla temporalmente
-                    // Log.d("BUSCAR_PROD", "Lista size=${lista.size} -> $lista")
-                    // tvResultadoProductos.text = lista.joinToString("\n") // opcional
-
-                    // Buscar comparando el primer campo (antes de "________"), trim y case-insensitive
-                    val productoEncontrado = lista.find { item ->
-                        val partes = item.split("________")
-                        val first = partes.getOrNull(0)?.trim()
-                        first != null && first.equals(id, ignoreCase = true)
+                    val producto = response.body().orEmpty().firstOrNull { row ->
+                        val p = row.split("________")
+                        p.isNotEmpty() && p[0].trim().equals(id, true)
                     }
 
-                    if (productoEncontrado == null) {
+                    if (producto == null) {
                         Toast.makeText(requireContext(), "Producto no encontrado", Toast.LENGTH_SHORT).show()
                         return
                     }
 
-                    val p = productoEncontrado.split("________")
-
+                    val p = producto.split("________")
                     if (p.size < 9) {
-                        Toast.makeText(requireContext(), "Formato inválido del producto recibido", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), "Formato inválido desde servidor", Toast.LENGTH_SHORT).show()
                         return
                     }
 
-                    etID_Producto.setText(p[0].trim())
-                    etNombre.setText(p[1].trim())
-                    etDescripcion.setText(p[2].trim())
-                    etPrecio.setText(p[3].trim())
-                    etStockMin.setText(p[4].trim())
-                    etCategoria.setText(p[5].trim())
-                    etEstado.setText(p[6].trim())
-                    etGama.setText(p[7].trim())
-                    etFoto.setText(p[8].trim())
+                    etID.setText(p[0])
+                    etNombre.setText(p[1])
+                    etDescripcion.setText(p[2])
+                    etPrecio.setText(p[3])
+                    etStock.setText(p[4])
+                    etCategoria.setText(p[5])
+                    etEstado.setText(p[6])
+                    etGama.setText(p[7])
+
+                    // ✅ AQUÍ: traer foto al buscar
+                    mostrarFotoProducto(p[8])
+
+                    // Importante: no mandamos foto nueva hasta que selecciones otra
+                    fotoBase64Nueva = null
 
                     Toast.makeText(requireContext(), "Producto cargado", Toast.LENGTH_SHORT).show()
                 }
@@ -194,49 +165,168 @@ class ProductoActualizar : Fragment() {
             })
     }
 
-    // ============================================================
-    // PUT: ACTUALIZAR PRODUCTO
-    // ============================================================
+    // ===================== MOSTRAR FOTO (base64 / url / ruta) =====================
+    private fun mostrarFotoProducto(fotoRaw: String) {
 
+        val foto = fotoRaw.trim()
+        if (foto.isBlank()) {
+            imgPreview.setImageDrawable(null)
+            imgPreview.visibility = View.GONE
+            return
+        }
+
+        // 1) Base64
+        val pareceBase64 = foto.startsWith("data:image") || (foto.length > 300 && !foto.startsWith("http"))
+        if (pareceBase64) {
+            try {
+                val base64Solo = foto.substringAfter(",", foto)
+                val bytes = Base64.decode(base64Solo, Base64.DEFAULT)
+                val bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+                imgPreview.setImageBitmap(bmp)
+                imgPreview.visibility = View.VISIBLE
+            } catch (e: Exception) {
+                imgPreview.setImageDrawable(null)
+                imgPreview.visibility = View.GONE
+            }
+            return
+        }
+
+        // 2) URL / ruta
+        val ruta = foto
+            .replace("\\", "/")
+            .removePrefix("/")
+            .replace("http://localhost:8080/", BASE_URL)
+            .replace("http://127.0.0.1:8080/", BASE_URL)
+            .replace("http://10.0.2.2:8080/", BASE_URL)
+
+        val urlsAProbar: List<String> =
+            if (ruta.startsWith("http")) {
+                listOf(ruta)
+            } else {
+                val r = ruta.removePrefix("uploads/")
+                listOf(
+                    BASE_URL + "uploads/" + r,
+                    BASE_URL + r
+                )
+            }
+
+        imgPreview.visibility = View.VISIBLE
+
+        Thread {
+            var bitmap: android.graphics.Bitmap? = null
+
+            for (u in urlsAProbar.distinct()) {
+                try {
+                    val input = URL(u).openStream()
+                    bitmap = BitmapFactory.decodeStream(input)
+                    input.close()
+
+                    if (bitmap != null) {
+                        break
+                    }
+                } catch (_: Exception) {
+                    // sigue intentando
+                }
+            }
+
+            requireActivity().runOnUiThread {
+                if (bitmap != null) {
+                    imgPreview.setImageBitmap(bitmap)
+                    imgPreview.visibility = View.VISIBLE
+                } else {
+                    imgPreview.setImageDrawable(null)
+                    imgPreview.visibility = View.GONE
+                    Toast.makeText(
+                        requireContext(),
+                        "No se pudo cargar la foto del producto",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }.start()
+    }
+
+    // ===================== ACTUALIZAR =====================
     private fun actualizarProducto() {
 
-        val id = etID_Producto.text.toString()
-
-        if (id.isEmpty()) {
-            Toast.makeText(requireContext(), "Busca primero un producto", Toast.LENGTH_SHORT).show()
+        val prefs = requireContext().getSharedPreferences("usuario", Context.MODE_PRIVATE)
+        val token = prefs.getString("jwt_token", null)
+        if (token.isNullOrEmpty()) {
+            Toast.makeText(requireContext(), "Sesión expirada", Toast.LENGTH_SHORT).show()
             return
         }
 
         val producto = Producto(
-            ID_Producto     = id,
-            Nombre_Producto = etNombre.text.toString(),
-            Descripcion     = etDescripcion.text.toString(),
-            Precio_Venta    = etPrecio.text.toString(),
-            Stock_Minimo    = etStockMin.text.toString(),
-            ID_Categoria    = etCategoria.text.toString(),
-            ID_Estado       = etEstado.text.toString(),
-            ID_Gama         = etGama.text.toString(),
-            Fotos           = etFoto.text.toString()
+            ID_Producto = etID.text.toString().trim(),
+            Nombre_Producto = etNombre.text.toString().trim(),
+            Descripcion = etDescripcion.text.toString().trim(),
+            Precio_Venta = etPrecio.text.toString().trim(),
+            Stock_Minimo = etStock.text.toString().trim(),
+            ID_Categoria = etCategoria.text.toString().trim(),
+            ID_Estado = etEstado.text.toString().trim(),
+            ID_Gama = etGama.text.toString().trim(),
+            Fotos = fotoBase64Nueva ?: "" // ✅ solo manda si seleccionaste nueva
         )
 
-        // Llamada PUT
-        RetroFitInstance.api2kotlin.actualizarProducto("null", id, producto)
-            .enqueue(object : Callback<ResponseBody> {
+        RetroFitInstance.api2kotlin.actualizarProducto(
+            "Bearer $token",
+            producto.ID_Producto,
+            producto
+        ).enqueue(object : Callback<ResponseBody> {
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                Toast.makeText(
+                    requireContext(),
+                    if (response.isSuccessful) "Producto actualizado"
+                    else "Error al actualizar: ${response.code()}",
+                    Toast.LENGTH_SHORT
+                ).show()
+                if (response.isSuccessful) fotoBase64Nueva = null
+            }
 
-                override fun onResponse(
-                    call: Call<ResponseBody>,
-                    response: Response<ResponseBody>
-                ) {
-                    if (response.isSuccessful) {
-                        Toast.makeText(requireContext(), "Producto actualizado", Toast.LENGTH_SHORT).show()
-                    } else {
-                        Toast.makeText(requireContext(), "Error al actualizar", Toast.LENGTH_SHORT).show()
-                    }
-                }
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                Toast.makeText(requireContext(), "Error: ${t.message}", Toast.LENGTH_LONG).show()
+            }
+        })
+    }
 
-                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                    Toast.makeText(requireContext(), "Error: ${t.message}", Toast.LENGTH_LONG).show()
-                }
-            })
+    // ===================== MENÚ =====================
+    private fun mostrarMenuOpciones() {
+        val bottomSheet = BottomSheetDialog(
+            requireContext(),
+            com.google.android.material.R.style.Theme_Design_BottomSheetDialog
+        )
+        val view = layoutInflater.inflate(R.layout.opcionproductos, null)
+        bottomSheet.setContentView(view)
+        bottomSheet.window?.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
+
+        view.findViewById<LinearLayout>(R.id.opverProductos).setOnClickListener {
+            bottomSheet.dismiss()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.frame_layout, ProductoFragment())
+                .addToBackStack(null)
+                .commit()
+        }
+
+        view.findViewById<LinearLayout>(R.id.opregistrarProductos).setOnClickListener {
+            bottomSheet.dismiss()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.frame_layout, ProductosRegistrar())
+                .addToBackStack(null)
+                .commit()
+        }
+
+        view.findViewById<LinearLayout>(R.id.opactualizarProductos).setOnClickListener {
+            bottomSheet.dismiss()
+        }
+
+        view.findViewById<LinearLayout>(R.id.opEliminarProductos).setOnClickListener {
+            bottomSheet.dismiss()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.frame_layout, ProductoEliminar())
+                .addToBackStack(null)
+                .commit()
+        }
+
+        bottomSheet.show()
     }
 }
