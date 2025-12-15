@@ -63,8 +63,9 @@ class MainEmpleadoActivity : AppCompatActivity() {
 
     private fun replaceFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.frame_layout, fragment)
+            .replace(R.id.frame_layout, Fragment_EmpleadoHome())
             .commit()
+
     }
 
     // 🔹 CERRAR SESIÓN REAL
