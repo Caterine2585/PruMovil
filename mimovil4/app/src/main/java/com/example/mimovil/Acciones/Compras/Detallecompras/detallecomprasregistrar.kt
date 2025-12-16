@@ -52,7 +52,6 @@ class detallecomprasregistrar  : Fragment() {
     }
 
 
-    //MENÚ BOTTOM SHEET
 
     private fun mostrarMenuOpciones() {
 
@@ -66,13 +65,12 @@ class detallecomprasregistrar  : Fragment() {
 
         bottomSheet.window?.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
 
-        // Opciones del menú
         val opVer = view.findViewById<LinearLayout>(R.id.opverdetallecompras)
         val opRegistrar = view.findViewById<LinearLayout>(R.id.opregistrardetallecompras)
         val opActualizar = view.findViewById<LinearLayout>(R.id.opactualizardetallecompras)
         val opEliminar = view.findViewById<LinearLayout>(R.id.opEliminardetallecompras)
 
-        //VER (GET)
+
         opVer.setOnClickListener {
             bottomSheet.dismiss()
             parentFragmentManager.beginTransaction()
@@ -81,7 +79,7 @@ class detallecomprasregistrar  : Fragment() {
                 .commit()
         }
 
-        // REGISTRAR
+
         opRegistrar.setOnClickListener {
             bottomSheet.dismiss()
             parentFragmentManager.beginTransaction()
@@ -90,7 +88,6 @@ class detallecomprasregistrar  : Fragment() {
                 .commit()
         }
 
-        //ACTUALIZAR
         opActualizar.setOnClickListener {
             bottomSheet.dismiss()
             parentFragmentManager.beginTransaction()
@@ -99,7 +96,6 @@ class detallecomprasregistrar  : Fragment() {
                 .commit()
         }
 
-        //ELIMINAR
         opEliminar.setOnClickListener {
             bottomSheet.dismiss()
             parentFragmentManager.beginTransaction()
@@ -111,9 +107,6 @@ class detallecomprasregistrar  : Fragment() {
         bottomSheet.show()
     }
 
-
-
-    //CREAR DETALLE
 
     private fun crearDetalle() {
 

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- FORMULARIO CON SCROLL -->
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -24,7 +24,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp" />
 
-            <!-- BUSCAR DETALLE -->
             <EditText
                 android:id="@+id/etBuscarIDDetalleDev"
                 android:hint="IDDevolucion"
@@ -45,7 +44,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp" />
 
-            <!-- CAMPOS A EDITAR -->
 
             <EditText
                 android:id="@+id/etIDDetalleDev"
@@ -87,7 +85,6 @@
 
     </ScrollView>
 
-    <!-- BOTÓN OPCIONES -->
     <ImageButton
         android:id="@+id/btnOpcionesDetalleDevolucion"
         android:layout_width="120dp"

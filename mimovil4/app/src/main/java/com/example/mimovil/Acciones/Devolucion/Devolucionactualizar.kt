@@ -56,7 +56,7 @@ class Devolucionactualizar : Fragment(R.layout.fragment_actualizar_devolucion) {
     }
 
 
-    //   MENÚ OPCIONES
+
     private fun mostrarMenuOpciones() {
         val bottomSheet = BottomSheetDialog(
             requireContext(),
@@ -108,7 +108,6 @@ class Devolucionactualizar : Fragment(R.layout.fragment_actualizar_devolucion) {
     }
 
 
-    //   BUSCAR DEVOLUCIÓN
     private fun buscarDevolucion() {
 
         val idBuscar = etBuscarID.text.toString()
@@ -163,7 +162,7 @@ class Devolucionactualizar : Fragment(R.layout.fragment_actualizar_devolucion) {
     }
 
 
-    //  ACTUALIZAR DEVOLUCIÓN (PUT)
+
     private fun actualizarDevolucion() {
 
         val id = etIDDevolucion.text.toString()

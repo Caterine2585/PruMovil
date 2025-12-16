@@ -19,7 +19,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // 👉 Si ya hay token guardado, salta el login (pero ahora según rol)
+
         val prefs = getSharedPreferences("usuario", MODE_PRIVATE)
         val tokenGuardado = prefs.getString("jwt_token", null)
         val rolGuardado = prefs.getString("rol", null)
@@ -50,7 +50,7 @@ class LoginActivity : AppCompatActivity() {
                 contrasena = contrasena
             )
 
-            // ✅ OJO: ahora esperamos LoginResponse (JSON), NO ResponseBody
+
             RetroFitInstance.api2kotlin.loginEmpleado(request)
                 .enqueue(object : Callback<LoginResponse> {
                     override fun onResponse(
@@ -76,7 +76,6 @@ class LoginActivity : AppCompatActivity() {
                                 return
                             }
 
-                            // 👉 Guardar token y rol
                             prefs.edit()
                                 .putString("jwt_token", token)
                                 .putString("rol", rol)
@@ -107,7 +106,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun irSegunRol(rol: String) {
-        // ROL001 = Admin, ROL002 = Empleado (según tu BD)
+
         if (rol == "ROL001") {
             startActivity(Intent(this, MainActivity::class.java))
         } else {

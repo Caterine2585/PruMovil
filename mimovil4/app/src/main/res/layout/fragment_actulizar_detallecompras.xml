@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- FORMULARIO CON SCROLL -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -24,7 +23,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp" />
 
-            <!-- BUSCAR DETALLE -->
             <EditText
                 android:id="@+id/etBuscarIdDetalle"
                 android:hint="ID_Entrada"
@@ -44,7 +42,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp" />
 
-            <!-- CAMPOS A EDITAR -->
             <EditText
                 android:id="@+id/etFechaEntrada"
                 android:hint="Fecha Entrada"
@@ -86,7 +83,6 @@
 
     </ScrollView>
 
-    <!-- BOTÓN OPCIONES -->
     <ImageButton
         android:id="@+id/btnOpcionesDetalleC"
         android:layout_width="120dp"

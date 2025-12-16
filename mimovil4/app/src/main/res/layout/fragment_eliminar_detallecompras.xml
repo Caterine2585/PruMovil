@@ -23,14 +23,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp" />
 
-            <!-- ID Entrada -->
             <EditText
                 android:id="@+id/etIDEntrada"
                 android:hint="ID Entrada"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <!-- ID Proveedor -->
             <EditText
                 android:id="@+id/etIDProveedor"
                 android:hint="ID Proveedor"

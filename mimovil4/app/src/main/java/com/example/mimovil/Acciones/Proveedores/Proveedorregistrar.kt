@@ -20,7 +20,7 @@ class Proveedorregistrar : Fragment(R.layout.fragment_crearproveedor) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // CAMPOS
+
         val etId = view.findViewById<EditText>(R.id.etId_proveedor)
         val etNombre = view.findViewById<EditText>(R.id.etNombreProveedor)
         val etCorreo = view.findViewById<EditText>(R.id.etCorreoProveedor)
@@ -50,14 +50,10 @@ class Proveedorregistrar : Fragment(R.layout.fragment_crearproveedor) {
             crearProveedor(proveedor, btnCrear, campos)
         }
 
-        // BOTÓN MENÚ
         btnOpciones.setOnClickListener {
             mostrarMenuOpciones()
         }
     }
-
-
-    // CREAR PROVEEDOR
 
     private fun crearProveedor(
         proveedor: Proveedor,
@@ -85,8 +81,6 @@ class Proveedorregistrar : Fragment(R.layout.fragment_crearproveedor) {
             })
     }
 
-
-    //MENÚ DESPLEGABLE
 
     private fun mostrarMenuOpciones() {
         val bottomSheet = BottomSheetDialog(requireContext(), com.google.android.material.R.style.Theme_Design_BottomSheetDialog)

@@ -49,9 +49,6 @@ class ventasFragment : Fragment() {
         return view
     }
 
-
-
-    // MENÚ OPCIONES
     private fun mostrarMenuOpciones() {
         val bottomSheet = BottomSheetDialog(
             requireContext(),
@@ -102,9 +99,6 @@ class ventasFragment : Fragment() {
         bottomSheet.show()
     }
 
-
-
-    // GET VENTAS
     private fun mostrarVentas() {
 
         RetroFitInstance.api2kotlin.getVentas()

@@ -11,13 +11,10 @@
     tools:context=".MainActivity">
 
 
-
-    <!-- ======= CONTENIDO (1er hijo) ======= -->
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!-- AppBar / Toolbar -->
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -32,19 +29,17 @@
                 android:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
         </com.google.android.material.appbar.AppBarLayout>
 
-        <!-- Zona donde cargas tus fragments -->
+
         <FrameLayout
             android:id="@+id/frame_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
-        <!-- BottomAppBar + BottomNavigation -->
 
-        <!-- FAB anclado al BottomAppBar -->
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-    <!-- ======= DRAWER (2º hijo) ======= -->
+
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"

@@ -14,7 +14,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <!-- TÍTULO -->
             <TextView
                 android:text="Eliminar Cliente"
                 android:textSize="20sp"
@@ -24,14 +23,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp" />
 
-            <!-- DOCUMENTO -->
             <EditText
                 android:id="@+id/etDocumentoEliminar"
                 android:hint="Documento"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <!-- BOTÓN BUSCAR -->
             <Button
                 android:id="@+id/btnBuscarCliente"
                 android:text="Buscar Cliente"
@@ -39,7 +36,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp" />
 
-            <!-- TEXTO RESULTADO -->
             <TextView
                 android:id="@+id/tvResultadoCliente"
                 android:text="Ingrese un documento para buscar..."
@@ -48,7 +44,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp" />
 
-            <!-- BOTÓN ELIMINAR -->
             <Button
                 android:id="@+id/btnEliminarCliente"
                 android:text="Eliminar Cliente"
@@ -59,7 +54,6 @@
 
     </ScrollView>
 
-    <!-- BOTÓN OPCIONES ABAJO -->
     <ImageButton
         android:id="@+id/btnOpciones"
         android:layout_width="110dp"

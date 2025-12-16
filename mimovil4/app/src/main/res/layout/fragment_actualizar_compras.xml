@@ -23,7 +23,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp" />
 
-            <!-- BUSCAR -->
             <EditText
                 android:id="@+id/etBuscarIdEntrada"
                 android:hint="ID Entrada "
@@ -37,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp" />
 
-            <!-- CAMPOS A EDITAR -->
+
             <EditText
                 android:id="@+id/etIdEntrada"
                 android:hint="ID Entrada"

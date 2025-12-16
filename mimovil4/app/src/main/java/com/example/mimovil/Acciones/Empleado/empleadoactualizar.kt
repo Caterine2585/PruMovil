@@ -23,7 +23,7 @@ import java.net.URL
 
 class empleadoactualizar : Fragment() {
 
-    private val BASE_URL_IMG = "http://192.168.80.13:8080/"
+    private val BASE_URL_IMG = "http://192.168.0.11:8080/"
 
     private lateinit var etBuscarDocumento: EditText
 
@@ -38,7 +38,7 @@ class empleadoactualizar : Fragment() {
     private lateinit var etEstado: EditText
     private lateinit var etRol: EditText
 
-    private lateinit var etContrasena: EditText // ✅ NUEVO CAMPO
+    private lateinit var etContrasena: EditText
 
     private lateinit var imgFoto: ImageView
     private var fotoBase64: String? = null
@@ -59,7 +59,7 @@ class empleadoactualizar : Fragment() {
                     inputStream?.close()
 
                     if (bytes != null) {
-                        // (opcional) puedes dejarlo así, Spring ya recorta prefijo si viene
+
                         fotoBase64 = Base64.encodeToString(bytes, Base64.NO_WRAP)
                     } else {
                         Toast.makeText(requireContext(), "No se pudo leer la imagen", Toast.LENGTH_SHORT).show()
@@ -91,7 +91,7 @@ class empleadoactualizar : Fragment() {
         etEstado = view.findViewById(R.id.etEstadoEmp)
         etRol = view.findViewById(R.id.etRolEmp)
 
-        etContrasena = view.findViewById(R.id.etContrasenaEmp) // ✅ NUEVO findViewById
+        etContrasena = view.findViewById(R.id.etContrasenaEmp)
 
         imgFoto = view.findViewById(R.id.imgFotoEmp)
 
@@ -108,7 +108,6 @@ class empleadoactualizar : Fragment() {
         return view
     }
 
-    // ===================== MENÚ OPCIONES =====================
 
     private fun mostrarMenuOpciones() {
         val bottomSheet = BottomSheetDialog(
@@ -154,7 +153,6 @@ class empleadoactualizar : Fragment() {
         bottomSheet.show()
     }
 
-    // ===================== GET: BUSCAR EMPLEADO =====================
 
     private fun buscarEmpleado() {
         val documento = etBuscarDocumento.text.toString().trim()
@@ -240,7 +238,7 @@ class empleadoactualizar : Fragment() {
 
                     fotoBase64 = null
 
-                    // ✅ opcional: limpiar contraseña al cargar empleado
+
                     etContrasena.setText("")
 
                     Toast.makeText(requireContext(), "Empleado cargado", Toast.LENGTH_SHORT).show()
@@ -252,13 +250,12 @@ class empleadoactualizar : Fragment() {
             })
     }
 
-    // ===================== SELECTOR DE IMAGEN =====================
+
 
     private fun seleccionarFoto() {
         seleccionarImagenLauncher.launch("image/*")
     }
 
-    // ===================== PUT: ACTUALIZAR EMPLEADO =====================
 
     private fun actualizarEmpleado() {
 
@@ -269,7 +266,6 @@ class empleadoactualizar : Fragment() {
             return
         }
 
-        // ✅ NUEVO: request para update con contraseña opcional
         val request = EmpleadoActualizarRequest(
             tipoDocumento = etTipoDoc.text.toString(),
             nombre = etNombre.text.toString(),
@@ -281,10 +277,8 @@ class empleadoactualizar : Fragment() {
             idEstado = etEstado.text.toString(),
             idRol = etRol.text.toString(),
 
-            // ✅ si NO seleccionas foto, enviamos null para no tocarla
             fotos = fotoBase64?.takeIf { it.isNotBlank() },
 
-            // ✅ SOLO si escriben contraseña, la enviamos
             contrasena = etContrasena.text.toString().takeIf { it.isNotBlank() }
         )
 
@@ -294,9 +288,9 @@ class empleadoactualizar : Fragment() {
                 override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                     if (response.isSuccessful) {
                         Toast.makeText(requireContext(), "Empleado actualizado", Toast.LENGTH_SHORT).show()
-                        // ✅ opcional: limpiar contraseña tras actualizar
+
                         etContrasena.setText("")
-                        // y limpiar fotoBase64 para que no se reenvíe sin querer
+
                         fotoBase64 = null
                     } else {
                         Toast.makeText(requireContext(), "Error al actualizar: ${response.code()}", Toast.LENGTH_SHORT).show()

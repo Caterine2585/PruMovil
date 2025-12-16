@@ -48,9 +48,6 @@ class Detalleveneliminar : Fragment() {
         return view
     }
 
-
-    //  MENÚ BOTTOM
-
     private fun mostrarMenuOpciones() {
         val bottomSheet = BottomSheetDialog(
             requireContext(),
@@ -102,9 +99,6 @@ class Detalleveneliminar : Fragment() {
         bottomSheet.show()
     }
 
-
-    // BUSCAR
-
     private fun buscarDetalle() {
         val idProducto = etIDProducto.text.toString()
         val idVenta = etIDVenta.text.toString()
@@ -128,11 +122,10 @@ class Detalleveneliminar : Fragment() {
 
                     val lista = response.body().orEmpty()
 
-                    // Tu backend separa con ________
                     val encontrado = lista.find { item ->
                         val partes = item.split("________")
-                        partes.getOrNull(2) == idProducto &&   // ID_Producto
-                                partes.getOrNull(3) == idVenta        // ID_Venta
+                        partes.getOrNull(2) == idProducto &&
+                                partes.getOrNull(3) == idVenta
                     }
 
                     if (encontrado == null) {
@@ -158,8 +151,6 @@ class Detalleveneliminar : Fragment() {
             })
     }
 
-
-    // ELIMINAR
 
     private fun eliminarDetalle() {
         val idProducto = etIDProducto.text.toString()

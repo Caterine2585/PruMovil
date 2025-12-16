@@ -50,7 +50,7 @@ class Detalledevregistrar : Fragment() {
         return view
     }
 
-    //  MENÚ OPCIONES
+
 
     private fun mostrarMenuOpciones() {
 
@@ -102,7 +102,7 @@ class Detalledevregistrar : Fragment() {
         bottomSheet.show()
     }
 
-    // CREAR DETALLE DEVOLUCION
+
 
     private fun crearDetalleDevolucion() {
 

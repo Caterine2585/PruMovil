@@ -3,7 +3,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-    <!-- CONTENIDO SCROLLEABLE -->
     <ScrollView
             android:id="@+id/scrollCrearEmpleado"
             android:layout_width="match_parent"
@@ -16,7 +15,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-            <!-- TÍTULO -->
             <TextView
                     android:id="@+id/tvTituloCrearEmpleado"
                     android:text="Crear Empleado"
@@ -27,7 +25,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp" />
 
-            <!-- CAMPOS DEL EMPLEADO -->
             <EditText
                     android:id="@+id/etDocumentoEmpC"
                     android:hint="Documento"
@@ -93,7 +90,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
-            <!-- 🔐 CONTRASEÑA (NUEVO) -->
             <EditText
                     android:id="@+id/etContrasenaEmpC"
                     android:hint="Contraseña"
@@ -102,7 +98,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp" />
 
-            <!-- IMAGEN DEL EMPLEADO -->
             <ImageView
                     android:id="@+id/imgFotoEmpC"
                     android:layout_width="150dp"
@@ -120,7 +115,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp" />
 
-            <!-- BOTÓN CREAR -->
             <Button
                     android:id="@+id/btnCrearEmpleado"
                     android:text="Crear"
@@ -131,7 +125,6 @@
         </LinearLayout>
     </ScrollView>
 
-    <!-- BOTÓN FLOTANTE OPCIONES -->
     <ImageButton
             android:id="@+id/btnOpcionesCrearEmp"
             android:layout_width="120dp"

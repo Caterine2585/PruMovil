@@ -19,7 +19,7 @@ import java.net.URL
 
 class ProductoFragment : Fragment() {
 
-    private val BASE_URL = "http://192.168.80.13:8080/"
+    private val BASE_URL = "http://192.168.0.11:8080/"
 
     private lateinit var btnOpcionesProductos: ImageButton
     private lateinit var layoutProductos: LinearLayout
@@ -44,7 +44,6 @@ class ProductoFragment : Fragment() {
         return view
     }
 
-    // ==================== GET PRODUCTOS ====================
     private fun mostrarProductos() {
 
         layoutProductos.removeAllViews()
@@ -133,7 +132,6 @@ class ProductoFragment : Fragment() {
                             visibility = View.GONE
                         }
 
-                        // ===================== IMAGEN (BASE64 + URL + RUTAS) =====================
                         btnMostrar.setOnClickListener {
                             if (img.visibility == View.GONE) {
 
@@ -142,12 +140,12 @@ class ProductoFragment : Fragment() {
                                     return@setOnClickListener
                                 }
 
-                                // Normalizar
+
                                 var ruta = fotoRuta.trim()
                                     .replace("\\", "/")
                                     .removePrefix("/")
 
-                                // 1) Base64
+
                                 val pareceBase64 = ruta.startsWith("data:image") || (ruta.length > 300 && !ruta.startsWith("http"))
                                 if (pareceBase64) {
                                     try {
@@ -166,18 +164,17 @@ class ProductoFragment : Fragment() {
                                     return@setOnClickListener
                                 }
 
-                                // 2) Si viene URL completa pero con localhost/127 -> reemplazar host
                                 fun fixHostIfLocal(url: String): String {
                                     return url
                                         .replace("http://localhost:8080/", BASE_URL)
                                         .replace("http://127.0.0.1:8080/", BASE_URL)
-                                        .replace("http://10.0.2.2:8080/", BASE_URL) // emulador
+                                        .replace("http://10.0.2.2:8080/", BASE_URL)
                                 }
 
                                 val candidatos: List<String> = if (ruta.startsWith("http")) {
                                     listOf(fixHostIfLocal(ruta))
                                 } else {
-                                    // 3) Ruta relativa: probar /uploads/ y raíz /
+
                                     val r = ruta.removePrefix("uploads/")
                                     listOf(
                                         BASE_URL + "uploads/" + r,
@@ -202,7 +199,7 @@ class ProductoFragment : Fragment() {
                                                 cargada = true
                                             }
                                         } catch (_: Exception) {
-                                            // intentar siguiente
+
                                         }
                                     }
 
@@ -237,7 +234,7 @@ class ProductoFragment : Fragment() {
             })
     }
 
-    // ==================== MENÚ OPCIONES ====================
+
     private fun mostrarMenuOpciones() {
 
         val bottomSheet = BottomSheetDialog(

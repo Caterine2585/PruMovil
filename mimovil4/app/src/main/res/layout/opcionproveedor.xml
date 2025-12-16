@@ -16,7 +16,7 @@
         android:gravity="center"
         android:paddingBottom="10dp" />
 
-    <!--ver-->
+
     <LinearLayout
         android:id="@+id/opverproveedor"
         android:layout_width="match_parent"
@@ -40,7 +40,7 @@
             android:textColor="@color/lavender" />
     </LinearLayout>
 
-    <!-- Registrar -->
+
     <LinearLayout
         android:id="@+id/opregistrarproveedor"
         android:layout_width="match_parent"
@@ -64,7 +64,6 @@
             android:textColor="@color/lavender" />
     </LinearLayout>
 
-    <!-- Actualizar -->
     <LinearLayout
         android:id="@+id/opactualizarproveedor"
         android:layout_width="match_parent"
@@ -88,7 +87,6 @@
             android:textColor="@color/lavender" />
     </LinearLayout>
 
-    <!-- Eliminar -->
     <LinearLayout
         android:id="@+id/opEliminarproveedor"
         android:layout_width="match_parent"

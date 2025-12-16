@@ -14,7 +14,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <!-- TÍTULO -->
             <TextView
                 android:text="Eliminar Devolución"
                 android:textSize="20sp"
@@ -24,14 +23,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp" />
 
-            <!-- CAMPO ID DEVOLUCIÓN -->
             <EditText
                 android:id="@+id/etIDDevolucionEliminar"
                 android:hint="ID Devolución"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <!-- BOTÓN BUSCAR -->
             <Button
                 android:id="@+id/btnBuscarDevolucion"
                 android:text="Buscar Devolución"
@@ -39,7 +36,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp" />
 
-            <!-- RESULTADO -->
             <TextView
                 android:id="@+id/tvResultadoDevolucion"
                 android:text="Ingrese un ID para buscar..."
@@ -48,7 +44,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp" />
 
-            <!-- BOTÓN ELIMINAR -->
             <Button
                 android:id="@+id/btnEliminarDevolucion"
                 android:text="Eliminar Devolución"
@@ -59,7 +54,6 @@
 
     </ScrollView>
 
-    <!-- BOTÓN OPCIONES ABAJO -->
     <ImageButton
         android:id="@+id/btnOpcionesDevolucion"
         android:layout_width="110dp"

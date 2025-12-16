@@ -23,7 +23,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp" />
 
-            <!-- BUSCAR -->
             <EditText
                     android:id="@+id/etBuscarID_Producto"
                     android:hint="ID del producto"
@@ -37,7 +36,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp" />
 
-            <!-- CAMPOS -->
             <EditText
                     android:id="@+id/etID_Producto"
                     android:hint="ID Producto"
@@ -89,7 +87,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
-            <!-- 🖼️ PREVIEW -->
             <ImageView
                     android:id="@+id/imgProductoPreview"
                     android:layout_width="150dp"
@@ -99,7 +96,6 @@
                     android:background="#EEEEEE"
                     android:scaleType="centerCrop" />
 
-            <!-- 📸 BOTÓN FOTO -->
             <Button
                     android:id="@+id/btnSeleccionarFotoProducto"
                     android:text="Seleccionar Foto"

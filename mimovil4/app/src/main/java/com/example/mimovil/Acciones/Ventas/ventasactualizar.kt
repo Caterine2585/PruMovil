@@ -36,14 +36,13 @@ class ventasactualizar : Fragment(R.layout.fragment_actualizar_ventas) {
 
         val view = inflater.inflate(R.layout.fragment_actualizar_ventas, container, false)
 
-        // Inputs
+
         etBuscarIDVenta = view.findViewById(R.id.etBuscarIdVenta)
 
         etIDVenta = view.findViewById(R.id.etIdVenta)
         etDocumentoCliente = view.findViewById(R.id.etDocumentoClienteV)
         etDocumentoEmpleado = view.findViewById(R.id.etDocumentoEmpleadoV)
 
-        // Botones
         btnBuscar = view.findViewById(R.id.btnBuscarVenta)
         btnActualizar = view.findViewById(R.id.btnActualizarVenta)
         btnOpciones = view.findViewById(R.id.btnOpcionesVenta)
@@ -55,7 +54,6 @@ class ventasactualizar : Fragment(R.layout.fragment_actualizar_ventas) {
         return view
     }
 
-    // MENÚ OPCIONES
     private fun mostrarMenuOpciones() {
         val bottomSheet = BottomSheetDialog(
             requireContext(),
@@ -106,7 +104,6 @@ class ventasactualizar : Fragment(R.layout.fragment_actualizar_ventas) {
         bottomSheet.show()
     }
 
-    // BUSCAR VENTA (GET LISTA)
     private fun buscarVenta() {
 
         val idBuscar = etBuscarIDVenta.text.toString()
@@ -160,7 +157,6 @@ class ventasactualizar : Fragment(R.layout.fragment_actualizar_ventas) {
             })
     }
 
-    // ACTUALIZAR (PUT)
     private fun actualizarVenta() {
 
         val idVenta = etIDVenta.text.toString()

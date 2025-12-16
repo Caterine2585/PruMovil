@@ -34,7 +34,7 @@ class clienteregistrar : Fragment(R.layout.fragment_crear_cliente) {
         val btnCrear = view.findViewById<Button>(R.id.btnCrearCliente)
         val btnOpciones = view.findViewById<ImageButton>(R.id.btnOpciones)
 
-        // ✔ BOTÓN CREAR
+
         btnCrear.setOnClickListener {
             val cliente = Cliente(
                 documento = etDocumento.text.toString(),
@@ -72,7 +72,6 @@ class clienteregistrar : Fragment(R.layout.fragment_crear_cliente) {
     }
 
 
-    //MENÚ DESPLEGABLE
 
     private fun mostrarMenuOpciones() {
         val bottomSheet = BottomSheetDialog(

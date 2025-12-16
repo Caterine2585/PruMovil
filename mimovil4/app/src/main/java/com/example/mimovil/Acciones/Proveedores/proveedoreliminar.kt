@@ -47,8 +47,6 @@ class proveedoreliminar : Fragment() {
     }
 
 
-    //BUSCAR PROVEEDOR
-
     private fun buscarProveedor() {
 
         val id = etIdProveedorEliminar.text.toString()
@@ -105,8 +103,6 @@ class proveedoreliminar : Fragment() {
     }
 
 
-    // ELIMINAR PROVEEDOR
-
     private fun eliminarProveedor() {
 
         val id = idProveedorEncontrado
@@ -140,8 +136,6 @@ class proveedoreliminar : Fragment() {
             })
     }
 
-
-    //MENÚ DESPLEGABLE
 
     private fun mostrarMenuOpciones() {
         val bottomSheet = BottomSheetDialog(requireContext(), com.google.android.material.R.style.Theme_Design_BottomSheetDialog)

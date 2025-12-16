@@ -23,14 +23,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp" />
 
-            <!-- ID Detalle Dev -->
             <EditText
                 android:id="@+id/etIDDetalleDevDD"
                 android:hint="ID  Devolucion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <!-- ID Devolución -->
             <EditText
                 android:id="@+id/etIDDevolucionDD"
                 android:hint="ID Venta"

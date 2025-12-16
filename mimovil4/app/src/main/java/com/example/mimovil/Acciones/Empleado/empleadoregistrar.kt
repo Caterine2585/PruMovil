@@ -63,7 +63,7 @@ class empleadoregistrar : Fragment(R.layout.fragment_crear_empleado) {
         val etEstado = view.findViewById<EditText>(R.id.etEstadoEmpC)
         val etRol = view.findViewById<EditText>(R.id.etRolEmpC)
 
-        val etContrasena = view.findViewById<EditText>(R.id.etContrasenaEmpC) // ✅ (2) NUEVO CAMPO
+        val etContrasena = view.findViewById<EditText>(R.id.etContrasenaEmpC)
 
         val btnCrear = view.findViewById<Button>(R.id.btnCrearEmpleado)
         val btnOpciones = view.findViewById<ImageButton>(R.id.btnOpcionesCrearEmp)
@@ -78,7 +78,6 @@ class empleadoregistrar : Fragment(R.layout.fragment_crear_empleado) {
 
         btnCrear.setOnClickListener {
 
-            // ✅ (3) AHORA SE ENVÍA EMPLEADO + CONTRASEÑA
             val empleado = EmpleadoRegistroRequest(
                 documento = etDocumento.text.toString(),
                 tipoDocumento = etTipoDoc.text.toString(),
@@ -97,7 +96,7 @@ class empleadoregistrar : Fragment(R.layout.fragment_crear_empleado) {
             val campos = arrayOf(
                 etDocumento, etTipoDoc, etNombre, etApellido,
                 etEdad, etCorreo, etTelefono, etGenero, etEstado, etRol,
-                etContrasena // ✅ limpiar también contraseña
+                etContrasena
             )
 
             crearEmpleado(empleado, btnCrear, campos)
@@ -108,16 +107,15 @@ class empleadoregistrar : Fragment(R.layout.fragment_crear_empleado) {
         }
     }
 
-    // CREAR EMPLEADO
 
     private fun crearEmpleado(
-        empleado: EmpleadoRegistroRequest, // ✅ (4) CAMBIO DE TIPO
+        empleado: EmpleadoRegistroRequest,
         btnCrear: Button,
         campos: Array<EditText>
     ) {
         btnCrear.isEnabled = false
 
-        RetroFitInstance.api2kotlin.crearEmpleado(empleado) // ✅ ahora manda el request con contraseña
+        RetroFitInstance.api2kotlin.crearEmpleado(empleado)
             .enqueue(object : Callback<ResponseBody> {
                 override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                     btnCrear.isEnabled = true
@@ -139,7 +137,6 @@ class empleadoregistrar : Fragment(R.layout.fragment_crear_empleado) {
             })
     }
 
-    // MENÚ OPCIONES
 
     private fun mostrarMenuOpciones() {
         val bottomSheet = BottomSheetDialog(requireContext(), com.google.android.material.R.style.Theme_Design_BottomSheetDialog)

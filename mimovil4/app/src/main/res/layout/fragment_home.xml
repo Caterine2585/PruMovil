@@ -12,7 +12,6 @@
         android:orientation="vertical"
         android:gravity="center_horizontal">
 
-        <!-- FILA 1 -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -21,7 +20,7 @@
             android:weightSum="2"
             android:layout_marginBottom="12dp">
 
-            <!-- TARJETA PRODUCTOS -->
+
             <LinearLayout
                 android:id="@+id/cardProductos"
                 android:layout_width="0dp"
@@ -49,7 +48,6 @@
                     android:layout_marginTop="8dp"/>
             </LinearLayout>
 
-            <!-- TARJETA COMPRA -->
             <LinearLayout
                 android:id="@+id/cardCompra"
                 android:layout_width="0dp"
@@ -78,7 +76,6 @@
             </LinearLayout>
         </LinearLayout>
 
-        <!-- FILA 2 -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -86,7 +83,6 @@
             android:gravity="center"
             android:weightSum="2">
 
-            <!-- TARJETA CLIENTE -->
             <LinearLayout
                 android:id="@+id/cardCliente"
                 android:layout_width="0dp"
@@ -114,7 +110,6 @@
                     android:layout_marginTop="8dp"/>
             </LinearLayout>
 
-            <!-- TARJETA EMPLEADO -->
             <LinearLayout
                 android:id="@+id/cardEmpleado"
                 android:layout_width="0dp"
@@ -143,7 +138,6 @@
             </LinearLayout>
         </LinearLayout>
 
-        <!-- FILA 3 -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -151,7 +145,6 @@
             android:gravity="center"
             android:weightSum="2">
 
-            <!-- TARJETA VENTA -->
             <LinearLayout
                 android:id="@+id/cardVenta"
                 android:layout_width="0dp"
@@ -178,7 +171,8 @@
                     android:textColor="#0F172A"
                     android:layout_marginTop="8dp"/>
             </LinearLayout>
-            <!-- TARJETA Proveedor -->
+
+
             <LinearLayout
                 android:id="@+id/cardProveedor"
                 android:layout_width="0dp"
@@ -207,7 +201,6 @@
             </LinearLayout>
         </LinearLayout>
 
-        <!-- FILA 4 -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -216,7 +209,7 @@
             android:weightSum="2"
             android:layout_marginBottom="12dp">
 
-            <!-- TARJETA DEVOLUCIÓN -->
+
             <LinearLayout
                 android:id="@+id/cardDevolucion"
                 android:layout_width="0dp"

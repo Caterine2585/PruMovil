@@ -23,28 +23,24 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp" />
 
-            <!-- ID Venta -->
             <EditText
                 android:id="@+id/etIDVenta"
                 android:hint="ID Venta"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <!-- DOCUMENTO CLIENTE -->
             <EditText
                 android:id="@+id/etDocumentoCliente"
                 android:hint="Documento Cliente"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <!-- DOCUMENTO EMPLEADO -->
             <EditText
                 android:id="@+id/etDocumentoEmpleado"
                 android:hint="Documento Empleado"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <!-- BOTÓN CREAR VENTA -->
             <Button
                 android:id="@+id/btnCrearVenta"
                 android:text="Registrar Venta"
@@ -56,7 +52,6 @@
 
     </ScrollView>
 
-    <!-- BOTÓN OPCIONES ABAJO -->
     <ImageButton
         android:id="@+id/btnOpcionesVentas"
         android:layout_width="120dp"

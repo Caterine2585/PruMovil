@@ -52,7 +52,6 @@ class ComprasFragment : Fragment() {
 
 
 
-    // MENÚ OPCIONES
     private fun mostrarMenuOpciones() {
         val bottomSheet = BottomSheetDialog(
             requireContext(),
@@ -104,8 +103,6 @@ class ComprasFragment : Fragment() {
     }
 
 
-
-    //GET COMPRAS
 
     private fun mostrarCompras() {
 

@@ -46,8 +46,6 @@ class ventaseliminar : Fragment() {
         return view
     }
 
-
-    // BUSCAR VENTA
     private fun buscarVenta() {
         val idventa = etIDVenta.text.toString()
 
@@ -93,8 +91,6 @@ class ventaseliminar : Fragment() {
             })
     }
 
-
-    // ELIMINAR VENTA
     private fun eliminarVenta() {
         val idventa = idEncontrado
 
@@ -123,8 +119,6 @@ class ventaseliminar : Fragment() {
             })
     }
 
-
-    // MENÚ OPCIONES
     private fun mostrarMenuOpciones() {
         val bottomSheet = BottomSheetDialog(
             requireContext(),

@@ -42,7 +42,6 @@ class clienteFragment : Fragment() {
         return view
     }
 
-    // MENÚ DESPLEGABLE
 
     private fun mostrarMenuOpciones() {
         val bottomSheet = BottomSheetDialog(requireContext(), com.google.android.material.R.style.Theme_Design_BottomSheetDialog)
@@ -89,7 +88,6 @@ class clienteFragment : Fragment() {
 
         bottomSheet.show()
     }
-
 
 
     private fun mostrarClientes() {

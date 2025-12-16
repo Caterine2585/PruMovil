@@ -18,7 +18,7 @@ import java.net.URL
 
 class empleadoFragment : Fragment() {
 
-    private val BASE_URL_IMG = "http://192.168.80.13:8080/"
+    private val BASE_URL_IMG = "http://192.168.0.11:8080/"
 
     private lateinit var btnOpciones: ImageButton
     private lateinit var layoutEmpleados: LinearLayout
@@ -41,7 +41,6 @@ class empleadoFragment : Fragment() {
         return view
     }
 
-    // ===================== GET EMPLEADOS =====================
 
     private fun mostrarEmpleados() {
 
@@ -123,7 +122,7 @@ class empleadoFragment : Fragment() {
                             visibility = View.GONE
                         }
 
-                        // ===================== FOTO (CORREGIDO) =====================
+
 
                         btnMostrar.setOnClickListener {
                             if (img.visibility == View.GONE) {
@@ -134,7 +133,7 @@ class empleadoFragment : Fragment() {
                                 }
 
                                 val rutaLimpia = fotoRuta.trim()
-                                    .replace("\\", "/")   // 🔥 FIX WINDOWS
+                                    .replace("\\", "/")
                                     .removePrefix("/")
 
                                 val urlFinal = if (rutaLimpia.startsWith("http")) {
@@ -185,7 +184,6 @@ class empleadoFragment : Fragment() {
             })
     }
 
-    // ===================== MENÚ OPCIONES =====================
 
     private fun mostrarMenuOpciones() {
 

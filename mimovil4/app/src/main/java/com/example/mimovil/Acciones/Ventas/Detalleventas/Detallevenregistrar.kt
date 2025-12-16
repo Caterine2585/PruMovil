@@ -51,7 +51,6 @@ class Detallevenregistrar : Fragment() {
         return view
     }
 
-    // MENÚ BOTTOM SHEET
     private fun mostrarMenuOpciones() {
 
         val bottomSheet = BottomSheetDialog(
@@ -92,8 +91,6 @@ class Detallevenregistrar : Fragment() {
                 .commit()
         }
 
-
-
         opEliminar.setOnClickListener {
             bottomSheet.dismiss()
             parentFragmentManager.beginTransaction()
@@ -105,7 +102,6 @@ class Detallevenregistrar : Fragment() {
         bottomSheet.show()
     }
 
-    // CREAR DETALLE VENTAS
     private fun crearDetalle() {
 
         val detalle = Detalle_Ventas(

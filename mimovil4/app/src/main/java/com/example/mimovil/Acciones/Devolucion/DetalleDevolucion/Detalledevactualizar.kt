@@ -62,7 +62,7 @@ class Detalledevactualizar : Fragment(R.layout.fragment_actualizar_detalledevolu
         return view
     }
 
-    // MENÚ OPCIONES
+
     private fun mostrarMenuOpciones() {
         val bottomSheet = BottomSheetDialog(
             requireContext(),
@@ -116,7 +116,6 @@ class Detalledevactualizar : Fragment(R.layout.fragment_actualizar_detalledevolu
     }
 
 
-    // BUSCAR DETALLE DEVOLUCIÓN (GET)
     private fun buscarDetalle() {
         val idDevolucion = etBuscarIDDevolucion.text.toString()
         val idVenta = etBuscarIDVenta.text.toString()
@@ -167,7 +166,6 @@ class Detalledevactualizar : Fragment(R.layout.fragment_actualizar_detalledevolu
             })
     }
 
-    // ACTUALIZAR DETALLE DEV (PUT)
     private fun actualizarDetalle() {
         val idDev = devolucionEncontrada
         val idVenta = ventaEncontrada

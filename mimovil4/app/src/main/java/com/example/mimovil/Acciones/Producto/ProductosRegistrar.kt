@@ -22,7 +22,7 @@ class ProductosRegistrar : Fragment(R.layout.fragment_crear_productos) {
     private var base64Foto: String? = null
     private lateinit var imgPreview: ImageView
 
-    // 📸 Selector de imagen (igual que empleados)
+
     private val seleccionarImagenLauncher =
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
             if (uri != null) {
@@ -50,7 +50,7 @@ class ProductosRegistrar : Fragment(R.layout.fragment_crear_productos) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // CAMPOS
+
         val etID_Producto     = view.findViewById<EditText>(R.id.etID_Producto)
         val etNombre_Producto = view.findViewById<EditText>(R.id.etNombre_Producto)
         val etDescripcion     = view.findViewById<EditText>(R.id.etDescripcion)
@@ -66,12 +66,10 @@ class ProductosRegistrar : Fragment(R.layout.fragment_crear_productos) {
 
         imgPreview = view.findViewById(R.id.imgPreviewProducto)
 
-        // 📸 Seleccionar imagen
         btnImagen.setOnClickListener {
             seleccionarImagenLauncher.launch("image/*")
         }
 
-        // 💾 Crear producto
         btnCrear.setOnClickListener {
 
             val producto = Producto(
@@ -83,7 +81,7 @@ class ProductosRegistrar : Fragment(R.layout.fragment_crear_productos) {
                 ID_Categoria    = etID_Categoria.text.toString().trim(),
                 ID_Estado       = etID_Estado.text.toString().trim().ifEmpty { "EST001" },
                 ID_Gama         = etID_Gama.text.toString().trim(),
-                Fotos           = base64Foto ?: ""   // ✅ FOTO BASE64
+                Fotos           = base64Foto ?: ""
             )
 
             if (producto.ID_Producto.isEmpty() || producto.Nombre_Producto.isEmpty()) {
@@ -97,7 +95,7 @@ class ProductosRegistrar : Fragment(R.layout.fragment_crear_productos) {
 
             val authHeader = "Bearer $token"
 
-            // 🚀 LLAMADA JSON NORMAL (RegistroP)
+
             RetroFitInstance.api2kotlin.crearProducto(authHeader, producto)
                 .enqueue(object : Callback<ResponseBody> {
 
@@ -130,7 +128,6 @@ class ProductosRegistrar : Fragment(R.layout.fragment_crear_productos) {
         btnOpciones.setOnClickListener { mostrarMenuOpciones() }
     }
 
-    // MENÚ OPCIONES (igual al tuyo)
     private fun mostrarMenuOpciones() {
         val bottomSheet = BottomSheetDialog(
             requireContext(),

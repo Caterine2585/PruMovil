@@ -23,28 +23,24 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp" />
 
-            <!-- ID Detalle Dev -->
             <EditText
                 android:id="@+id/etIDDetalleDev"
                 android:hint="ID Detalle Devolución"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <!-- ID Devolución -->
             <EditText
                 android:id="@+id/etIDDevolucion"
                 android:hint="ID Devolución"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <!-- ID Venta -->
             <EditText
                 android:id="@+id/etIDVentaDev"
                 android:hint="ID Venta"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <!-- Cantidad Devuelta -->
             <EditText
                 android:id="@+id/etCantidadDevuelta"
                 android:hint="Cantidad Devuelta"

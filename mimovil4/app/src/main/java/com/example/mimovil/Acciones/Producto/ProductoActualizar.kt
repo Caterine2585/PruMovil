@@ -23,7 +23,7 @@ import java.net.URL
 
 class ProductoActualizar : Fragment() {
 
-    private val BASE_URL = "http://192.168.80.13:8080/"
+    private val BASE_URL = "http://192.168.0.11:8080/"
 
     private lateinit var etBuscarID: EditText
     private lateinit var etID: EditText
@@ -44,7 +44,6 @@ class ProductoActualizar : Fragment() {
     private lateinit var btnActualizar: Button
     private lateinit var btnOpciones: ImageButton
 
-    // ===================== SELECTOR (igual que empleados) =====================
     private val seleccionarImagenLauncher =
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
             if (uri != null) {
@@ -101,7 +100,6 @@ class ProductoActualizar : Fragment() {
         return view
     }
 
-    // ===================== BUSCAR PRODUCTO =====================
     private fun buscarProducto() {
         val id = etBuscarID.text.toString().trim()
         if (id.isEmpty()) {
@@ -150,10 +148,9 @@ class ProductoActualizar : Fragment() {
                     etEstado.setText(p[6])
                     etGama.setText(p[7])
 
-                    // ✅ AQUÍ: traer foto al buscar
+
                     mostrarFotoProducto(p[8])
 
-                    // Importante: no mandamos foto nueva hasta que selecciones otra
                     fotoBase64Nueva = null
 
                     Toast.makeText(requireContext(), "Producto cargado", Toast.LENGTH_SHORT).show()
@@ -165,7 +162,6 @@ class ProductoActualizar : Fragment() {
             })
     }
 
-    // ===================== MOSTRAR FOTO (base64 / url / ruta) =====================
     private fun mostrarFotoProducto(fotoRaw: String) {
 
         val foto = fotoRaw.trim()
@@ -191,7 +187,6 @@ class ProductoActualizar : Fragment() {
             return
         }
 
-        // 2) URL / ruta
         val ruta = foto
             .replace("\\", "/")
             .removePrefix("/")
@@ -225,7 +220,7 @@ class ProductoActualizar : Fragment() {
                         break
                     }
                 } catch (_: Exception) {
-                    // sigue intentando
+
                 }
             }
 
@@ -246,7 +241,6 @@ class ProductoActualizar : Fragment() {
         }.start()
     }
 
-    // ===================== ACTUALIZAR =====================
     private fun actualizarProducto() {
 
         val prefs = requireContext().getSharedPreferences("usuario", Context.MODE_PRIVATE)
@@ -265,7 +259,7 @@ class ProductoActualizar : Fragment() {
             ID_Categoria = etCategoria.text.toString().trim(),
             ID_Estado = etEstado.text.toString().trim(),
             ID_Gama = etGama.text.toString().trim(),
-            Fotos = fotoBase64Nueva ?: "" // ✅ solo manda si seleccionaste nueva
+            Fotos = fotoBase64Nueva ?: ""
         )
 
         RetroFitInstance.api2kotlin.actualizarProducto(
@@ -289,7 +283,6 @@ class ProductoActualizar : Fragment() {
         })
     }
 
-    // ===================== MENÚ =====================
     private fun mostrarMenuOpciones() {
         val bottomSheet = BottomSheetDialog(
             requireContext(),

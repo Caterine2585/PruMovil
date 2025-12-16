@@ -45,7 +45,6 @@ class Compraseliminar : Fragment() {
     }
 
 
-    // BUSCAR COMPRA
 
     private fun buscarCompra() {
         val identrada = etIDEntrada.text.toString()
@@ -90,8 +89,6 @@ class Compraseliminar : Fragment() {
     }
 
 
-    // ELIMINAR COMPRA
-
     private fun eliminarCompra() {
         val identrada = idEncontrado
 
@@ -120,7 +117,6 @@ class Compraseliminar : Fragment() {
     }
 
 
-    // MENÚ OPCIONES
 
     private fun mostrarMenuOpciones() {
         val bottomSheet = BottomSheetDialog(requireContext(), com.google.android.material.R.style.Theme_Design_BottomSheetDialog)

@@ -3,7 +3,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-    <!-- CONTENIDO SCROLLEABLE -->
+
     <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -34,7 +34,7 @@
                     android:background="#EEEEEE"
                     android:text="Aquí se mostrarán los resultados" />
 
-            <!-- 🔥 ESTE ERA EL BLOQUE QUE FALTABA -->
+
             <LinearLayout
                     android:id="@+id/layoutProductos"
                     android:layout_width="match_parent"
@@ -45,7 +45,6 @@
         </LinearLayout>
     </ScrollView>
 
-    <!-- BOTÓN + CENTRADO ABAJO -->
     <ImageButton
             android:id="@+id/btnOpcionesProducto"
             android:layout_width="120dp"

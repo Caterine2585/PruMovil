@@ -14,6 +14,6 @@ data class EmpleadoActualizarRequest(
     @SerializedName("ID_Rol")             var idRol: String? = null,
     @SerializedName("Fotos")              var fotos: String? = null,
 
-    // ✅ opcional: si viene null o "", tu backend debe ignorarla (como web)
+
     @SerializedName("Contrasena")         var contrasena: String? = null
 )

@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- SCROLL DE CONTENIDO -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -15,7 +14,6 @@
             android:orientation="vertical"
             android:padding="20dp">
 
-            <!-- TÍTULO -->
             <TextView
                 android:id="@+id/tvTituloDetalleVenta"
                 android:layout_width="match_parent"
@@ -26,7 +24,6 @@
                 android:gravity="center"
                 android:layout_marginBottom="20dp" />
 
-            <!-- RESULTADO -->
             <TextView
                 android:id="@+id/tvResultadoDetalleVenta"
                 android:layout_width="match_parent"
@@ -41,7 +38,6 @@
 
     </ScrollView>
 
-    <!-- BOTÓN DE OPCIONES (FLOTANTE) -->
     <ImageButton
         android:id="@+id/btnOpcionesDetalleVenta"
         android:layout_width="120dp"

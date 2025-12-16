@@ -65,8 +65,6 @@ class Comprasregistrar : Fragment(R.layout.fragment_crear_compras) {
 
 
 
-    //MENÚ OPCIONES
-
     private fun mostrarMenuOpciones() {
         val bottomSheet = BottomSheetDialog(
             requireContext(),

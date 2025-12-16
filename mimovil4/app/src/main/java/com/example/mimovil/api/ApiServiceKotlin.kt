@@ -19,9 +19,7 @@ import retrofit2.http.*
 
 interface ApiServiceKotlin {
 
-    // ============================
     // CLIENTES
-    // ============================
     @GET("/Detalles")
     fun getClientes(): Call<List<String>>
 
@@ -39,9 +37,7 @@ interface ApiServiceKotlin {
     fun eliminarCliente(@Path("documento") documento: String): Call<ResponseBody>
 
 
-    // ============================
     // EMPLEADOS
-    // ============================
     @GET("/Empleados")
     fun getEmpleados(): Call<List<String>>
 
@@ -61,9 +57,8 @@ interface ApiServiceKotlin {
     ): Call<ResponseBody>
 
 
-    // ============================
     // PRODUCTOS (PROTEGIDOS CON JWT)
-    // ============================
+
     @GET("Productos")
     fun getProducto(
         @Header("Authorization") authHeader: String
@@ -76,7 +71,6 @@ interface ApiServiceKotlin {
         @Body producto: Producto
     ): Call<ResponseBody>
 
-    // 🔹 ACTUALIZAR PRODUCTO (PUT) JSON
     @Headers("Content-Type: application/json")
     @PUT("ActualizaProd/{id}")
     fun actualizarProducto(
@@ -85,16 +79,11 @@ interface ApiServiceKotlin {
         @Body producto: Producto
     ): Call<ResponseBody>
 
-    // 🔹 ELIMINAR PRODUCTO (DELETE)
     @DELETE("EliminarPro/{id}")
     fun eliminarProducto(
         @Header("Authorization") authHeader: String,
         @Path("id") id: String
     ): Call<ResponseBody>
-
-    // ============================
-    // ✅ PRODUCTOS MULTIPART (IMAGEN)
-    // ============================
 
     @Multipart
     @POST("RegistroPMultipart")
@@ -114,9 +103,8 @@ interface ApiServiceKotlin {
     ): Call<ResponseBody>
 
 
-    // ============================
     // COMPRAS
-    // ============================
+
     @GET("Compras")
     fun getCompras(): Call<List<String>>
 
@@ -134,9 +122,8 @@ interface ApiServiceKotlin {
     fun eliminarCompra(@Path("ID_Entrada") ID_Entrada: String): Call<ResponseBody>
 
 
-    // ============================
     // DETALLE COMPRAS
-    // ============================
+
     @GET("DetalleC")
     fun getDetalleCompras(): Call<List<String>>
 
@@ -158,9 +145,8 @@ interface ApiServiceKotlin {
     ): Call<ResponseBody>
 
 
-    // ============================
     // VENTAS
-    // ============================
+
     @GET("/Ventas")
     fun getVentas(): Call<List<String>>
 
@@ -178,9 +164,8 @@ interface ApiServiceKotlin {
     fun eliminarVenta(@Path("ID_Venta") documento: String): Call<ResponseBody>
 
 
-    // ============================
     // DETALLE VENTAS
-    // ============================
+
     @GET("/DetalleVentas")
     fun getDetalleVentas(): Call<List<String>>
 
@@ -202,9 +187,8 @@ interface ApiServiceKotlin {
     ): Call<ResponseBody>
 
 
-    // ============================
     // DEVOLUCIONES
-    // ============================
+
     @GET("Devoluciones")
     fun getDevolucion(): Call<List<String>>
 
@@ -243,9 +227,8 @@ interface ApiServiceKotlin {
     ): Call<ResponseBody>
 
 
-    // ============================
     // PROVEEDORES
-    // ============================
+
     @GET("/Proveedor")
     fun getProveedores(): Call<List<String>>
 
@@ -263,9 +246,8 @@ interface ApiServiceKotlin {
     fun eliminarProveedor(@Path("ID_Proveedor") idProveedor: String): Call<ResponseBody>
 
 
-    // ============================
     // LOGIN (JWT)
-    // ============================
+
     @Headers("Content-Type: application/json")
     @POST("/auth/login")
     fun loginEmpleado(@Body loginRequest: LoginRequest): Call<LoginResponse>

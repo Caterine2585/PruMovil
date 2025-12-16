@@ -23,14 +23,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp" />
 
-            <!-- ID Producto -->
             <EditText
                 android:id="@+id/etIDProductoDV"
                 android:hint="ID Producto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <!-- ID Venta -->
             <EditText
                 android:id="@+id/etIDVentaDV"
                 android:hint="ID Venta"

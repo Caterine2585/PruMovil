@@ -46,7 +46,6 @@ class detallecompraseliminar : Fragment() {
     }
 
 
-    // MENÚ BOTTOM
 
     private fun mostrarMenuOpciones() {
         val bottomSheet = BottomSheetDialog(
@@ -99,8 +98,6 @@ class detallecompraseliminar : Fragment() {
     }
 
 
-    // BUSCAR DETALLE
-
     private fun buscarDetalle() {
         val idEntrada = etIDEntrada.text.toString()
         val idProveedor = etIDProveedor.text.toString()
@@ -124,11 +121,10 @@ class detallecompraseliminar : Fragment() {
 
                     val lista = response.body().orEmpty()
 
-                    // CORRECCIÓN: ID_Proveedor = partes[2], ID_Entrada = partes[3]
                     val encontrado = lista.find { item ->
                         val partes = item.split("________")
-                        partes.getOrNull(0) == idEntrada && // ID_Entrada
-                                partes.getOrNull(1) == idProveedor // ID_Proveedor
+                        partes.getOrNull(0) == idEntrada &&
+                                partes.getOrNull(1) == idProveedor
                     }
 
 
@@ -156,7 +152,6 @@ class detallecompraseliminar : Fragment() {
     }
 
 
-    // ELIMINAR DETALLE
 
     private fun eliminarDetalle() {
         val idEntrada = etIDEntrada.text.toString()

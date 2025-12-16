@@ -14,5 +14,5 @@ data class EmpleadoRegistroRequest(
     @SerializedName("ID_Estado")          var idEstado: String = "EST001",
     @SerializedName("ID_Rol")             var idRol: String = "ROL002",
     @SerializedName("Fotos")              var fotos: String = "",
-    @SerializedName("Contrasena")         var contrasena: String = ""   // ✅ Laravel
+    @SerializedName("Contrasena")         var contrasena: String = ""
 )

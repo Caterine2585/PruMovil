@@ -61,7 +61,6 @@ class Detallevenactualizar : Fragment(R.layout.fragment_actualizar_detalleventa)
         return view
     }
 
-    // MENÚ OPCIONES
     private fun mostrarMenuOpciones() {
         val bottomSheet = BottomSheetDialog(
             requireContext(),
@@ -111,7 +110,6 @@ class Detallevenactualizar : Fragment(R.layout.fragment_actualizar_detalleventa)
         bottomSheet.show()
     }
 
-    // BUSCAR DETALLE
     private fun buscarDetalle() {
         val idProducto = etBuscarIdProducto.text.toString()
         val idVenta = etBuscarIdVenta.text.toString()
@@ -132,11 +130,6 @@ class Detallevenactualizar : Fragment(R.layout.fragment_actualizar_detalleventa)
 
                     val lista = response.body().orEmpty()
 
-                    // ORDEN CORRECTO DE INDICES:
-                    // 0 = cantidad
-                    // 1 = fecha_salida
-                    // 2 = id_producto
-                    // 3 = id_venta
 
                     val detalle = lista.find { item ->
                         val partes = item.split("________")
@@ -168,7 +161,7 @@ class Detallevenactualizar : Fragment(R.layout.fragment_actualizar_detalleventa)
             })
     }
 
-    // ACTUALIZAR DETALLE
+
     private fun actualizarDetalle() {
         val idProducto = idProductoEncontrado
         val idVenta = idVentaEncontrado

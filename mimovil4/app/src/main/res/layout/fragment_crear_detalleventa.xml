@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- SCROLL DEL FORMULARIO -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -24,14 +23,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp" />
 
-            <!-- ID Producto -->
             <EditText
                 android:id="@+id/etIDProductoVenta"
                 android:hint="ID Producto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <!-- ID Venta -->
             <EditText
                 android:id="@+id/etIDVentaVenta"
                 android:hint="ID Venta"
@@ -39,7 +36,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp" />
 
-            <!-- Cantidad -->
             <EditText
                 android:id="@+id/etCantidadVenta"
                 android:hint="Cantidad"
@@ -48,7 +44,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp" />
 
-            <!-- Fecha Salida -->
             <EditText
                 android:id="@+id/etFechaSalidaVenta"
                 android:hint="Fecha de Salida 2025-02-06"
@@ -66,7 +61,6 @@
         </LinearLayout>
     </ScrollView>
 
-    <!-- BOTÓN OPCIONES -->
     <ImageButton
         android:id="@+id/btnOpcionesDetalleCrearVenta"
         android:layout_width="120dp"

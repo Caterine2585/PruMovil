@@ -64,8 +64,6 @@ class proveedoractualizar : Fragment() {
 
 
 
-    //MENÚ DESPLEGABLE
-
     private fun mostrarMenuOpciones() {
         val bottomSheet = BottomSheetDialog(requireContext(), com.google.android.material.R.style.Theme_Design_BottomSheetDialog)
         val view = layoutInflater.inflate(R.layout.opcionproveedor, null)
@@ -114,9 +112,6 @@ class proveedoractualizar : Fragment() {
     }
 
 
-
-    // Buscar proveedor (GET)
-
     private fun buscarProveedor() {
         val id = etBuscarId.text.toString()
         if (id.isEmpty()) {
@@ -161,8 +156,6 @@ class proveedoractualizar : Fragment() {
             })
     }
 
-
-    // Actualizar proveedor (PUT)
 
     private fun actualizarProveedor() {
         val id = etId.text.toString()

@@ -46,7 +46,6 @@ class empleadoeliminar : Fragment() {
     }
 
 
-    //BUSCAR EMPLEADO
 
     private fun buscarEmpleado() {
 
@@ -109,8 +108,6 @@ class empleadoeliminar : Fragment() {
     }
 
 
-    // ELIMINAR EMPLEADO
-
     private fun eliminarEmpleado() {
 
         val documento = documentoEncontrado
@@ -132,7 +129,7 @@ class empleadoeliminar : Fragment() {
                         Toast.makeText(requireContext(), "Empleado eliminado correctamente", Toast.LENGTH_SHORT).show()
 
                         etDocumentoEliminarEmp.text.clear()
-                        tvResultadoEmpleado.text = ""  // LIMPIAR INFO
+                        tvResultadoEmpleado.text = ""
                         documentoEncontrado = null
                     } else {
                         Toast.makeText(requireContext(), "Error al eliminar", Toast.LENGTH_SHORT).show()
@@ -146,7 +143,6 @@ class empleadoeliminar : Fragment() {
     }
 
 
-    // MENÚ DE OPCIONES
 
     private fun mostrarMenuOpciones() {
         val bottomSheet = BottomSheetDialog(requireContext(), com.google.android.material.R.style.Theme_Design_BottomSheetDialog)

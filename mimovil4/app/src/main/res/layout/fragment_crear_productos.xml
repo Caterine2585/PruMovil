@@ -3,7 +3,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-    <!-- CONTENIDO SCROLLEABLE -->
     <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -15,7 +14,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-            <!-- TÍTULO -->
             <TextView
                     android:text="Crear Producto"
                     android:textSize="20sp"
@@ -76,7 +74,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
-            <!-- BOTÓN SELECCIONAR IMAGEN -->
             <Button
                     android:id="@+id/btnSeleccionarImagen"
                     android:layout_width="match_parent"
@@ -84,7 +81,6 @@
                     android:text="Seleccionar imagen"
                     android:layout_marginTop="10dp" />
 
-            <!-- PREVIEW PEQUEÑO -->
             <ImageView
                     android:id="@+id/imgPreviewProducto"
                     android:layout_width="140dp"
@@ -94,7 +90,6 @@
                     android:scaleType="centerCrop"
                     android:contentDescription="Preview imagen producto" />
 
-            <!-- BOTÓN CREAR -->
             <Button
                     android:id="@+id/btnCrearProducto"
                     android:text="Crear Producto"
@@ -105,7 +100,6 @@
         </LinearLayout>
     </ScrollView>
 
-    <!-- BOTÓN OPCIONES INFERIOR -->
     <ImageButton
             android:id="@+id/btnOpcionesProducto"
             android:layout_width="120dp"

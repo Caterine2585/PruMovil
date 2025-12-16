@@ -35,14 +35,11 @@ class detallecomprasFragment : Fragment() {
 
         mostrarDetalleCompras()
 
-        // 🔥 Aquí va el menú de opciones
+
         btnOpcionesdetalle.setOnClickListener { mostrarMenuOpciones() }
 
         return view
     }
-
-
-            //MENÚ BOTTOM
 
     private fun mostrarMenuOpciones() {
 
@@ -59,7 +56,7 @@ class detallecomprasFragment : Fragment() {
         val opActualizar = menuView.findViewById<LinearLayout>(R.id.opactualizardetallecompras)
         val opEliminar = menuView.findViewById<LinearLayout>(R.id.opEliminardetallecompras)
 
-        // VER
+
         opVer.setOnClickListener {
             bottomSheet.dismiss()
             parentFragmentManager.beginTransaction()
@@ -68,7 +65,7 @@ class detallecomprasFragment : Fragment() {
                 .commit()
         }
 
-        // REGISTRAR
+
         opRegistrar.setOnClickListener {
             bottomSheet.dismiss()
             parentFragmentManager.beginTransaction()
@@ -77,7 +74,7 @@ class detallecomprasFragment : Fragment() {
                 .commit()
         }
 
-        // ACTUALIZAR
+
         opActualizar.setOnClickListener {
             bottomSheet.dismiss()
             parentFragmentManager.beginTransaction()
@@ -86,7 +83,7 @@ class detallecomprasFragment : Fragment() {
                 .commit()
         }
 
-        // ELIMINAR
+
         opEliminar.setOnClickListener {
             bottomSheet.dismiss()
             parentFragmentManager.beginTransaction()
@@ -99,8 +96,6 @@ class detallecomprasFragment : Fragment() {
     }
 
 
-
-    // GET DETALLE COMPRAS
 
     private fun mostrarDetalleCompras() {
 
@@ -122,7 +117,7 @@ class detallecomprasFragment : Fragment() {
 
                             val texto = data.joinToString("\n\n") { item ->
 
-                                val partes = item.split("________") // SEPARADOR DE TU API
+                                val partes = item.split("________")
 
                                 if (partes.size >= 4) {
                                     """

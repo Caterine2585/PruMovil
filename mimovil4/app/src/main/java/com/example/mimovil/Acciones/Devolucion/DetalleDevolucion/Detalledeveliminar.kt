@@ -48,7 +48,7 @@ class Detalledeveliminar : Fragment() {
         return view
     }
 
-    // MENÚ OPCIONES
+
     private fun mostrarMenuOpciones() {
         val bottomSheet = BottomSheetDialog(
             requireContext(),
@@ -99,7 +99,7 @@ class Detalledeveliminar : Fragment() {
         bottomSheet.show()
     }
 
-    //  BUSCAR DETALLE DEVOLUCIÓN
+
     private fun buscarDetalleDev() {
         val idDevolucion = etIDDevolucion.text.toString()
         val idVenta = etIDVenta.text.toString()
@@ -152,7 +152,7 @@ class Detalledeveliminar : Fragment() {
             })
     }
 
-    //  ELIMINAR DETALLE DEVOLUCIÓN
+
     private fun eliminarDetalleDev() {
         val idDevolucion = etIDDevolucion.text.toString()
         val idVenta = etIDVenta.text.toString()

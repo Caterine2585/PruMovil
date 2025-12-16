@@ -47,8 +47,6 @@ class ProductoEliminar : Fragment() {
     }
 
 
-    // ======================= BUSCAR PRODUCTO =======================
-
     private fun buscarProducto() {
 
         val id = etID_Producto_Eliminar.text.toString().trim()
@@ -123,7 +121,6 @@ class ProductoEliminar : Fragment() {
     }
 
 
-    // ======================= ELIMINAR PRODUCTO =======================
 
     private fun eliminarProducto() {
 
@@ -166,16 +163,12 @@ class ProductoEliminar : Fragment() {
     }
 
 
-    // ======================= TOKEN =======================
-
     private fun obtenerToken(): String {
         val prefs =
             requireContext().getSharedPreferences("usuario", android.content.Context.MODE_PRIVATE)
         return prefs.getString("jwt_token", "") ?: ""
     }
 
-
-    // ======================= MENÚ OPCIONES =======================
 
     private fun mostrarMenuOpciones() {
         val bottomSheet = BottomSheetDialog(

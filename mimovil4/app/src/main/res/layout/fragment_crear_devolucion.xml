@@ -23,14 +23,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp" />
 
-            <!-- ID Devolución -->
             <EditText
                 android:id="@+id/etIDDevolucion"
                 android:hint="ID Devolución"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <!-- Fecha -->
             <EditText
                 android:id="@+id/etFechaDevolucion"
                 android:hint="Fecha de Devolución 2025-02-26"
@@ -38,7 +36,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp" />
 
-            <!-- Motivo -->
             <EditText
                 android:id="@+id/etMotivoDevolucion"
                 android:hint="Motivo"

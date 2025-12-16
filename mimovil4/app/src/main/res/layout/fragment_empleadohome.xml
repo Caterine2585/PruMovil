@@ -18,7 +18,7 @@
         android:orientation="vertical"
         android:gravity="center_horizontal">
 
-        <!-- FILA 1 -->
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
             android:weightSum="2"
             android:layout_marginBottom="12dp">
 
-            <!-- TARJETA PRODUCTOS -->
+
             <LinearLayout
                 android:id="@+id/cardProductos"
                 android:layout_width="0dp"
@@ -55,7 +55,7 @@
                     android:layout_marginTop="8dp"/>
             </LinearLayout>
 
-            <!-- TARJETA CLIENTE -->
+
             <LinearLayout
                 android:id="@+id/cardCliente"
                 android:layout_width="0dp"
@@ -85,7 +85,7 @@
 
         </LinearLayout>
 
-        <!-- FILA 2 -->
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -93,7 +93,7 @@
             android:gravity="center"
             android:weightSum="2">
 
-            <!-- TARJETA VENTA -->
+
             <LinearLayout
                 android:id="@+id/cardVenta"
                 android:layout_width="0dp"
@@ -121,7 +121,7 @@
                     android:layout_marginTop="8dp"/>
             </LinearLayout>
 
-            <!-- TARJETA DEVOLUCIÓN -->
+
             <LinearLayout
                 android:id="@+id/cardDevolucion"
                 android:layout_width="0dp"

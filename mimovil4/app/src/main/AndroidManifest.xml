@@ -16,7 +16,7 @@
             android:supportsRtl="true"
             android:theme="@style/Theme.Mimovil">
 
-        <!-- 🔹 LOGIN: ahora es la PANTALLA PRINCIPAL -->
+
         <activity
                 android:name=".LoginActivity"
                 android:exported="true">
@@ -26,12 +26,12 @@
             </intent-filter>
         </activity>
 
-        <!-- 🔹 MAIN ADMIN -->
+
         <activity
                 android:name=".MainActivity"
                 android:exported="false" />
 
-        <!-- 🔹 MAIN EMPLEADO (ESTA FALTABA) -->
+  
         <activity
                 android:name=".MainEmpleadoActivity"
                 android:exported="false" />

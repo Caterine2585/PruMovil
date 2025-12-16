@@ -15,7 +15,7 @@
         android:textColor="@color/lavender"
         android:gravity="center"
         android:paddingBottom="10dp" />
-    <!--ver-->
+
     <LinearLayout
         android:id="@+id/opverProductos"
         android:layout_width="match_parent"
@@ -40,7 +40,6 @@
     </LinearLayout>
 
 
-    <!-- Registrar -->
     <LinearLayout
         android:id="@+id/opregistrarProductos"
         android:layout_width="match_parent"
@@ -64,7 +63,6 @@
             android:textColor="@color/lavender" />
     </LinearLayout>
 
-    <!-- Actualizar -->
     <LinearLayout
         android:id="@+id/opactualizarProductos"
         android:layout_width="match_parent"
@@ -88,7 +86,6 @@
             android:textColor="@color/lavender" />
     </LinearLayout>
 
-    <!-- Eliminar -->
     <LinearLayout
         android:id="@+id/opEliminarProductos"
         android:layout_width="match_parent"

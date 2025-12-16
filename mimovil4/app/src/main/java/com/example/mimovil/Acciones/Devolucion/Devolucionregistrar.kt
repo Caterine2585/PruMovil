@@ -58,7 +58,6 @@ class Devolucionregistrar : Fragment(R.layout.fragment_crear_devolucion) {
         }
     }
 
-    // MENÚ DE OPCIONES PARA DEVOLUCIÓN
     private fun mostrarMenuOpciones() {
         val bottomSheet = BottomSheetDialog(
             requireContext(),

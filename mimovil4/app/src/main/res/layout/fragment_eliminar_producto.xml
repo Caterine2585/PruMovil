@@ -14,7 +14,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <!-- TÍTULO -->
             <TextView
                 android:text="Eliminar Producto"
                 android:textSize="20sp"
@@ -24,14 +23,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp" />
 
-            <!-- ID PRODUCTO -->
             <EditText
                 android:id="@+id/etID_ProductoEliminar"
                 android:hint="ID del Producto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <!-- BOTÓN BUSCAR -->
             <Button
                 android:id="@+id/btnBuscarProducto"
                 android:text="Buscar Producto"
@@ -39,7 +36,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp" />
 
-            <!-- RESULTADO -->
             <TextView
                 android:id="@+id/tvResultadoProducto"
                 android:text="Ingrese un ID para buscar..."
@@ -48,7 +44,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp" />
 
-            <!-- BOTÓN ELIMINAR -->
             <Button
                 android:id="@+id/btnEliminarProducto"
                 android:text="Eliminar Producto"
@@ -60,7 +55,6 @@
 
     </ScrollView>
 
-    <!-- BOTÓN OPCIONES (ABAJO CENTRADO) -->
     <ImageButton
         android:id="@+id/btnOpcionesProducto"
         android:layout_width="110dp"

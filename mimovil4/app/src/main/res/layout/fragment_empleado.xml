@@ -3,7 +3,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-    <!-- CONTENIDO SCROLLEABLE -->
     <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -15,7 +14,6 @@
                 android:orientation="vertical"
                 android:padding="20dp">
 
-            <!-- TÍTULO -->
             <TextView
                     android:id="@+id/tvTituloCliente"
                     android:layout_width="match_parent"
@@ -26,7 +24,6 @@
                     android:gravity="center"
                     android:layout_marginBottom="16dp" />
 
-            <!-- (Opcional) Texto de estado / mensajes -->
             <TextView
                     android:id="@+id/tvResultadoEmpleado"
                     android:layout_width="match_parent"
@@ -36,7 +33,6 @@
                     android:background="#EEEEEE"
                     android:text="Aquí se mostrarán los resultados" />
 
-            <!-- Contenedor dinámico para empleados + botón Mostrar imagen -->
             <LinearLayout
                     android:id="@+id/layoutEmpleados"
                     android:layout_width="match_parent"
@@ -47,7 +43,6 @@
         </LinearLayout>
     </ScrollView>
 
-    <!-- BOTÓN + CENTRADO ABAJO -->
     <ImageButton
             android:id="@+id/btnOpcionesempleado"
             android:layout_width="120dp"

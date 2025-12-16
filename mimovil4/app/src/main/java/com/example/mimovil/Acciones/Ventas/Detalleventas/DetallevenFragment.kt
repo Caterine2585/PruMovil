@@ -40,7 +40,6 @@ class DetallevenFragment : Fragment() {
         return view
     }
 
-    // MENÚ BOTTOM
     private fun mostrarMenuOpciones() {
 
         val bottomSheet = BottomSheetDialog(
@@ -93,7 +92,6 @@ class DetallevenFragment : Fragment() {
         bottomSheet.show()
     }
 
-    // GET DETALLE VENTAS
     private fun mostrarDetalleVentas() {
 
         RetroFitInstance.api2kotlin.getDetalleVentas()
@@ -114,7 +112,7 @@ class DetallevenFragment : Fragment() {
 
                             val texto = data.joinToString("\n\n") { item ->
 
-                                val partes = item.split("________") // mismo separador
+                                val partes = item.split("________")
 
                                 if (partes.size >= 4) {
                                     """

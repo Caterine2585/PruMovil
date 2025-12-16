@@ -49,7 +49,7 @@ class DevolucionFragment : Fragment() {
         return view
     }
 
-    //  MENÚ OPCIONES
+
 
     private fun mostrarMenuOpciones() {
         val bottomSheet = BottomSheetDialog(
@@ -101,7 +101,7 @@ class DevolucionFragment : Fragment() {
         bottomSheet.show()
     }
 
-    // GET DEVOLUCIONES
+
 
     private fun mostrarDevoluciones() {
 

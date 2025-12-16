@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- SCROLL PARA EL FORMULARIO -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -15,7 +14,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <!-- TÍTULO -->
             <TextView
                 android:text="Eliminar Empleado"
                 android:textSize="20sp"
@@ -25,14 +23,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp" />
 
-            <!-- DOCUMENTO -->
             <EditText
                 android:id="@+id/etDocumentoEliminarEmp"
                 android:hint="Documento del empleado"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <!-- BOTÓN BUSCAR -->
             <Button
                 android:id="@+id/btnBuscarEmpleado"
                 android:text="Buscar Empleado"
@@ -40,7 +36,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp" />
 
-            <!-- TEXTO RESULTADO -->
             <TextView
                 android:id="@+id/tvResultadoEmpleado"
                 android:text="Ingrese un documento para buscar..."
@@ -49,7 +44,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp" />
 
-            <!-- BOTÓN ELIMINAR -->
             <Button
                 android:id="@+id/btnEliminarEmpleado"
                 android:text="Eliminar Empleado"
@@ -61,7 +55,6 @@
 
     </ScrollView>
 
-    <!-- BOTÓN FIJO ABAJO PARA VOLVER A OPCIONES -->
     <ImageButton
         android:id="@+id/btnOpcionesEmpleado"
         android:layout_width="110dp"

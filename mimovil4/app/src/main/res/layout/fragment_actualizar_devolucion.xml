@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- SCROLL -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -24,7 +23,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp" />
 
-            <!-- BUSCAR -->
             <EditText
                 android:id="@+id/etBuscarIdDevolucion"
                 android:hint="ID Devolución"
@@ -38,7 +36,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp" />
 
-            <!-- CAMPOS A EDITAR -->
             <EditText
                 android:id="@+id/etIDDevolucion"
                 android:hint="ID Devolución"
@@ -70,7 +67,6 @@
 
     </ScrollView>
 
-    <!-- BOTÓN INFERIOR -->
     <ImageButton
         android:id="@+id/btnOpcionesDevolucion"
         android:layout_width="120dp"

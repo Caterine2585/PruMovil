@@ -45,7 +45,7 @@ class Devolucioneliminar : Fragment() {
         return view
     }
 
-    // BUSCAR DEVOLUCIÓN
+
 
     private fun buscarDevolucion() {
         val id = etIDDevolucion.text.toString()
@@ -92,7 +92,7 @@ class Devolucioneliminar : Fragment() {
             })
     }
 
-    // ELIMINAR DEVOLUCIÓN
+
 
     private fun eliminarDevolucion() {
         val id = idEncontrado
@@ -121,7 +121,7 @@ class Devolucioneliminar : Fragment() {
             })
     }
 
-    // MENÚ OPCIONES
+
 
     private fun mostrarMenuOpciones() {
         val bottomSheet = BottomSheetDialog(

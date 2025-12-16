@@ -31,7 +31,7 @@ class HomeFragment : Fragment() {
         val cardEmpleado = view.findViewById<LinearLayout>(R.id.cardEmpleado)
         val cardVentas = view.findViewById<LinearLayout>(R.id.cardVenta)
         val cardProveedor = view.findViewById<LinearLayout>(R.id.cardProveedor)
-        val cardDevolucion = view.findViewById<LinearLayout>(R.id.cardDevolucion)   // ← SIN TILDE
+        val cardDevolucion = view.findViewById<LinearLayout>(R.id.cardDevolucion)
 
         configurarCard(cardProductos, ProductoFragment())
         configurarCard(cardCompra, ComprasFragment())
@@ -39,7 +39,7 @@ class HomeFragment : Fragment() {
         configurarCard(cardEmpleado, empleadoFragment())
         configurarCard(cardVentas, ventasFragment())
         configurarCard(cardProveedor, proveedorFragment())
-        configurarCard(cardDevolucion, DevolucionFragment()) // ← NOMBRE CORRECTO
+        configurarCard(cardDevolucion, DevolucionFragment())
 
 
         return view
@@ -47,7 +47,7 @@ class HomeFragment : Fragment() {
 
     private fun configurarCard(card: LinearLayout, fragment: Fragment) {
         card.setOnClickListener {
-            // Cambia el fragmento al presionar la tarjeta
+
             parentFragmentManager.beginTransaction()
                 .replace(R.id.frame_layout, fragment)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)

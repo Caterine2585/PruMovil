@@ -15,7 +15,7 @@
         android:textColor="@color/lavender"
         android:gravity="center"
         android:paddingBottom="10dp" />
-    <!--ver-->
+
     <LinearLayout
         android:id="@+id/opverdetalledevolucion"
         android:layout_width="match_parent"
@@ -40,7 +40,7 @@
     </LinearLayout>
 
 
-    <!-- Registrar -->
+
     <LinearLayout
         android:id="@+id/opregistrardetalledevolucion"
         android:layout_width="match_parent"
@@ -64,7 +64,6 @@
             android:textColor="@color/lavender" />
     </LinearLayout>
 
-    <!-- Actualizar -->
     <LinearLayout
         android:id="@+id/opactualizardetalledevolucion"
         android:layout_width="match_parent"
@@ -88,7 +87,6 @@
             android:textColor="@color/lavender" />
     </LinearLayout>
 
-    <!-- Eliminar -->
     <LinearLayout
         android:id="@+id/opEliminardetalledevolucion"
         android:layout_width="match_parent"

@@ -37,7 +37,7 @@ class Comprasactualizar: Fragment(R.layout.fragment_actualizar_compras) {
 
         val view = inflater.inflate(R.layout.fragment_actualizar_compras, container, false)
 
-        // Inputs
+
         etBuscarIdEntrada = view.findViewById<EditText>(R.id.etBuscarIdEntrada)
 
 
@@ -46,12 +46,12 @@ class Comprasactualizar: Fragment(R.layout.fragment_actualizar_compras) {
         etIdProducto = view.findViewById(R.id.etIdProductoC)
         etDocumentoEmpleado = view.findViewById(R.id.etDocumentoEmpleadoC)
 
-        // Botones
+
         btnBuscar = view.findViewById(R.id.btnBuscarCompra)
         btnActualizar = view.findViewById(R.id.btnActualizarCompra)
         btnOpciones = view.findViewById(R.id.btnOpciones)
 
-        // Eventos
+
         btnBuscar.setOnClickListener { buscarCompra() }
         btnActualizar.setOnClickListener { actualizarCompra() }
         btnOpciones.setOnClickListener { mostrarMenuOpciones() }
@@ -60,8 +60,6 @@ class Comprasactualizar: Fragment(R.layout.fragment_actualizar_compras) {
     }
 
 
-
-    //MENÚ OPCIONES
     private fun mostrarMenuOpciones() {
         val bottomSheet = BottomSheetDialog(
             requireContext(),
@@ -113,9 +111,6 @@ class Comprasactualizar: Fragment(R.layout.fragment_actualizar_compras) {
     }
 
 
-
-
-    //Buscar compra (GET lista)
     private fun buscarCompra() {
 
         val idEntradaBuscar = etBuscarIdEntrada.text.toString()
@@ -140,7 +135,6 @@ class Comprasactualizar: Fragment(R.layout.fragment_actualizar_compras) {
 
                     val lista = response.body().orEmpty()
 
-                    // Formato: ID_Entrada_PrecioID_Producto_DocumentoEmpleado
                     val compraEncontrada = lista.find {
                         it.startsWith(idEntradaBuscar + "_")
                     }
@@ -171,7 +165,6 @@ class Comprasactualizar: Fragment(R.layout.fragment_actualizar_compras) {
             })
     }
 
- // Actualizar compra (PUT)
     private fun actualizarCompra() {
 
         val idEntrada = etIdEntrada.text.toString()

@@ -64,7 +64,6 @@ class clienteactualizar : Fragment() {
 
 
 
-    //MENÚ DESPLEGABLE
 
     private fun mostrarMenuOpciones() {
         val bottomSheet = BottomSheetDialog(requireContext(), com.google.android.material.R.style.Theme_Design_BottomSheetDialog)
@@ -114,7 +113,6 @@ class clienteactualizar : Fragment() {
 
 
 
-    //GET
 
     private fun buscarCliente() {
 
@@ -175,7 +173,6 @@ class clienteactualizar : Fragment() {
     }
 
 
-    // PUT
 
     private fun actualizarCliente() {
 

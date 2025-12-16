@@ -33,7 +33,7 @@ class proveedorFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_proveedor, container, false)
 
         tvResultadoProveedores = view.findViewById(R.id.tvResultadoProveedor)
-        btnOpciones = view.findViewById(R.id.btnOpcionesProveedor) // Asegúrate que exista en tu layout
+        btnOpciones = view.findViewById(R.id.btnOpcionesProveedor)
 
         mostrarProveedores()
 
@@ -44,8 +44,6 @@ class proveedorFragment : Fragment() {
         return view
     }
 
-
-    //MENÚ DESPLEGABLE
 
     private fun mostrarMenuOpciones() {
         val bottomSheet = BottomSheetDialog(requireContext(), com.google.android.material.R.style.Theme_Design_BottomSheetDialog)
@@ -93,7 +91,6 @@ class proveedorFragment : Fragment() {
 
         bottomSheet.show()
     }
-
 
     private fun mostrarProveedores() {
 

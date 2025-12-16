@@ -21,7 +21,7 @@ class clienteeliminar : Fragment() {
     private lateinit var btnBuscarEliminar: Button
     private lateinit var btnEliminarCliente: Button
     private lateinit var btnOpciones: ImageButton
-    private lateinit var tvResultadoCliente: TextView   // ⬅ NUEVO
+    private lateinit var tvResultadoCliente: TextView
 
     private var documentoEncontrado: String? = null
 
@@ -36,7 +36,7 @@ class clienteeliminar : Fragment() {
         btnBuscarEliminar = view.findViewById(R.id.btnBuscarCliente)
         btnEliminarCliente = view.findViewById(R.id.btnEliminarCliente)
         btnOpciones = view.findViewById(R.id.btnOpciones)
-        tvResultadoCliente = view.findViewById(R.id.tvResultadoCliente) // ⬅ NUEVO
+        tvResultadoCliente = view.findViewById(R.id.tvResultadoCliente)
 
         btnBuscarEliminar.setOnClickListener { buscarCliente() }
         btnEliminarCliente.setOnClickListener { eliminarCliente() }
@@ -46,7 +46,6 @@ class clienteeliminar : Fragment() {
     }
 
 
-    // BUSCAR CLIENTE
 
     private fun buscarCliente() {
 
@@ -108,7 +107,6 @@ class clienteeliminar : Fragment() {
     }
 
 
-    //ELIMINAR CLIENTE
 
     private fun eliminarCliente() {
 
@@ -144,7 +142,6 @@ class clienteeliminar : Fragment() {
     }
 
 
-    //MENÚ DESPLEGABLE
 
     private fun mostrarMenuOpciones() {
         val bottomSheet = BottomSheetDialog(requireContext(), com.google.android.material.R.style.Theme_Design_BottomSheetDialog)
